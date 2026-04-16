@@ -409,6 +409,18 @@ export const uswdsComponentDefinitions = {
       "Toggle switch (uses @radix-ui/react-switch). No direct USWDS analogue — styled to match USWDS tokens.",
     example: { label: "Notifications", checked: false },
   },
+  Dialog: {
+    props: z.object({
+      title: z.string().nullish(),
+      description: z.string().nullish(),
+      open: z.boolean().nullish(),
+      className: z.string().nullish(),
+    }),
+    slots: ["trigger", "default"],
+    description:
+      "USWDS modal (usa-modal). Uses @radix-ui/react-dialog.",
+    example: { title: "Confirm", description: "Are you sure?" },
+  },
   DropdownMenu: {
     props: z.object({
       items: z

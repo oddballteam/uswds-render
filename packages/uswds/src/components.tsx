@@ -74,6 +74,13 @@ import {
 } from "./ui/table";
 import { Pagination as PaginationPrimitive } from "./ui/pagination";
 import {
+  Dialog as DialogRoot,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "./ui/dialog";
+import {
   DropdownMenu as DropdownMenuRoot,
   DropdownMenuTrigger,
   DropdownMenuContent,
@@ -908,6 +915,34 @@ function Switch(all: SwitchAdapterProps) {
   );
 }
 
+// ── Dialog ────────────────────────────────────────────────────────────
+type DialogAdapterProps = Partial<UswdsProps["Dialog"]> &
+  Envelope<UswdsProps["Dialog"]>;
+
+function Dialog(all: DialogAdapterProps) {
+  const { props: envelopeProps, children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) } as {
+    title?: string | null;
+    description?: string | null;
+    open?: boolean | null;
+    className?: string | null;
+  };
+
+  return (
+    <DialogRoot open={p.open ?? false}>
+      <DialogContent className={p.className ?? undefined}>
+        <DialogHeader>
+          {p.title && <DialogTitle>{p.title}</DialogTitle>}
+          {p.description && (
+            <DialogDescription>{p.description}</DialogDescription>
+          )}
+        </DialogHeader>
+        {children}
+      </DialogContent>
+    </DialogRoot>
+  );
+}
+
 // ── DropdownMenu ──────────────────────────────────────────────────────
 type DropdownMenuAdapterProps = Partial<UswdsProps["DropdownMenu"]> &
   Envelope<UswdsProps["DropdownMenu"]>;
@@ -1049,6 +1084,7 @@ export const uswdsComponents: Record<string, ComponentType<any>> = {
   Accordion,
   Collapsible,
   Tabs,
+  Dialog,
   DropdownMenu,
   Popover,
   Tooltip,
