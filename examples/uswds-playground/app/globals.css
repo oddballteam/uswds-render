@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import "@oddball/json-render-uswds/tokens.css";
+@import "./tokens/index.css";
 
 @source "../../../packages/uswds/src/**/*.tsx";
 @source "../../components/**/*.tsx";
