@@ -12,6 +12,7 @@ import {
 } from "./ui/card";
 import { Stack as StackPrimitive } from "./ui/stack";
 import { Grid as GridPrimitive } from "./ui/grid";
+import { Separator as SeparatorPrimitive } from "./ui/separator";
 import { cn } from "./lib/cn";
 import type { UswdsProps } from "./catalog";
 
@@ -129,9 +130,29 @@ function Grid(all: GridAdapterProps) {
   );
 }
 
+// ── Separator ───────────────────────────────────────────────────────────
+type SeparatorAdapterProps = Partial<UswdsProps["Separator"]> &
+  Envelope<UswdsProps["Separator"]> & { className?: string };
+
+function Separator(all: SeparatorAdapterProps) {
+  const { props: envelopeProps, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) } as {
+    orientation?: "horizontal" | "vertical" | null;
+    className?: string;
+  };
+
+  return (
+    <SeparatorPrimitive
+      orientation={p.orientation ?? "horizontal"}
+      className={p.className ?? undefined}
+    />
+  );
+}
+
 export const uswdsComponents: Record<string, ComponentType<any>> = {
   Button,
   Card,
   Stack,
   Grid,
+  Separator,
 };

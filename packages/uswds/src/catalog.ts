@@ -69,6 +69,13 @@ export const uswdsComponentDefinitions = {
     description: "Grid layout (1-12 columns), built on USWDS grid-row/grid-col",
     example: { columns: 3, gap: "md" },
   },
+  Separator: {
+    props: z.object({
+      orientation: z.enum(["horizontal", "vertical"]).nullish(),
+    }),
+    description: "Visual separator line",
+    example: { orientation: "horizontal" },
+  },
 } satisfies Record<string, ComponentDefinition>;
 
 export type UswdsProps = {
