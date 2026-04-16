@@ -409,6 +409,15 @@ export const uswdsComponentDefinitions = {
       "Toggle switch (uses @radix-ui/react-switch). No direct USWDS analogue — styled to match USWDS tokens.",
     example: { label: "Notifications", checked: false },
   },
+  Popover: {
+    props: z.object({
+      side: z.enum(["top", "right", "bottom", "left"]).nullish(),
+      className: z.string().nullish(),
+    }),
+    slots: ["trigger", "default"],
+    description: "Popover (uses @radix-ui/react-popover).",
+    example: { side: "bottom" },
+  },
   Tooltip: {
     props: z.object({
       content: z.string(),

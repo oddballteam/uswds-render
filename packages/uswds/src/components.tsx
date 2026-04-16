@@ -74,6 +74,11 @@ import {
 } from "./ui/table";
 import { Pagination as PaginationPrimitive } from "./ui/pagination";
 import {
+  Popover as PopoverRoot,
+  PopoverTrigger,
+  PopoverContent,
+} from "./ui/popover";
+import {
   Tooltip as TooltipRoot,
   TooltipTrigger,
   TooltipContent,
@@ -897,6 +902,32 @@ function Switch(all: SwitchAdapterProps) {
   );
 }
 
+// ── Popover ───────────────────────────────────────────────────────────
+type PopoverAdapterProps = Partial<UswdsProps["Popover"]> &
+  Envelope<UswdsProps["Popover"]>;
+
+function Popover(all: PopoverAdapterProps) {
+  const { props: envelopeProps, children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) } as {
+    side?: "top" | "right" | "bottom" | "left" | null;
+    className?: string | null;
+  };
+
+  return (
+    <PopoverRoot>
+      <PopoverTrigger asChild>
+        <button type="button">Open</button>
+      </PopoverTrigger>
+      <PopoverContent
+        side={p.side ?? "bottom"}
+        className={p.className ?? undefined}
+      >
+        {children}
+      </PopoverContent>
+    </PopoverRoot>
+  );
+}
+
 // ── Tooltip ───────────────────────────────────────────────────────────
 type TooltipAdapterProps = Partial<UswdsProps["Tooltip"]> &
   Envelope<UswdsProps["Tooltip"]>;
@@ -979,6 +1010,7 @@ export const uswdsComponents: Record<string, ComponentType<any>> = {
   Accordion,
   Collapsible,
   Tabs,
+  Popover,
   Tooltip,
   Pagination,
 };
