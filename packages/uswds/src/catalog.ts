@@ -165,6 +165,14 @@ export const uswdsComponentDefinitions = {
     description: "Loading placeholder",
     example: {},
   },
+  Spinner: {
+    props: z.object({
+      size: z.enum(["sm", "md", "lg"]).nullish(),
+      className: z.string().nullish(),
+    }),
+    description: "Loading spinner",
+    example: { size: "md" },
+  },
 } satisfies Record<string, ComponentDefinition>;
 
 export type UswdsProps = {
