@@ -185,6 +185,21 @@ export const uswdsComponentDefinitions = {
       "USWDS table (usa-table). Children are TableHeader/TableBody rows.",
     example: { caption: "Users", striped: true },
   },
+  Textarea: {
+    props: z.object({
+      placeholder: z.string().nullish(),
+      disabled: z.boolean().nullish(),
+      name: z.string().nullish(),
+      label: z.string().nullish(),
+      hint: z.string().nullish(),
+      error: z.string().nullish(),
+      value: z.string().nullish().describe("Data-bound value"),
+      rows: z.number().nullish(),
+      className: z.string().nullish(),
+    }),
+    description: "USWDS textarea (usa-textarea)",
+    example: { label: "Comments", placeholder: "Enter your comments" },
+  },
   Input: {
     props: z.object({
       type: z

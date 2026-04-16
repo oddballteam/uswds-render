@@ -27,6 +27,7 @@ import { Progress as ProgressPrimitive } from "./ui/progress";
 import { Skeleton as SkeletonPrimitive } from "./ui/skeleton";
 import { Spinner as SpinnerPrimitive } from "./ui/spinner";
 import { Input as InputPrimitive } from "./ui/input";
+import { Textarea as TextareaPrimitive } from "./ui/textarea";
 import { ButtonGroup as ButtonGroupPrimitive } from "./ui/button-group";
 import { Link as LinkPrimitive } from "./ui/link";
 import {
@@ -370,6 +371,39 @@ function Spinner(all: SpinnerAdapterProps) {
   );
 }
 
+// ── Textarea ───────────────────────────────────────────────────────────
+type TextareaAdapterProps = Partial<UswdsProps["Textarea"]> &
+  Envelope<UswdsProps["Textarea"]>;
+
+function Textarea(all: TextareaAdapterProps) {
+  const { props: envelopeProps, children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) } as {
+    placeholder?: string | null;
+    disabled?: boolean | null;
+    name?: string | null;
+    label?: string | null;
+    hint?: string | null;
+    error?: string | null;
+    value?: string | null;
+    rows?: number | null;
+    className?: string | null;
+  };
+
+  return (
+    <TextareaPrimitive
+      placeholder={p.placeholder ?? undefined}
+      disabled={p.disabled ?? false}
+      name={p.name ?? undefined}
+      label={p.label ?? undefined}
+      hint={p.hint ?? undefined}
+      error={p.error ?? undefined}
+      defaultValue={p.value ?? undefined}
+      rows={p.rows ?? 3}
+      className={p.className ?? undefined}
+    />
+  );
+}
+
 // ── Input ──────────────────────────────────────────────────────────────
 type InputAdapterProps = Partial<UswdsProps["Input"]> &
   Envelope<UswdsProps["Input"]>;
@@ -481,6 +515,7 @@ export const uswdsComponents: Record<string, ComponentType<any>> = {
   Skeleton,
   Spinner,
   Table,
+  Textarea,
   Input,
   ButtonGroup,
   Link,
