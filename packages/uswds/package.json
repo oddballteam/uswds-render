@@ -18,9 +18,14 @@
       "types": "./dist/catalog.d.ts",
       "import": "./dist/catalog.mjs",
       "require": "./dist/catalog.js"
+    },
+    "./tokens": {
+      "types": "./dist/lib/tokens.d.ts",
+      "import": "./dist/lib/tokens.mjs",
+      "require": "./dist/lib/tokens.js"
     }
   },
-  "files": ["dist"],
+  "files": ["dist", "LICENSE-uswds-tailwind", "NOTICES.md"],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
