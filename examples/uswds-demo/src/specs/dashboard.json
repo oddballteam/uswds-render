@@ -1,0 +1,66 @@
+{
+  "root": "root",
+  "elements": {
+    "root": {
+      "type": "Stack",
+      "props": { "direction": "vertical", "gap": "lg" },
+      "children": ["heading", "stats", "actions"]
+    },
+    "heading": {
+      "type": "Heading",
+      "props": { "text": "Benefits Dashboard", "level": "h1" }
+    },
+    "stats": {
+      "type": "Grid",
+      "props": { "columns": 3, "gap": "md" },
+      "children": ["card1", "card2", "card3"]
+    },
+    "card1": {
+      "type": "Card",
+      "props": { "title": "GI Bill Entitlement" },
+      "children": ["progress1", "progressLabel1"]
+    },
+    "progress1": { "type": "Progress", "props": { "value": 67 } },
+    "progressLabel1": { "type": "Text", "props": { "text": "24 of 36 months used", "size": "sm", "color": "muted" } },
+    "card2": {
+      "type": "Card",
+      "props": { "title": "Open Claims" },
+      "children": ["card2Heading"]
+    },
+    "card2Heading": { "type": "Heading", "props": { "text": "2", "level": "h1" } },
+    "card3": {
+      "type": "Card",
+      "props": { "title": "Upcoming Appointments" },
+      "children": ["card3Heading"]
+    },
+    "card3Heading": { "type": "Heading", "props": { "text": "3", "level": "h1" } },
+    "actions": {
+      "type": "Card",
+      "props": { "title": "Quick Actions" },
+      "children": ["actionGroup"]
+    },
+    "actionGroup": {
+      "type": "Stack",
+      "props": { "direction": "horizontal", "gap": "sm" },
+      "children": ["actionBtn1", "actionBtn2", "actionBtn3"]
+    },
+    "actionBtn1": {
+      "type": "Button",
+      "props": { "variant": "default" },
+      "children": ["actionBtn1Label"]
+    },
+    "actionBtn1Label": { "type": "Text", "props": { "text": "File a claim" } },
+    "actionBtn2": {
+      "type": "Button",
+      "props": { "variant": "outline" },
+      "children": ["actionBtn2Label"]
+    },
+    "actionBtn2Label": { "type": "Text", "props": { "text": "Schedule appointment" } },
+    "actionBtn3": {
+      "type": "Button",
+      "props": { "variant": "outline" },
+      "children": ["actionBtn3Label"]
+    },
+    "actionBtn3Label": { "type": "Text", "props": { "text": "View documents" } }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "root": "root",
+  "elements": {
+    "root": {
+      "type": "Card",
+      "props": { "title": "Sign in to your account", "description": "Access government services with your Login.gov account.", "maxWidth": "md", "centered": true },
+      "children": ["form"]
+    },
+    "form": {
+      "type": "Stack",
+      "props": { "direction": "vertical", "gap": "md" },
+      "children": ["email", "password", "submit", "helper"]
+    },
+    "email": {
+      "type": "Input",
+      "props": { "type": "email", "label": "Email address", "placeholder": "you@example.gov", "name": "email" }
+    },
+    "password": {
+      "type": "Input",
+      "props": { "type": "password", "label": "Password", "name": "password" }
+    },
+    "submit": {
+      "type": "Button",
+      "props": { "variant": "default" },
+      "children": ["submitLabel"]
+    },
+    "submitLabel": {
+      "type": "Text",
+      "props": { "text": "Sign in" }
+    },
+    "helper": {
+      "type": "Text",
+      "props": { "text": "Forgot your password? Contact support.", "size": "sm", "color": "muted" }
+    }
+  }
+}

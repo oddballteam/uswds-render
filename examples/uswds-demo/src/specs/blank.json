@@ -1,0 +1,14 @@
+{
+  "root": "root",
+  "elements": {
+    "root": {
+      "type": "Card",
+      "props": { "title": "Blank canvas", "description": "Edit the JSON on the left to build your own UI." },
+      "children": ["body"]
+    },
+    "body": {
+      "type": "Text",
+      "props": { "text": "Try adding a Button, Alert, or Grid to this Card." }
+    }
+  }
+}

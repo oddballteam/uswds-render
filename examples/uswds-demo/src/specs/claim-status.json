@@ -1,0 +1,55 @@
+{
+  "root": "root",
+  "elements": {
+    "root": {
+      "type": "Stack",
+      "props": { "direction": "vertical", "gap": "lg" },
+      "children": ["heading", "alert", "steps", "docs"]
+    },
+    "heading": {
+      "type": "Heading",
+      "props": { "text": "Disability Claim #12345678", "level": "h2" }
+    },
+    "alert": {
+      "type": "Alert",
+      "props": { "variant": "info", "title": "Evidence Gathering" },
+      "children": ["alertBody"]
+    },
+    "alertBody": {
+      "type": "Text",
+      "props": { "text": "Your claim is currently in the Evidence Gathering phase. Last updated 2026-04-10." }
+    },
+    "steps": {
+      "type": "Card",
+      "props": { "title": "Timeline" },
+      "children": ["stepsGrid"]
+    },
+    "stepsGrid": {
+      "type": "Grid",
+      "props": { "columns": 2, "gap": "md" },
+      "children": ["step1Name", "step1Badge", "step2Name", "step2Badge", "step3Name", "step3Badge", "step4Name", "step4Badge"]
+    },
+    "step1Name": { "type": "Text", "props": { "text": "Claim Received" } },
+    "step1Badge": { "type": "Badge", "props": { "text": "Complete", "variant": "success" } },
+    "step2Name": { "type": "Text", "props": { "text": "Initial Review" } },
+    "step2Badge": { "type": "Badge", "props": { "text": "Complete", "variant": "success" } },
+    "step3Name": { "type": "Text", "props": { "text": "Evidence Gathering" } },
+    "step3Badge": { "type": "Badge", "props": { "text": "Current", "variant": "info" } },
+    "step4Name": { "type": "Text", "props": { "text": "Rating Decision" } },
+    "step4Badge": { "type": "Badge", "props": { "text": "Pending", "variant": "secondary" } },
+    "docs": {
+      "type": "Card",
+      "props": { "title": "Documents" },
+      "children": ["docsGrid"]
+    },
+    "docsGrid": {
+      "type": "Grid",
+      "props": { "columns": 2, "gap": "sm" },
+      "children": ["doc1Name", "doc1Badge", "doc2Name", "doc2Badge"]
+    },
+    "doc1Name": { "type": "Text", "props": { "text": "DD214" } },
+    "doc1Badge": { "type": "Badge", "props": { "text": "Received", "variant": "success" } },
+    "doc2Name": { "type": "Text", "props": { "text": "Medical Records" } },
+    "doc2Badge": { "type": "Badge", "props": { "text": "Requested", "variant": "warning" } }
+  }
+}

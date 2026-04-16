@@ -15,7 +15,7 @@ export const getClaimStatus = tool({
       filedDate: "2026-01-15",
       lastUpdated: "2026-04-10",
       steps: [
-        { name: "Claim Received", status: "complete", date: "2026-01-15" },
+        { name: "Claim Received", status: "complete", date: "2026-01-30" },
         { name: "Initial Review", status: "complete", date: "2026-02-01" },
         { name: "Evidence Gathering", status: "current", date: "2026-02-15" },
         { name: "Rating Decision", status: "pending" },
