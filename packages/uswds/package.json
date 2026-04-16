@@ -23,9 +23,10 @@
       "types": "./dist/lib/tokens.d.ts",
       "import": "./dist/lib/tokens.mjs",
       "require": "./dist/lib/tokens.js"
-    }
+    },
+    "./tokens.css": "./src/lib/tokens/index.css"
   },
-  "files": ["dist", "LICENSE-uswds-tailwind", "NOTICES.md"],
+  "files": ["dist", "src/lib/tokens/index.css", "LICENSE-uswds-tailwind", "NOTICES.md"],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
