@@ -134,6 +134,21 @@ export const uswdsComponentDefinitions = {
       "Small status/label pill. Maps to USWDS tag component.",
     example: { variant: "default" },
   },
+  Alert: {
+    props: z.object({
+      variant: z
+        .enum(["info", "success", "warning", "error", "emergency"])
+        .nullish(),
+      title: z.string().nullish(),
+      slim: z.boolean().nullish(),
+      noIcon: z.boolean().nullish(),
+      className: z.string().nullish(),
+    }),
+    slots: ["default"],
+    description:
+      "USWDS alert (usa-alert). Variants: info/success/warning/error/emergency.",
+    example: { variant: "info", title: "Heads up" },
+  },
 } satisfies Record<string, ComponentDefinition>;
 
 export type UswdsProps = {

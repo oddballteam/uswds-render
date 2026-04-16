@@ -22,6 +22,7 @@ import {
   AvatarFallback,
 } from "./ui/avatar";
 import { Badge as BadgePrimitive } from "./ui/badge";
+import { Alert as AlertPrimitive } from "./ui/alert";
 import { cn } from "./lib/cn";
 import type { UswdsProps } from "./catalog";
 
@@ -273,6 +274,34 @@ function Badge(all: BadgeAdapterProps) {
   );
 }
 
+// ── Alert ───────────────────────────────────────────────────────────────
+type AlertAdapterProps = Partial<UswdsProps["Alert"]> &
+  Envelope<UswdsProps["Alert"]>;
+
+function Alert(all: AlertAdapterProps) {
+  const { props: envelopeProps, children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  const variant = (p.variant ?? "info") as
+    | "info"
+    | "success"
+    | "warning"
+    | "error"
+    | "emergency";
+
+  return (
+    <AlertPrimitive
+      variant={variant}
+      title={p.title ?? undefined}
+      slim={p.slim ?? false}
+      noIcon={p.noIcon ?? false}
+      className={p.className ?? undefined}
+    >
+      {children}
+    </AlertPrimitive>
+  );
+}
+
 export const uswdsComponents: Record<string, ComponentType<any>> = {
   Button,
   Card,
@@ -284,4 +313,5 @@ export const uswdsComponents: Record<string, ComponentType<any>> = {
   Image,
   Avatar,
   Badge,
+  Alert,
 };
