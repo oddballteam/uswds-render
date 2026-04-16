@@ -185,6 +185,16 @@ export const uswdsComponentDefinitions = {
       "USWDS table (usa-table). Children are TableHeader/TableBody rows.",
     example: { caption: "Users", striped: true },
   },
+  ButtonGroup: {
+    props: z.object({
+      orientation: z.enum(["horizontal", "vertical"]).nullish(),
+      attached: z.boolean().nullish(),
+      className: z.string().nullish(),
+    }),
+    slots: ["default"],
+    description: "Group of related buttons (usa-button-group)",
+    example: { orientation: "horizontal" },
+  },
   Link: {
     props: z.object({
       href: z.string(),

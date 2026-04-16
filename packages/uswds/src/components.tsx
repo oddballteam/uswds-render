@@ -26,6 +26,7 @@ import { Alert as AlertPrimitive } from "./ui/alert";
 import { Progress as ProgressPrimitive } from "./ui/progress";
 import { Skeleton as SkeletonPrimitive } from "./ui/skeleton";
 import { Spinner as SpinnerPrimitive } from "./ui/spinner";
+import { ButtonGroup as ButtonGroupPrimitive } from "./ui/button-group";
 import { Link as LinkPrimitive } from "./ui/link";
 import {
   Table as TablePrimitive,
@@ -368,6 +369,25 @@ function Spinner(all: SpinnerAdapterProps) {
   );
 }
 
+// ── ButtonGroup ────────────────────────────────────────────────────────
+type ButtonGroupAdapterProps = Partial<UswdsProps["ButtonGroup"]> &
+  Envelope<UswdsProps["ButtonGroup"]>;
+
+function ButtonGroup(all: ButtonGroupAdapterProps) {
+  const { props: envelopeProps, children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  return (
+    <ButtonGroupPrimitive
+      orientation={p.orientation ?? "horizontal"}
+      attached={p.attached ?? false}
+      className={p.className ?? undefined}
+    >
+      {children}
+    </ButtonGroupPrimitive>
+  );
+}
+
 // ── Link ───────────────────────────────────────────────────────────────
 type LinkAdapterProps = Partial<UswdsProps["Link"]> &
   Envelope<UswdsProps["Link"]>;
@@ -427,5 +447,6 @@ export const uswdsComponents: Record<string, ComponentType<any>> = {
   Skeleton,
   Spinner,
   Table,
+  ButtonGroup,
   Link,
 };
