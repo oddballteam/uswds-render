@@ -185,6 +185,16 @@ export const uswdsComponentDefinitions = {
       "USWDS table (usa-table). Children are TableHeader/TableBody rows.",
     example: { caption: "Users", striped: true },
   },
+  Link: {
+    props: z.object({
+      href: z.string(),
+      external: z.boolean().nullish(),
+      className: z.string().nullish(),
+    }),
+    slots: ["default"],
+    description: "Anchor link with USWDS styling",
+    example: { href: "/about" },
+  },
 } satisfies Record<string, ComponentDefinition>;
 
 export type UswdsProps = {

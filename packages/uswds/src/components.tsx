@@ -26,6 +26,7 @@ import { Alert as AlertPrimitive } from "./ui/alert";
 import { Progress as ProgressPrimitive } from "./ui/progress";
 import { Skeleton as SkeletonPrimitive } from "./ui/skeleton";
 import { Spinner as SpinnerPrimitive } from "./ui/spinner";
+import { Link as LinkPrimitive } from "./ui/link";
 import {
   Table as TablePrimitive,
   TableHeader as TableHeaderPrimitive,
@@ -367,6 +368,29 @@ function Spinner(all: SpinnerAdapterProps) {
   );
 }
 
+// ── Link ───────────────────────────────────────────────────────────────
+type LinkAdapterProps = Partial<UswdsProps["Link"]> &
+  Envelope<UswdsProps["Link"]>;
+
+function Link(all: LinkAdapterProps) {
+  const { props: envelopeProps, children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) } as {
+    href?: string;
+    external?: boolean | null;
+    className?: string | null;
+  };
+
+  return (
+    <LinkPrimitive
+      href={p.href ?? "#"}
+      external={p.external ?? false}
+      className={p.className ?? undefined}
+    >
+      {children}
+    </LinkPrimitive>
+  );
+}
+
 // ── Table ──────────────────────────────────────────────────────────────
 type TableAdapterProps = Partial<UswdsProps["Table"]> &
   Envelope<UswdsProps["Table"]>;
@@ -403,4 +427,5 @@ export const uswdsComponents: Record<string, ComponentType<any>> = {
   Skeleton,
   Spinner,
   Table,
+  Link,
 };
