@@ -311,6 +311,27 @@ export const uswdsComponentDefinitions = {
       "Range slider (uses @radix-ui/react-slider). No USWDS analogue.",
     example: { label: "Volume", min: 0, max: 100, value: 50 },
   },
+  Tabs: {
+    props: z.object({
+      defaultValue: z.string().nullish(),
+      items: z
+        .array(
+          z.object({
+            value: z.string(),
+            title: z.string(),
+            content: z.string(),
+          }),
+        )
+        .nullish(),
+      className: z.string().nullish(),
+    }),
+    description:
+      "Tabs (uses @radix-ui/react-tabs). No direct USWDS analogue; styled with USWDS tokens.",
+    example: {
+      defaultValue: "a",
+      items: [{ value: "a", title: "Tab A", content: "..." }],
+    },
+  },
   Collapsible: {
     props: z.object({
       open: z.boolean().nullish(),

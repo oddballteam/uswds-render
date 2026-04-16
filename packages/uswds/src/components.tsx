@@ -40,6 +40,12 @@ import { Textarea as TextareaPrimitive } from "./ui/textarea";
 import { ButtonGroup as ButtonGroupPrimitive } from "./ui/button-group";
 import { Link as LinkPrimitive } from "./ui/link";
 import {
+  Tabs as TabsRoot,
+  TabsList,
+  TabsTrigger,
+  TabsContent,
+} from "./ui/tabs";
+import {
   Collapsible as CollapsibleRoot,
   CollapsibleTrigger,
   CollapsibleContent,
@@ -703,6 +709,39 @@ function Slider(all: SliderAdapterProps) {
   );
 }
 
+// ── Tabs ───────────────────────────────────────────────────────────────
+type TabsAdapterProps = Partial<UswdsProps["Tabs"]> &
+  Envelope<UswdsProps["Tabs"]>;
+
+function Tabs(all: TabsAdapterProps) {
+  const { props: envelopeProps, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) } as {
+    defaultValue?: string | null;
+    items?: Array<{ value: string; title: string; content: string }> | null;
+    className?: string | null;
+  };
+
+  const items = p.items ?? [];
+  const defaultValue = p.defaultValue ?? items[0]?.value;
+
+  return (
+    <TabsRoot defaultValue={defaultValue} className={p.className ?? undefined}>
+      <TabsList>
+        {items.map((item) => (
+          <TabsTrigger key={item.value} value={item.value}>
+            {item.title}
+          </TabsTrigger>
+        ))}
+      </TabsList>
+      {items.map((item) => (
+        <TabsContent key={item.value} value={item.value}>
+          {item.content}
+        </TabsContent>
+      ))}
+    </TabsRoot>
+  );
+}
+
 // ── Collapsible ────────────────────────────────────────────────────────
 type CollapsibleAdapterProps = Partial<UswdsProps["Collapsible"]> &
   Envelope<UswdsProps["Collapsible"]>;
@@ -880,4 +919,5 @@ export const uswdsComponents: Record<string, ComponentType<any>> = {
   ToggleGroup,
   Accordion,
   Collapsible,
+  Tabs,
 };
