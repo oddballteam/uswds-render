@@ -22,7 +22,7 @@ describe("uswds catalog contract", () => {
   });
 
   // Re-enabled in the finalization phase once all 36 components land.
-  it.skip("is a key-superset of @json-render/shadcn catalog", () => {
+  it("is a key-superset of @json-render/shadcn catalog", () => {
     const shadcnKeys = Object.keys(shadcnComponentDefinitions);
     const uswdsKeys = new Set(Object.keys(uswdsComponentDefinitions));
     const missing = shadcnKeys.filter((k) => !uswdsKeys.has(k));
