@@ -409,6 +409,29 @@ export const uswdsComponentDefinitions = {
       "Toggle switch (uses @radix-ui/react-switch). No direct USWDS analogue — styled to match USWDS tokens.",
     example: { label: "Notifications", checked: false },
   },
+  DropdownMenu: {
+    props: z.object({
+      items: z
+        .array(
+          z.object({
+            value: z.string(),
+            label: z.string(),
+            disabled: z.boolean().nullish(),
+          }),
+        )
+        .nullish(),
+      className: z.string().nullish(),
+    }),
+    slots: ["trigger"],
+    description:
+      "Dropdown menu (uses @radix-ui/react-dropdown-menu).",
+    example: {
+      items: [
+        { value: "edit", label: "Edit" },
+        { value: "delete", label: "Delete" },
+      ],
+    },
+  },
   Popover: {
     props: z.object({
       side: z.enum(["top", "right", "bottom", "left"]).nullish(),

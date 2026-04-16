@@ -74,6 +74,12 @@ import {
 } from "./ui/table";
 import { Pagination as PaginationPrimitive } from "./ui/pagination";
 import {
+  DropdownMenu as DropdownMenuRoot,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "./ui/dropdown-menu";
+import {
   Popover as PopoverRoot,
   PopoverTrigger,
   PopoverContent,
@@ -902,6 +908,39 @@ function Switch(all: SwitchAdapterProps) {
   );
 }
 
+// ── DropdownMenu ──────────────────────────────────────────────────────
+type DropdownMenuAdapterProps = Partial<UswdsProps["DropdownMenu"]> &
+  Envelope<UswdsProps["DropdownMenu"]>;
+
+function DropdownMenu(all: DropdownMenuAdapterProps) {
+  const { props: envelopeProps, emit, children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) } as {
+    items?: Array<{ value: string; label: string; disabled?: boolean | null }> | null;
+    className?: string | null;
+  };
+
+  const items = p.items ?? [];
+
+  return (
+    <DropdownMenuRoot>
+      <DropdownMenuTrigger asChild>
+        {children ?? <button type="button">Menu</button>}
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className={p.className ?? undefined}>
+        {items.map((item) => (
+          <DropdownMenuItem
+            key={item.value}
+            disabled={item.disabled ?? false}
+            onSelect={emit ? () => emit("select") : undefined}
+          >
+            {item.label}
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenuRoot>
+  );
+}
+
 // ── Popover ───────────────────────────────────────────────────────────
 type PopoverAdapterProps = Partial<UswdsProps["Popover"]> &
   Envelope<UswdsProps["Popover"]>;
@@ -1010,6 +1049,7 @@ export const uswdsComponents: Record<string, ComponentType<any>> = {
   Accordion,
   Collapsible,
   Tabs,
+  DropdownMenu,
   Popover,
   Tooltip,
   Pagination,
