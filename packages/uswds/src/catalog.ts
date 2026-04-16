@@ -76,6 +76,15 @@ export const uswdsComponentDefinitions = {
     description: "Visual separator line",
     example: { orientation: "horizontal" },
   },
+  Heading: {
+    props: z.object({
+      level: z.enum(["h1", "h2", "h3", "h4", "h5", "h6"]).nullish(),
+      className: z.string().nullish(),
+    }),
+    slots: ["default"],
+    description: "Semantic heading element, USWDS type-scale",
+    example: { level: "h2" },
+  },
 } satisfies Record<string, ComponentDefinition>;
 
 export type UswdsProps = {

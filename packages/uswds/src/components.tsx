@@ -13,6 +13,7 @@ import {
 import { Stack as StackPrimitive } from "./ui/stack";
 import { Grid as GridPrimitive } from "./ui/grid";
 import { Separator as SeparatorPrimitive } from "./ui/separator";
+import { Heading as HeadingPrimitive } from "./ui/heading";
 import { cn } from "./lib/cn";
 import type { UswdsProps } from "./catalog";
 
@@ -149,10 +150,29 @@ function Separator(all: SeparatorAdapterProps) {
   );
 }
 
+// ── Heading ─────────────────────────────────────────────────────────────
+type HeadingAdapterProps = Partial<UswdsProps["Heading"]> &
+  Envelope<UswdsProps["Heading"]>;
+
+function Heading(all: HeadingAdapterProps) {
+  const { props: envelopeProps, children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  return (
+    <HeadingPrimitive
+      level={p.level ?? "h2"}
+      className={p.className ?? undefined}
+    >
+      {children}
+    </HeadingPrimitive>
+  );
+}
+
 export const uswdsComponents: Record<string, ComponentType<any>> = {
   Button,
   Card,
   Stack,
   Grid,
   Separator,
+  Heading,
 };
