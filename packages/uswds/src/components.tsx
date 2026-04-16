@@ -39,6 +39,7 @@ import { Input as InputPrimitive } from "./ui/input";
 import { Textarea as TextareaPrimitive } from "./ui/textarea";
 import { ButtonGroup as ButtonGroupPrimitive } from "./ui/button-group";
 import { Link as LinkPrimitive } from "./ui/link";
+import { Switch as SwitchPrimitive } from "./ui/switch";
 import {
   Table as TablePrimitive,
   TableHeader as TableHeaderPrimitive,
@@ -656,6 +657,31 @@ function Table(all: TableAdapterProps) {
   );
 }
 
+// ── Switch ─────────────────────────────────────────────────────────────
+type SwitchAdapterProps = Partial<UswdsProps["Switch"]> &
+  Envelope<UswdsProps["Switch"]>;
+
+function Switch(all: SwitchAdapterProps) {
+  const { props: envelopeProps, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) } as {
+    label?: string | null;
+    name?: string | null;
+    checked?: boolean | null;
+    disabled?: boolean | null;
+    className?: string | null;
+  };
+
+  return (
+    <SwitchPrimitive
+      label={p.label ?? undefined}
+      name={p.name ?? undefined}
+      defaultChecked={p.checked ?? false}
+      disabled={p.disabled ?? false}
+      className={p.className ?? undefined}
+    />
+  );
+}
+
 export const uswdsComponents: Record<string, ComponentType<any>> = {
   Button,
   Card,
@@ -679,4 +705,5 @@ export const uswdsComponents: Record<string, ComponentType<any>> = {
   Input,
   ButtonGroup,
   Link,
+  Switch,
 };

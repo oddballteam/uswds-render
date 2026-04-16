@@ -297,6 +297,18 @@ export const uswdsComponentDefinitions = {
     description: "Anchor link with USWDS styling",
     example: { href: "/about" },
   },
+  Switch: {
+    props: z.object({
+      label: z.string().nullish(),
+      name: z.string().nullish(),
+      checked: z.boolean().nullish(),
+      disabled: z.boolean().nullish(),
+      className: z.string().nullish(),
+    }),
+    description:
+      "Toggle switch (uses @radix-ui/react-switch). No direct USWDS analogue — styled to match USWDS tokens.",
+    example: { label: "Notifications", checked: false },
+  },
 } satisfies Record<string, ComponentDefinition>;
 
 export type UswdsProps = {
