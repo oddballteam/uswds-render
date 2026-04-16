@@ -599,3 +599,67 @@
 
 @plugin "@tailwindcss/typography";
 @config "@uswds-tailwind/theme/tailwind.config.ts";
+
+@theme {
+  /* USWDS semantic color aliases */
+  --color-primary: var(--color-blue-60v);
+  --color-primary-dark: var(--color-blue-70v);
+  --color-primary-darker: var(--color-blue-80v);
+  --color-primary-light: var(--color-blue-30v);
+  --color-primary-lighter: var(--color-blue-10v);
+  --color-primary-vivid: var(--color-blue-warm-60v);
+  --color-secondary: var(--color-red-50);
+  --color-secondary-dark: var(--color-red-60v);
+  --color-secondary-light: var(--color-red-30);
+  --color-secondary-vivid: var(--color-red-warm-50v);
+  --color-base: var(--color-gray-cool-60);
+  --color-base-dark: var(--color-gray-cool-70);
+  --color-base-darker: var(--color-gray-cool-80);
+  --color-base-darkest: var(--color-gray-cool-90);
+  --color-base-light: var(--color-gray-cool-30);
+  --color-base-lighter: var(--color-gray-cool-20);
+  --color-base-lightest: var(--color-gray-cool-5);
+  --color-ink: var(--color-gray-90);
+  --color-success: var(--color-green-cool-50v);
+  --color-success-dark: var(--color-green-cool-60v);
+  --color-success-darker: var(--color-green-cool-70v);
+  --color-success-light: var(--color-green-cool-20v);
+  --color-success-lighter: var(--color-green-cool-5);
+  --color-warning: var(--color-gold-20v);
+  --color-warning-dark: var(--color-gold-30v);
+  --color-warning-darker: var(--color-gold-40v);
+  --color-warning-light: var(--color-gold-10v);
+  --color-warning-lighter: var(--color-gold-5v);
+  --color-error: var(--color-red-60v);
+  --color-error-dark: var(--color-red-70v);
+  --color-error-darker: var(--color-red-80v);
+  --color-error-light: var(--color-red-30v);
+  --color-error-lighter: var(--color-red-10v);
+  --color-emergency: var(--color-red-warm-60v);
+  --color-emergency-dark: var(--color-red-warm-80v);
+  --color-info: var(--color-cyan-30v);
+  --color-info-dark: var(--color-cyan-40v);
+  --color-info-darker: var(--color-cyan-60v);
+  --color-info-light: var(--color-cyan-10v);
+  --color-info-lighter: var(--color-cyan-5);
+  --color-accent-cool: var(--color-blue-cool-40v);
+  --color-accent-cool-dark: var(--color-blue-cool-60v);
+  --color-accent-cool-light: var(--color-blue-cool-20v);
+  --color-accent-warm: var(--color-orange-30v);
+  --color-accent-warm-dark: var(--color-orange-50v);
+  --color-accent-warm-light: var(--color-orange-10v);
+  --color-violet: var(--color-violet-70v);
+
+  /* USWDS font aliases */
+  --font-sans: var(--font-source-sans);
+  --font-sans--multiplier: var(--font-source-sans--multiplier);
+  --font-serif: var(--font-merriweather);
+  --font-serif--multiplier: var(--font-merriweather--multiplier);
+  --font-mono: var(--font-roboto-mono);
+  --font-mono--multiplier: var(--font-roboto-mono--multiplier);
+}
+
+@utility usa-focus {
+  outline: 0.25rem solid var(--color-gold-20v);
+  outline-offset: 0;
+}
