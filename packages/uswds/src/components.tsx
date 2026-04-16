@@ -14,6 +14,7 @@ import { Stack as StackPrimitive } from "./ui/stack";
 import { Grid as GridPrimitive } from "./ui/grid";
 import { Separator as SeparatorPrimitive } from "./ui/separator";
 import { Heading as HeadingPrimitive } from "./ui/heading";
+import { Text as TextPrimitive } from "./ui/text";
 import { cn } from "./lib/cn";
 import type { UswdsProps } from "./catalog";
 
@@ -168,6 +169,27 @@ function Heading(all: HeadingAdapterProps) {
   );
 }
 
+// ── Text ────────────────────────────────────────────────────────────────
+type TextAdapterProps = Partial<UswdsProps["Text"]> &
+  Envelope<UswdsProps["Text"]>;
+
+function Text(all: TextAdapterProps) {
+  const { props: envelopeProps, children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  return (
+    <TextPrimitive
+      size={p.size ?? "base"}
+      weight={p.weight ?? "normal"}
+      color={p.color ?? "default"}
+      as={p.as ?? "p"}
+      className={p.className ?? undefined}
+    >
+      {children}
+    </TextPrimitive>
+  );
+}
+
 export const uswdsComponents: Record<string, ComponentType<any>> = {
   Button,
   Card,
@@ -175,4 +197,5 @@ export const uswdsComponents: Record<string, ComponentType<any>> = {
   Grid,
   Separator,
   Heading,
+  Text,
 };

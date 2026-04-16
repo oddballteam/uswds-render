@@ -85,6 +85,20 @@ export const uswdsComponentDefinitions = {
     description: "Semantic heading element, USWDS type-scale",
     example: { level: "h2" },
   },
+  Text: {
+    props: z.object({
+      size: z.enum(["xs", "sm", "base", "lg", "xl"]).nullish(),
+      weight: z.enum(["normal", "medium", "semibold", "bold"]).nullish(),
+      color: z
+        .enum(["default", "muted", "primary", "error", "success"])
+        .nullish(),
+      as: z.enum(["p", "span", "div"]).nullish(),
+      className: z.string().nullish(),
+    }),
+    slots: ["default"],
+    description: "Text/paragraph with USWDS type styles",
+    example: { size: "base" },
+  },
 } satisfies Record<string, ComponentDefinition>;
 
 export type UswdsProps = {
