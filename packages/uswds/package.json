@@ -1,0 +1,60 @@
+{
+  "name": "@oddball/json-render-uswds",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "description": "USWDS-styled component library for @json-render/core. JSON becomes federally-compliant Tailwind-styled React components.",
+  "keywords": ["json", "ui", "react", "uswds", "tailwind", "radix", "ai", "generative-ui", "llm", "renderer", "components"],
+  "publishConfig": { "access": "public" },
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./catalog": {
+      "types": "./dist/catalog.d.ts",
+      "import": "./dist/catalog.mjs",
+      "require": "./dist/catalog.js"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "check-types": "tsc --noEmit",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@json-render/core": "^0.17.0",
+    "@json-render/react": "^0.17.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "embla-carousel-react": "^8.6.0",
+    "lucide-react": "^0.564.0",
+    "radix-ui": "^1.4.3",
+    "tailwind-merge": "^3.4.1",
+    "vaul": "^1.1.2"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.0",
+    "@testing-library/react": "^16.1.0",
+    "@types/react": "19.2.3",
+    "jest-axe": "^9.0.0",
+    "jsdom": "^25.0.0",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.5",
+    "vitest": "^2.1.0",
+    "zod": "^4.3.6"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwindcss": "^4.0.0",
+    "zod": "^4.0.0"
+  }
+}
