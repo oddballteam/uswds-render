@@ -409,6 +409,17 @@ export const uswdsComponentDefinitions = {
       "Toggle switch (uses @radix-ui/react-switch). No direct USWDS analogue — styled to match USWDS tokens.",
     example: { label: "Notifications", checked: false },
   },
+  Carousel: {
+    props: z.object({
+      items: z
+        .array(z.object({ src: z.string(), alt: z.string() }))
+        .nullish(),
+      className: z.string().nullish(),
+    }),
+    description:
+      "Image carousel (uses embla-carousel-react). No USWDS analogue.",
+    example: { items: [{ src: "/a.jpg", alt: "A" }] },
+  },
   Drawer: {
     props: z.object({
       title: z.string().nullish(),

@@ -74,6 +74,13 @@ import {
 } from "./ui/table";
 import { Pagination as PaginationPrimitive } from "./ui/pagination";
 import {
+  Carousel as CarouselPrimitive,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+} from "./ui/carousel";
+import {
   Drawer as DrawerRoot,
   DrawerContent,
   DrawerHeader,
@@ -922,6 +929,38 @@ function Switch(all: SwitchAdapterProps) {
   );
 }
 
+// ── Carousel ──────────────────────────────────────────────────────────
+type CarouselAdapterProps = Partial<UswdsProps["Carousel"]> &
+  Envelope<UswdsProps["Carousel"]>;
+
+function Carousel(all: CarouselAdapterProps) {
+  const { props: envelopeProps, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) } as {
+    items?: Array<{ src: string; alt: string }> | null;
+    className?: string | null;
+  };
+
+  const items = p.items ?? [];
+
+  return (
+    <CarouselPrimitive className={cn("w-full", p.className ?? undefined)}>
+      <CarouselContent>
+        {items.map((item, i) => (
+          <CarouselItem key={i}>
+            <img
+              src={item.src}
+              alt={item.alt}
+              className="w-full h-auto object-cover rounded-md"
+            />
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      <CarouselPrevious />
+      <CarouselNext />
+    </CarouselPrimitive>
+  );
+}
+
 // ── Drawer ────────────────────────────────────────────────────────────
 type DrawerAdapterProps = Partial<UswdsProps["Drawer"]> &
   Envelope<UswdsProps["Drawer"]>;
@@ -1123,6 +1162,7 @@ export const uswdsComponents: Record<string, ComponentType<any>> = {
   Accordion,
   Collapsible,
   Tabs,
+  Carousel,
   Drawer,
   Dialog,
   DropdownMenu,
