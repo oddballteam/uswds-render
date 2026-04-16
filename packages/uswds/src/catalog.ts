@@ -45,6 +45,20 @@ export const uswdsComponentDefinitions = {
     description: "Container card for content sections. Maps to usa-card.",
     example: { title: "Overview", description: "Your account summary" },
   },
+  Stack: {
+    props: z.object({
+      direction: z.enum(["horizontal", "vertical"]).nullish(),
+      gap: z.enum(["none", "sm", "md", "lg", "xl"]).nullish(),
+      align: z.enum(["start", "center", "end", "stretch"]).nullish(),
+      justify: z
+        .enum(["start", "center", "end", "between", "around"])
+        .nullish(),
+      className: z.string().nullish(),
+    }),
+    slots: ["default"],
+    description: "Flex container for layouts",
+    example: { direction: "vertical", gap: "md" },
+  },
 } satisfies Record<string, ComponentDefinition>;
 
 export type UswdsProps = {

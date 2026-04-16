@@ -10,6 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
+import { Stack as StackPrimitive } from "./ui/stack";
 import { cn } from "./lib/cn";
 import type { UswdsProps } from "./catalog";
 
@@ -87,7 +88,29 @@ function Card(all: CardAdapterProps) {
   );
 }
 
+// ── Stack ───────────────────────────────────────────────────────────────
+type StackAdapterProps = Partial<UswdsProps["Stack"]> &
+  Envelope<UswdsProps["Stack"]>;
+
+function Stack(all: StackAdapterProps) {
+  const { props: envelopeProps, children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  return (
+    <StackPrimitive
+      direction={p.direction ?? "vertical"}
+      gap={p.gap ?? "md"}
+      align={p.align ?? undefined}
+      justify={p.justify ?? undefined}
+      className={p.className ?? undefined}
+    >
+      {children}
+    </StackPrimitive>
+  );
+}
+
 export const uswdsComponents: Record<string, ComponentType<any>> = {
   Button,
   Card,
+  Stack,
 };
