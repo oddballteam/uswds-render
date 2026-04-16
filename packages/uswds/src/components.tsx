@@ -39,6 +39,12 @@ import { Input as InputPrimitive } from "./ui/input";
 import { Textarea as TextareaPrimitive } from "./ui/textarea";
 import { ButtonGroup as ButtonGroupPrimitive } from "./ui/button-group";
 import { Link as LinkPrimitive } from "./ui/link";
+import {
+  Accordion as AccordionRoot,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "./ui/accordion";
 import { Switch as SwitchPrimitive } from "./ui/switch";
 import { Slider as SliderPrimitive } from "./ui/slider";
 import { Toggle as TogglePrimitive } from "./ui/toggle";
@@ -692,6 +698,40 @@ function Slider(all: SliderAdapterProps) {
   );
 }
 
+// ── Accordion ──────────────────────────────────────────────────────────
+type AccordionAdapterProps = Partial<UswdsProps["Accordion"]> &
+  Envelope<UswdsProps["Accordion"]>;
+
+function Accordion(all: AccordionAdapterProps) {
+  const { props: envelopeProps, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) } as {
+    type?: "single" | "multiple" | null;
+    items?: Array<{ value: string; title: string; content: string }> | null;
+    bordered?: boolean | null;
+    className?: string | null;
+  };
+
+  const items = p.items ?? [];
+  const type = p.type ?? "single";
+  const bordered = p.bordered ?? false;
+
+  const rootProps =
+    type === "multiple"
+      ? { type: "multiple" as const }
+      : { type: "single" as const, collapsible: true };
+
+  return (
+    <AccordionRoot {...rootProps} className={p.className ?? undefined}>
+      {items.map((item) => (
+        <AccordionItem key={item.value} value={item.value} bordered={bordered}>
+          <AccordionTrigger>{item.title}</AccordionTrigger>
+          <AccordionContent>{item.content}</AccordionContent>
+        </AccordionItem>
+      ))}
+    </AccordionRoot>
+  );
+}
+
 // ── ToggleGroup ────────────────────────────────────────────────────────
 type ToggleGroupAdapterProps = Partial<UswdsProps["ToggleGroup"]> &
   Envelope<UswdsProps["ToggleGroup"]>;
@@ -810,4 +850,5 @@ export const uswdsComponents: Record<string, ComponentType<any>> = {
   Switch,
   Toggle,
   ToggleGroup,
+  Accordion,
 };

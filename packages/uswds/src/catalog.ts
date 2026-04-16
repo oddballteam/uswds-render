@@ -311,6 +311,30 @@ export const uswdsComponentDefinitions = {
       "Range slider (uses @radix-ui/react-slider). No USWDS analogue.",
     example: { label: "Volume", min: 0, max: 100, value: 50 },
   },
+  Accordion: {
+    props: z.object({
+      type: z.enum(["single", "multiple"]).nullish(),
+      items: z
+        .array(
+          z.object({
+            value: z.string(),
+            title: z.string(),
+            content: z.string(),
+          }),
+        )
+        .nullish(),
+      bordered: z.boolean().nullish(),
+      className: z.string().nullish(),
+    }),
+    description:
+      "USWDS accordion (usa-accordion). Uses @radix-ui/react-accordion.",
+    example: {
+      type: "single",
+      items: [
+        { value: "one", title: "Section 1", content: "..." },
+      ],
+    },
+  },
   ToggleGroup: {
     props: z.object({
       type: z.enum(["single", "multiple"]).nullish(),
