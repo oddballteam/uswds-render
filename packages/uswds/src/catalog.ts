@@ -185,6 +185,23 @@ export const uswdsComponentDefinitions = {
       "USWDS table (usa-table). Children are TableHeader/TableBody rows.",
     example: { caption: "Users", striped: true },
   },
+  Input: {
+    props: z.object({
+      type: z
+        .enum(["text", "email", "password", "tel", "url", "number", "search"])
+        .nullish(),
+      placeholder: z.string().nullish(),
+      disabled: z.boolean().nullish(),
+      name: z.string().nullish(),
+      label: z.string().nullish(),
+      hint: z.string().nullish(),
+      error: z.string().nullish(),
+      value: z.string().nullish().describe("Data-bound value"),
+      className: z.string().nullish(),
+    }),
+    description: "USWDS text input (usa-input)",
+    example: { type: "text", label: "Name", placeholder: "Jane Doe" },
+  },
   ButtonGroup: {
     props: z.object({
       orientation: z.enum(["horizontal", "vertical"]).nullish(),

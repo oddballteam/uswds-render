@@ -26,6 +26,7 @@ import { Alert as AlertPrimitive } from "./ui/alert";
 import { Progress as ProgressPrimitive } from "./ui/progress";
 import { Skeleton as SkeletonPrimitive } from "./ui/skeleton";
 import { Spinner as SpinnerPrimitive } from "./ui/spinner";
+import { Input as InputPrimitive } from "./ui/input";
 import { ButtonGroup as ButtonGroupPrimitive } from "./ui/button-group";
 import { Link as LinkPrimitive } from "./ui/link";
 import {
@@ -369,6 +370,39 @@ function Spinner(all: SpinnerAdapterProps) {
   );
 }
 
+// ── Input ──────────────────────────────────────────────────────────────
+type InputAdapterProps = Partial<UswdsProps["Input"]> &
+  Envelope<UswdsProps["Input"]>;
+
+function Input(all: InputAdapterProps) {
+  const { props: envelopeProps, children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) } as {
+    type?: "text" | "email" | "password" | "tel" | "url" | "number" | "search" | null;
+    placeholder?: string | null;
+    disabled?: boolean | null;
+    name?: string | null;
+    label?: string | null;
+    hint?: string | null;
+    error?: string | null;
+    value?: string | null;
+    className?: string | null;
+  };
+
+  return (
+    <InputPrimitive
+      type={p.type ?? "text"}
+      placeholder={p.placeholder ?? undefined}
+      disabled={p.disabled ?? false}
+      name={p.name ?? undefined}
+      label={p.label ?? undefined}
+      hint={p.hint ?? undefined}
+      error={p.error ?? undefined}
+      defaultValue={p.value ?? undefined}
+      className={p.className ?? undefined}
+    />
+  );
+}
+
 // ── ButtonGroup ────────────────────────────────────────────────────────
 type ButtonGroupAdapterProps = Partial<UswdsProps["ButtonGroup"]> &
   Envelope<UswdsProps["ButtonGroup"]>;
@@ -447,6 +481,7 @@ export const uswdsComponents: Record<string, ComponentType<any>> = {
   Skeleton,
   Spinner,
   Table,
+  Input,
   ButtonGroup,
   Link,
 };
