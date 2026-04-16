@@ -74,6 +74,13 @@ import {
 } from "./ui/table";
 import { Pagination as PaginationPrimitive } from "./ui/pagination";
 import {
+  Drawer as DrawerRoot,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerDescription,
+} from "./ui/drawer";
+import {
   Dialog as DialogRoot,
   DialogContent,
   DialogHeader,
@@ -915,6 +922,38 @@ function Switch(all: SwitchAdapterProps) {
   );
 }
 
+// ── Drawer ────────────────────────────────────────────────────────────
+type DrawerAdapterProps = Partial<UswdsProps["Drawer"]> &
+  Envelope<UswdsProps["Drawer"]>;
+
+function Drawer(all: DrawerAdapterProps) {
+  const { props: envelopeProps, children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) } as {
+    title?: string | null;
+    description?: string | null;
+    open?: boolean | null;
+    direction?: "top" | "right" | "bottom" | "left" | null;
+    className?: string | null;
+  };
+
+  return (
+    <DrawerRoot
+      open={p.open ?? false}
+      direction={p.direction ?? "bottom"}
+    >
+      <DrawerContent className={p.className ?? undefined}>
+        <DrawerHeader>
+          {p.title && <DrawerTitle>{p.title}</DrawerTitle>}
+          {p.description && (
+            <DrawerDescription>{p.description}</DrawerDescription>
+          )}
+        </DrawerHeader>
+        <div className="p-6">{children}</div>
+      </DrawerContent>
+    </DrawerRoot>
+  );
+}
+
 // ── Dialog ────────────────────────────────────────────────────────────
 type DialogAdapterProps = Partial<UswdsProps["Dialog"]> &
   Envelope<UswdsProps["Dialog"]>;
@@ -1084,6 +1123,7 @@ export const uswdsComponents: Record<string, ComponentType<any>> = {
   Accordion,
   Collapsible,
   Tabs,
+  Drawer,
   Dialog,
   DropdownMenu,
   Popover,

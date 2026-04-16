@@ -409,6 +409,19 @@ export const uswdsComponentDefinitions = {
       "Toggle switch (uses @radix-ui/react-switch). No direct USWDS analogue — styled to match USWDS tokens.",
     example: { label: "Notifications", checked: false },
   },
+  Drawer: {
+    props: z.object({
+      title: z.string().nullish(),
+      description: z.string().nullish(),
+      open: z.boolean().nullish(),
+      direction: z.enum(["top", "right", "bottom", "left"]).nullish(),
+      className: z.string().nullish(),
+    }),
+    slots: ["trigger", "default"],
+    description:
+      "Slide-in drawer (uses vaul). No direct USWDS analogue.",
+    example: { title: "Settings", direction: "right" },
+  },
   Dialog: {
     props: z.object({
       title: z.string().nullish(),
