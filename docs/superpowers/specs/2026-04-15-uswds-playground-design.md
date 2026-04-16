@@ -50,7 +50,7 @@ First found wins. No key = startup error with clear message.
 
 ### Empty state
 
-- **Gov banner** at very top: "An official website of the United States government" (static, USWDS-style).
+- **Oddball banner** at very top: "An Oddball Labs Product" link to oddball.io
 - **Dark header:** "USWDS Playground" title, "Start Over" button, theme toggle.
 - **Center area:** "What do you want to build?" heading with suggestion chips:
   - "Compare my current Medicare plan with Plan G"
@@ -76,7 +76,7 @@ First found wins. No key = startup error with clear message.
 
 **Input:** `{ timeframe: "past_month" | "upcoming", type?: "telehealth" | "in_person" }`
 
-**Returns:** Array of appointments:
+**Returns:** Array of appointments :
 ```json
 [{
   "id": "apt-001",
