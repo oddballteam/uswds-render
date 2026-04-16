@@ -99,6 +99,17 @@ export const uswdsComponentDefinitions = {
     description: "Text/paragraph with USWDS type styles",
     example: { size: "base" },
   },
+  Image: {
+    props: z.object({
+      src: z.string(),
+      alt: z.string(),
+      width: z.number().nullish(),
+      height: z.number().nullish(),
+      className: z.string().nullish(),
+    }),
+    description: "Image element (<img>)",
+    example: { src: "/logo.png", alt: "Logo" },
+  },
 } satisfies Record<string, ComponentDefinition>;
 
 export type UswdsProps = {
