@@ -409,6 +409,17 @@ export const uswdsComponentDefinitions = {
       "Toggle switch (uses @radix-ui/react-switch). No direct USWDS analogue — styled to match USWDS tokens.",
     example: { label: "Notifications", checked: false },
   },
+  Tooltip: {
+    props: z.object({
+      content: z.string(),
+      side: z.enum(["top", "right", "bottom", "left"]).nullish(),
+      className: z.string().nullish(),
+    }),
+    slots: ["default"],
+    description:
+      "USWDS tooltip (usa-tooltip). Uses @radix-ui/react-tooltip.",
+    example: { content: "More info" },
+  },
   Pagination: {
     props: z.object({
       currentPage: z.number(),

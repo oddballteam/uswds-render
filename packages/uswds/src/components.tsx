@@ -73,6 +73,12 @@ import {
   TableCaption as TableCaptionPrimitive,
 } from "./ui/table";
 import { Pagination as PaginationPrimitive } from "./ui/pagination";
+import {
+  Tooltip as TooltipRoot,
+  TooltipTrigger,
+  TooltipContent,
+  TooltipProvider,
+} from "./ui/tooltip";
 import { cn } from "./lib/cn";
 import type { UswdsProps } from "./catalog";
 
@@ -891,6 +897,35 @@ function Switch(all: SwitchAdapterProps) {
   );
 }
 
+// ── Tooltip ───────────────────────────────────────────────────────────
+type TooltipAdapterProps = Partial<UswdsProps["Tooltip"]> &
+  Envelope<UswdsProps["Tooltip"]>;
+
+function Tooltip(all: TooltipAdapterProps) {
+  const { props: envelopeProps, children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) } as {
+    content?: string;
+    side?: "top" | "right" | "bottom" | "left" | null;
+    className?: string | null;
+  };
+
+  return (
+    <TooltipProvider>
+      <TooltipRoot>
+        <TooltipTrigger asChild>
+          {children ?? <span />}
+        </TooltipTrigger>
+        <TooltipContent
+          side={p.side ?? "top"}
+          className={p.className ?? undefined}
+        >
+          <p>{p.content ?? ""}</p>
+        </TooltipContent>
+      </TooltipRoot>
+    </TooltipProvider>
+  );
+}
+
 // ── Pagination ────────────────────────────────────────────────────────
 type PaginationAdapterProps = Partial<UswdsProps["Pagination"]> &
   Envelope<UswdsProps["Pagination"]>;
@@ -944,5 +979,6 @@ export const uswdsComponents: Record<string, ComponentType<any>> = {
   Accordion,
   Collapsible,
   Tabs,
+  Tooltip,
   Pagination,
 };
