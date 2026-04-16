@@ -11,19 +11,31 @@ pnpm add @oddball/json-render-uswds
 ### Peer dependencies
 
 ```bash
-pnpm add react react-dom tailwindcss zod
+pnpm add react react-dom tailwindcss zod \
+  @tailwindcss/forms @tailwindcss/typography \
+  @iconify/tailwind4 tailwindcss-animate
 ```
+
+The four Tailwind plugins are required — the vendored USWDS token CSS loads them via `@plugin` directives.
 
 ## Tailwind setup
 
-This package vendors a USWDS Tailwind v4 preset. Import the token CSS in your app's stylesheet:
+Import the token CSS in your app's stylesheet:
 
 ```css
 @import "tailwindcss";
 @import "@oddball/json-render-uswds/tokens.css";
 ```
 
-If using Vite, add `@tailwindcss/vite` to your Vite config.
+You also need Tailwind to scan the package's component classes. In your Tailwind entry CSS, add:
+
+```css
+@source "../node_modules/@oddball/json-render-uswds/dist/**/*.{js,mjs}";
+```
+
+(Adjust the relative path to your project structure.)
+
+If using Vite, add `@tailwindcss/vite` to your Vite config. If using Next.js, use `@tailwindcss/postcss` in `postcss.config.mjs`.
 
 ## Usage
 

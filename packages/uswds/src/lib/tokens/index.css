@@ -598,7 +598,6 @@
 }
 
 @plugin "@tailwindcss/typography";
-@config "@uswds-tailwind/theme/tailwind.config.ts";
 
 @theme {
   /* USWDS semantic color aliases */
