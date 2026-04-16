@@ -297,6 +297,20 @@ export const uswdsComponentDefinitions = {
     description: "Anchor link with USWDS styling",
     example: { href: "/about" },
   },
+  Slider: {
+    props: z.object({
+      label: z.string().nullish(),
+      min: z.number().nullish(),
+      max: z.number().nullish(),
+      step: z.number().nullish(),
+      value: z.number().nullish(),
+      disabled: z.boolean().nullish(),
+      className: z.string().nullish(),
+    }),
+    description:
+      "Range slider (uses @radix-ui/react-slider). No USWDS analogue.",
+    example: { label: "Volume", min: 0, max: 100, value: 50 },
+  },
   Switch: {
     props: z.object({
       label: z.string().nullish(),

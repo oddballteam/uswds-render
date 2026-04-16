@@ -40,6 +40,7 @@ import { Textarea as TextareaPrimitive } from "./ui/textarea";
 import { ButtonGroup as ButtonGroupPrimitive } from "./ui/button-group";
 import { Link as LinkPrimitive } from "./ui/link";
 import { Switch as SwitchPrimitive } from "./ui/switch";
+import { Slider as SliderPrimitive } from "./ui/slider";
 import {
   Table as TablePrimitive,
   TableHeader as TableHeaderPrimitive,
@@ -657,6 +658,35 @@ function Table(all: TableAdapterProps) {
   );
 }
 
+// ── Slider ─────────────────────────────────────────────────────────────
+type SliderAdapterProps = Partial<UswdsProps["Slider"]> &
+  Envelope<UswdsProps["Slider"]>;
+
+function Slider(all: SliderAdapterProps) {
+  const { props: envelopeProps, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) } as {
+    label?: string | null;
+    min?: number | null;
+    max?: number | null;
+    step?: number | null;
+    value?: number | null;
+    disabled?: boolean | null;
+    className?: string | null;
+  };
+
+  return (
+    <SliderPrimitive
+      label={p.label ?? undefined}
+      min={p.min ?? 0}
+      max={p.max ?? 100}
+      step={p.step ?? 1}
+      value={p.value ?? undefined}
+      disabled={p.disabled ?? false}
+      className={p.className ?? undefined}
+    />
+  );
+}
+
 // ── Switch ─────────────────────────────────────────────────────────────
 type SwitchAdapterProps = Partial<UswdsProps["Switch"]> &
   Envelope<UswdsProps["Switch"]>;
@@ -705,5 +735,6 @@ export const uswdsComponents: Record<string, ComponentType<any>> = {
   Input,
   ButtonGroup,
   Link,
+  Slider,
   Switch,
 };
