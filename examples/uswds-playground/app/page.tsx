@@ -13,7 +13,6 @@ import { Streamdown } from "streamdown";
 import { OddballBanner } from "@/components/oddball-banner";
 import { SpecViewer } from "@/components/spec-viewer";
 import { SuggestionChips } from "@/components/suggestion-chips";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -135,7 +134,6 @@ export default function Page() {
           >
             Start Over
           </Button>
-          <ThemeToggle />
         </div>
       </header>
 

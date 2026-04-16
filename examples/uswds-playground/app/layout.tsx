@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "sonner";
 import "streamdown/styles.css";
 import "./globals.css";
@@ -15,12 +14,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
-          <Toaster />
-        </ThemeProvider>
+    <html lang="en" className="light">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        style={{ colorScheme: "light" }}
+      >
+        {children}
+        <Toaster />
       </body>
     </html>
   );
