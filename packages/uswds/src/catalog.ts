@@ -185,6 +185,33 @@ export const uswdsComponentDefinitions = {
       "USWDS table (usa-table). Children are TableHeader/TableBody rows.",
     example: { caption: "Users", striped: true },
   },
+  Radio: {
+    props: z.object({
+      label: z.string().nullish(),
+      name: z.string().nullish(),
+      options: z
+        .array(
+          z.object({
+            value: z.string(),
+            label: z.string(),
+            hint: z.string().nullish(),
+          }),
+        )
+        .nullish(),
+      value: z.string().nullish(),
+      disabled: z.boolean().nullish(),
+      className: z.string().nullish(),
+    }),
+    description:
+      "USWDS radio group (usa-radio). Uses @radix-ui/react-radio-group.",
+    example: {
+      label: "Size",
+      options: [
+        { value: "s", label: "Small" },
+        { value: "m", label: "Medium" },
+      ],
+    },
+  },
   Checkbox: {
     props: z.object({
       label: z.string().nullish(),

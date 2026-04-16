@@ -26,6 +26,7 @@ import { Alert as AlertPrimitive } from "./ui/alert";
 import { Progress as ProgressPrimitive } from "./ui/progress";
 import { Skeleton as SkeletonPrimitive } from "./ui/skeleton";
 import { Spinner as SpinnerPrimitive } from "./ui/spinner";
+import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 import { Checkbox as CheckboxPrimitive } from "./ui/checkbox";
 import {
   Select as SelectRoot,
@@ -379,6 +380,70 @@ function Spinner(all: SpinnerAdapterProps) {
   );
 }
 
+// ── Radio ──────────────────────────────────────────────────────────────
+type RadioAdapterProps = Partial<UswdsProps["Radio"]> &
+  Envelope<UswdsProps["Radio"]>;
+
+function Radio(all: RadioAdapterProps) {
+  const { props: envelopeProps, children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) } as {
+    label?: string | null;
+    name?: string | null;
+    options?: Array<{ value: string; label: string; hint?: string | null }> | null;
+    value?: string | null;
+    disabled?: boolean | null;
+    className?: string | null;
+  };
+
+  const groupId = React.useId();
+  const options = p.options ?? [];
+
+  return (
+    <div className={p.className ?? undefined}>
+      {p.label && (
+        <span
+          id={`${groupId}-label`}
+          className="block font-bold font-sans text-ink mb-2"
+        >
+          {p.label}
+        </span>
+      )}
+      <RadioGroup
+        defaultValue={p.value ?? undefined}
+        disabled={p.disabled ?? false}
+        aria-labelledby={p.label ? `${groupId}-label` : undefined}
+      >
+        {options.map((opt, idx) => {
+          const itemId = `${groupId}-${idx}`;
+          return (
+            <div key={opt.value} className="flex items-start gap-2">
+              <RadioGroupItem
+                value={opt.value}
+                id={itemId}
+                aria-labelledby={`${itemId}-label`}
+              />
+              <div>
+                <label
+                  id={`${itemId}-label`}
+                  htmlFor={itemId}
+                  className="font-sans text-base text-ink cursor-pointer"
+                >
+                  {opt.label}
+                </label>
+                {opt.hint && (
+                  <span className="text-sm text-base-dark block">
+                    {opt.hint}
+                  </span>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </RadioGroup>
+    </div>
+  );
+}
+
 // ── Checkbox ───────────────────────────────────────────────────────────
 type CheckboxAdapterProps = Partial<UswdsProps["Checkbox"]> &
   Envelope<UswdsProps["Checkbox"]>;
@@ -607,6 +672,7 @@ export const uswdsComponents: Record<string, ComponentType<any>> = {
   Skeleton,
   Spinner,
   Table,
+  Radio,
   Checkbox,
   Select,
   Textarea,
