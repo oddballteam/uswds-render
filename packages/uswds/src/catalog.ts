@@ -33,6 +33,18 @@ export const uswdsComponentDefinitions = {
       "USWDS button. variant=default maps to usa-button, secondary to usa-button--secondary, etc.",
     example: { variant: "default", size: "default" },
   },
+  Card: {
+    props: z.object({
+      title: z.string().nullish(),
+      description: z.string().nullish(),
+      maxWidth: z.enum(["sm", "md", "lg", "full"]).nullish(),
+      centered: z.boolean().nullish(),
+      className: z.string().nullish(),
+    }),
+    slots: ["default"],
+    description: "Container card for content sections. Maps to usa-card.",
+    example: { title: "Overview", description: "Your account summary" },
+  },
 } satisfies Record<string, ComponentDefinition>;
 
 export type UswdsProps = {
