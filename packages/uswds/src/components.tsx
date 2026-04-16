@@ -41,6 +41,7 @@ import { ButtonGroup as ButtonGroupPrimitive } from "./ui/button-group";
 import { Link as LinkPrimitive } from "./ui/link";
 import { Switch as SwitchPrimitive } from "./ui/switch";
 import { Slider as SliderPrimitive } from "./ui/slider";
+import { Toggle as TogglePrimitive } from "./ui/toggle";
 import {
   Table as TablePrimitive,
   TableHeader as TableHeaderPrimitive,
@@ -687,6 +688,29 @@ function Slider(all: SliderAdapterProps) {
   );
 }
 
+// ── Toggle ─────────────────────────────────────────────────────────────
+type ToggleAdapterProps = Partial<UswdsProps["Toggle"]> &
+  Envelope<UswdsProps["Toggle"]>;
+
+function Toggle(all: ToggleAdapterProps) {
+  const { props: envelopeProps, children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) } as {
+    pressed?: boolean | null;
+    disabled?: boolean | null;
+    className?: string | null;
+  };
+
+  return (
+    <TogglePrimitive
+      defaultPressed={p.pressed ?? false}
+      disabled={p.disabled ?? false}
+      className={p.className ?? undefined}
+    >
+      {children}
+    </TogglePrimitive>
+  );
+}
+
 // ── Switch ─────────────────────────────────────────────────────────────
 type SwitchAdapterProps = Partial<UswdsProps["Switch"]> &
   Envelope<UswdsProps["Switch"]>;
@@ -737,4 +761,5 @@ export const uswdsComponents: Record<string, ComponentType<any>> = {
   Link,
   Slider,
   Switch,
+  Toggle,
 };

@@ -311,6 +311,16 @@ export const uswdsComponentDefinitions = {
       "Range slider (uses @radix-ui/react-slider). No USWDS analogue.",
     example: { label: "Volume", min: 0, max: 100, value: 50 },
   },
+  Toggle: {
+    props: z.object({
+      pressed: z.boolean().nullish(),
+      disabled: z.boolean().nullish(),
+      className: z.string().nullish(),
+    }),
+    slots: ["default"],
+    description: "Two-state button (uses @radix-ui/react-toggle).",
+    example: { pressed: false },
+  },
   Switch: {
     props: z.object({
       label: z.string().nullish(),
