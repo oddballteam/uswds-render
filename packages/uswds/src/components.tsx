@@ -24,6 +24,7 @@ import {
 import { Badge as BadgePrimitive } from "./ui/badge";
 import { Alert as AlertPrimitive } from "./ui/alert";
 import { Progress as ProgressPrimitive } from "./ui/progress";
+import { Skeleton as SkeletonPrimitive } from "./ui/skeleton";
 import { cn } from "./lib/cn";
 import type { UswdsProps } from "./catalog";
 
@@ -324,6 +325,19 @@ function Progress(all: ProgressAdapterProps) {
   );
 }
 
+// ── Skeleton ────────────────────────────────────────────────────────────
+type SkeletonAdapterProps = Partial<UswdsProps["Skeleton"]> &
+  Envelope<UswdsProps["Skeleton"]>;
+
+function Skeleton(all: SkeletonAdapterProps) {
+  const { props: envelopeProps, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) } as {
+    className?: string | null;
+  };
+
+  return <SkeletonPrimitive className={p.className ?? undefined} />;
+}
+
 export const uswdsComponents: Record<string, ComponentType<any>> = {
   Button,
   Card,
@@ -337,4 +351,5 @@ export const uswdsComponents: Record<string, ComponentType<any>> = {
   Badge,
   Alert,
   Progress,
+  Skeleton,
 };

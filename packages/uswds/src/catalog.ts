@@ -158,6 +158,13 @@ export const uswdsComponentDefinitions = {
     description: "Progress bar (uses @radix-ui/react-progress)",
     example: { value: 40 },
   },
+  Skeleton: {
+    props: z.object({
+      className: z.string().nullish(),
+    }),
+    description: "Loading placeholder",
+    example: {},
+  },
 } satisfies Record<string, ComponentDefinition>;
 
 export type UswdsProps = {
