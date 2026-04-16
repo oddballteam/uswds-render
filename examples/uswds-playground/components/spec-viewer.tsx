@@ -7,9 +7,10 @@ import { PlaygroundRenderer } from "@/lib/render/renderer";
 
 interface SpecViewerProps {
   spec: Spec | null;
+  loading?: boolean;
 }
 
-export function SpecViewer({ spec }: SpecViewerProps) {
+export function SpecViewer({ spec, loading }: SpecViewerProps) {
   const [tab, setTab] = useState<"preview" | "code">("preview");
 
   if (!spec) return null;
@@ -22,7 +23,7 @@ export function SpecViewer({ spec }: SpecViewerProps) {
           <TabsTrigger value="code">Code</TabsTrigger>
         </TabsList>
         <TabsContent value="preview" className="p-4">
-          <PlaygroundRenderer spec={spec} />
+          <PlaygroundRenderer spec={spec} loading={loading} />
         </TabsContent>
         <TabsContent value="code" className="m-0">
           <pre className="overflow-x-auto bg-zinc-950 p-4 text-xs text-zinc-100">

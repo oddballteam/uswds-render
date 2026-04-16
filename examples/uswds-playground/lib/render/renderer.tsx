@@ -38,18 +38,47 @@ const fallback: ComponentRenderer = ({ element }) => (
 
 interface PlaygroundRendererProps {
   spec: Spec | null;
+  loading?: boolean;
+}
+
+// Returns true if the spec is a complete, renderable flat-tree: it has a
+// root key and that root exists in the elements map. Partial specs that
+// arrive mid-stream can have a root pointing at a key not yet in elements,
+// which crashes Renderer with "Cannot convert undefined or null to object".
+function isRenderable(spec: Spec): boolean {
+  const s = spec as unknown as {
+    root?: string;
+    elements?: Record<string, unknown>;
+  };
+  if (!s.root) return false;
+  if (!s.elements || typeof s.elements !== "object") return false;
+  return Object.prototype.hasOwnProperty.call(s.elements, s.root);
 }
 
 export function PlaygroundRenderer({
   spec,
+  loading,
 }: PlaygroundRendererProps): ReactNode {
   if (!spec) return null;
+  if (!isRenderable(spec)) {
+    if (loading) {
+      return (
+        <div className="p-3 text-xs text-zinc-500">Rendering UI…</div>
+      );
+    }
+    return null;
+  }
 
   return (
     <StateProvider initialState={{}}>
       <VisibilityProvider>
         <ActionProvider>
-          <Renderer spec={spec} registry={registry} fallback={fallback} />
+          <Renderer
+            spec={spec}
+            registry={registry}
+            fallback={fallback}
+            loading={loading}
+          />
         </ActionProvider>
       </VisibilityProvider>
     </StateProvider>

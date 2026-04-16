@@ -30,7 +30,13 @@ const transport = new DefaultChatTransport({ api: "/api/generate" });
 // Message Bubble
 // =============================================================================
 
-function MessageBubble({ message }: { message: AppMessage }) {
+function MessageBubble({
+  message,
+  loading,
+}: {
+  message: AppMessage;
+  loading?: boolean;
+}) {
   const isUser = message.role === "user";
   const { spec, text, hasSpec } = useJsonRenderMessage(message.parts);
 
@@ -87,9 +93,9 @@ function MessageBubble({ message }: { message: AppMessage }) {
             );
           }
           if (!hasSpec || !spec) return null;
-          return <SpecViewer key={`spec-${i}`} spec={spec} />;
+          return <SpecViewer key={`spec-${i}`} spec={spec} loading={loading} />;
         })}
-        {showSpecAtEnd && spec && <SpecViewer spec={spec} />}
+        {showSpecAtEnd && spec && <SpecViewer spec={spec} loading={loading} />}
       </div>
     </div>
   );
@@ -145,7 +151,11 @@ export default function Page() {
           ) : (
             <div className="mx-auto flex max-w-3xl flex-col gap-6">
               {messages.map((m) => (
-                <MessageBubble key={m.id} message={m} />
+                <MessageBubble
+                  key={m.id}
+                  message={m}
+                  loading={isStreaming && m.id === messages[messages.length - 1]?.id}
+                />
               ))}
             </div>
           )}
