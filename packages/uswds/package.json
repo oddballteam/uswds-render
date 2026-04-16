@@ -47,6 +47,7 @@
     "vaul": "^1.1.2"
   },
   "devDependencies": {
+    "@json-render/shadcn": "^0.17.0",
     "@testing-library/jest-dom": "^6.6.0",
     "@testing-library/react": "^16.1.0",
     "@types/react": "19.2.3",
