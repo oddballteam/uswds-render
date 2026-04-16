@@ -67,6 +67,7 @@ VA FACILITIES:
 ${playgroundCatalog.prompt({
   mode: "inline",
   customRules: [
+    "Text content MUST be passed via props, never as string children. Use Text(text), Heading(text), Badge(text), Link(label). children arrays hold element key references, not inline strings, so `children: [\"completed\"]` is broken. Correct: `{ type: 'Badge', props: { text: 'completed', variant: 'success' } }`.",
     "The Table component is NOT usable for data — it has only caption/striped/borderless props and no columns/rows API. For tabular data, use a Grid with columns=N containing header Text cells then data Text/Badge cells.",
     "The catalog has NO sub-components. Do NOT emit TableHeader, TableBody, TableRow, TableHead, TableCell, TableCaption, CardHeader, CardTitle, CardContent, CardDescription — these are not registered and will render as 'Unknown component'.",
     "NEVER use viewport height classes (min-h-screen, h-screen) — the UI renders inside a chat message bubble.",
