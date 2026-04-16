@@ -78,15 +78,18 @@ export const uswdsComponentDefinitions = {
   },
   Heading: {
     props: z.object({
+      text: z.string().nullish(),
       level: z.enum(["h1", "h2", "h3", "h4", "h5", "h6"]).nullish(),
       className: z.string().nullish(),
     }),
     slots: ["default"],
-    description: "Semantic heading element, USWDS type-scale",
-    example: { level: "h2" },
+    description:
+      "Semantic heading element, USWDS type-scale. Pass the content via the 'text' prop.",
+    example: { text: "Welcome", level: "h2" },
   },
   Text: {
     props: z.object({
+      text: z.string().nullish(),
       size: z.enum(["xs", "sm", "base", "lg", "xl"]).nullish(),
       weight: z.enum(["normal", "medium", "semibold", "bold"]).nullish(),
       color: z
@@ -96,8 +99,9 @@ export const uswdsComponentDefinitions = {
       className: z.string().nullish(),
     }),
     slots: ["default"],
-    description: "Text/paragraph with USWDS type styles",
-    example: { size: "base" },
+    description:
+      "Text/paragraph with USWDS type styles. Pass content via the 'text' prop.",
+    example: { text: "Hello, world!", size: "base" },
   },
   Image: {
     props: z.object({
@@ -124,6 +128,7 @@ export const uswdsComponentDefinitions = {
   },
   Badge: {
     props: z.object({
+      text: z.string().nullish(),
       variant: z
         .enum(["default", "secondary", "success", "warning", "error", "info"])
         .nullish(),
@@ -131,8 +136,8 @@ export const uswdsComponentDefinitions = {
     }),
     slots: ["default"],
     description:
-      "Small status/label pill. Maps to USWDS tag component.",
-    example: { variant: "default" },
+      "Small status/label pill. Maps to USWDS tag component. Pass content via the 'text' prop.",
+    example: { text: "Active", variant: "default" },
   },
   Alert: {
     props: z.object({
@@ -289,13 +294,15 @@ export const uswdsComponentDefinitions = {
   },
   Link: {
     props: z.object({
+      label: z.string().nullish(),
       href: z.string(),
       external: z.boolean().nullish(),
       className: z.string().nullish(),
     }),
     slots: ["default"],
-    description: "Anchor link with USWDS styling",
-    example: { href: "/about" },
+    description:
+      "Anchor link with USWDS styling. Pass the visible link text via the 'label' prop.",
+    example: { label: "Learn more", href: "/about" },
   },
   Slider: {
     props: z.object({

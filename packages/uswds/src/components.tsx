@@ -260,7 +260,7 @@ function Heading(all: HeadingAdapterProps) {
       level={p.level ?? "h2"}
       className={p.className ?? undefined}
     >
-      {children}
+      {p.text ?? children}
     </HeadingPrimitive>
   );
 }
@@ -281,7 +281,7 @@ function Text(all: TextAdapterProps) {
       as={p.as ?? "p"}
       className={p.className ?? undefined}
     >
-      {children}
+      {p.text ?? children}
     </TextPrimitive>
   );
 }
@@ -357,7 +357,7 @@ function Badge(all: BadgeAdapterProps) {
       variant={variant}
       className={p.className ?? undefined}
     >
-      {children}
+      {p.text ?? children}
     </BadgePrimitive>
   );
 }
@@ -683,6 +683,7 @@ type LinkAdapterProps = Partial<UswdsProps["Link"]> &
 function Link(all: LinkAdapterProps) {
   const { props: envelopeProps, children, ...rest } = all;
   const p = { ...rest, ...(envelopeProps ?? {}) } as {
+    label?: string | null;
     href?: string;
     external?: boolean | null;
     className?: string | null;
@@ -694,7 +695,7 @@ function Link(all: LinkAdapterProps) {
       external={p.external ?? false}
       className={p.className ?? undefined}
     >
-      {children}
+      {p.label ?? children}
     </LinkPrimitive>
   );
 }
