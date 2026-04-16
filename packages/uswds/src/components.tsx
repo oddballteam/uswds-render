@@ -21,6 +21,7 @@ import {
   AvatarImage,
   AvatarFallback,
 } from "./ui/avatar";
+import { Badge as BadgePrimitive } from "./ui/badge";
 import { cn } from "./lib/cn";
 import type { UswdsProps } from "./catalog";
 
@@ -246,6 +247,32 @@ function Avatar(all: AvatarAdapterProps) {
   );
 }
 
+// ── Badge ───────────────────────────────────────────────────────────────
+type BadgeAdapterProps = Partial<UswdsProps["Badge"]> &
+  Envelope<UswdsProps["Badge"]>;
+
+function Badge(all: BadgeAdapterProps) {
+  const { props: envelopeProps, children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  const variant = (p.variant ?? "default") as
+    | "default"
+    | "secondary"
+    | "success"
+    | "warning"
+    | "error"
+    | "info";
+
+  return (
+    <BadgePrimitive
+      variant={variant}
+      className={p.className ?? undefined}
+    >
+      {children}
+    </BadgePrimitive>
+  );
+}
+
 export const uswdsComponents: Record<string, ComponentType<any>> = {
   Button,
   Card,
@@ -256,4 +283,5 @@ export const uswdsComponents: Record<string, ComponentType<any>> = {
   Text,
   Image,
   Avatar,
+  Badge,
 };

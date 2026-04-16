@@ -122,6 +122,18 @@ export const uswdsComponentDefinitions = {
       "Avatar image with fallback initials (uses @radix-ui/react-avatar)",
     example: { fallback: "JD", size: "md" },
   },
+  Badge: {
+    props: z.object({
+      variant: z
+        .enum(["default", "secondary", "success", "warning", "error", "info"])
+        .nullish(),
+      className: z.string().nullish(),
+    }),
+    slots: ["default"],
+    description:
+      "Small status/label pill. Maps to USWDS tag component.",
+    example: { variant: "default" },
+  },
 } satisfies Record<string, ComponentDefinition>;
 
 export type UswdsProps = {
