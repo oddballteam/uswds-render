@@ -72,6 +72,7 @@ import {
   TableCell as TableCellPrimitive,
   TableCaption as TableCaptionPrimitive,
 } from "./ui/table";
+import { Pagination as PaginationPrimitive } from "./ui/pagination";
 import { cn } from "./lib/cn";
 import type { UswdsProps } from "./catalog";
 
@@ -890,6 +891,29 @@ function Switch(all: SwitchAdapterProps) {
   );
 }
 
+// ── Pagination ────────────────────────────────────────────────────────
+type PaginationAdapterProps = Partial<UswdsProps["Pagination"]> &
+  Envelope<UswdsProps["Pagination"]>;
+
+function Pagination(all: PaginationAdapterProps) {
+  const { props: envelopeProps, emit, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) } as {
+    currentPage?: number;
+    totalPages?: number;
+    onPageChange?: string | null;
+    className?: string | null;
+  };
+
+  return (
+    <PaginationPrimitive
+      currentPage={p.currentPage ?? 1}
+      totalPages={p.totalPages ?? 1}
+      onPageChange={emit ? () => emit("pageChange") : undefined}
+      className={p.className ?? undefined}
+    />
+  );
+}
+
 export const uswdsComponents: Record<string, ComponentType<any>> = {
   Button,
   Card,
@@ -920,4 +944,5 @@ export const uswdsComponents: Record<string, ComponentType<any>> = {
   Accordion,
   Collapsible,
   Tabs,
+  Pagination,
 };

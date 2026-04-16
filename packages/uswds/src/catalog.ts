@@ -409,6 +409,16 @@ export const uswdsComponentDefinitions = {
       "Toggle switch (uses @radix-ui/react-switch). No direct USWDS analogue — styled to match USWDS tokens.",
     example: { label: "Notifications", checked: false },
   },
+  Pagination: {
+    props: z.object({
+      currentPage: z.number(),
+      totalPages: z.number(),
+      onPageChange: z.string().nullish().describe("Action binding name"),
+      className: z.string().nullish(),
+    }),
+    description: "USWDS pagination (usa-pagination).",
+    example: { currentPage: 3, totalPages: 10 },
+  },
 } satisfies Record<string, ComponentDefinition>;
 
 export type UswdsProps = {
