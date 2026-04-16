@@ -311,6 +311,26 @@ export const uswdsComponentDefinitions = {
       "Range slider (uses @radix-ui/react-slider). No USWDS analogue.",
     example: { label: "Volume", min: 0, max: 100, value: 50 },
   },
+  ToggleGroup: {
+    props: z.object({
+      type: z.enum(["single", "multiple"]).nullish(),
+      value: z.union([z.string(), z.array(z.string())]).nullish(),
+      options: z
+        .array(z.object({ value: z.string(), label: z.string() }))
+        .nullish(),
+      disabled: z.boolean().nullish(),
+      className: z.string().nullish(),
+    }),
+    description:
+      "Group of toggles (uses @radix-ui/react-toggle-group).",
+    example: {
+      type: "single",
+      options: [
+        { value: "a", label: "A" },
+        { value: "b", label: "B" },
+      ],
+    },
+  },
   Toggle: {
     props: z.object({
       pressed: z.boolean().nullish(),

@@ -43,6 +43,10 @@ import { Switch as SwitchPrimitive } from "./ui/switch";
 import { Slider as SliderPrimitive } from "./ui/slider";
 import { Toggle as TogglePrimitive } from "./ui/toggle";
 import {
+  ToggleGroup as ToggleGroupRoot,
+  ToggleGroupItem,
+} from "./ui/toggle-group";
+import {
   Table as TablePrimitive,
   TableHeader as TableHeaderPrimitive,
   TableBody as TableBodyPrimitive,
@@ -688,6 +692,49 @@ function Slider(all: SliderAdapterProps) {
   );
 }
 
+// ── ToggleGroup ────────────────────────────────────────────────────────
+type ToggleGroupAdapterProps = Partial<UswdsProps["ToggleGroup"]> &
+  Envelope<UswdsProps["ToggleGroup"]>;
+
+function ToggleGroup(all: ToggleGroupAdapterProps) {
+  const { props: envelopeProps, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) } as {
+    type?: "single" | "multiple" | null;
+    value?: string | string[] | null;
+    options?: Array<{ value: string; label: string }> | null;
+    disabled?: boolean | null;
+    className?: string | null;
+  };
+
+  const options = p.options ?? [];
+  const type = p.type ?? "single";
+
+  const groupProps =
+    type === "multiple"
+      ? {
+          type: "multiple" as const,
+          defaultValue: Array.isArray(p.value) ? p.value : [],
+        }
+      : {
+          type: "single" as const,
+          defaultValue: typeof p.value === "string" ? p.value : undefined,
+        };
+
+  return (
+    <ToggleGroupRoot
+      {...groupProps}
+      disabled={p.disabled ?? false}
+      className={p.className ?? undefined}
+    >
+      {options.map((opt) => (
+        <ToggleGroupItem key={opt.value} value={opt.value}>
+          {opt.label}
+        </ToggleGroupItem>
+      ))}
+    </ToggleGroupRoot>
+  );
+}
+
 // ── Toggle ─────────────────────────────────────────────────────────────
 type ToggleAdapterProps = Partial<UswdsProps["Toggle"]> &
   Envelope<UswdsProps["Toggle"]>;
@@ -762,4 +809,5 @@ export const uswdsComponents: Record<string, ComponentType<any>> = {
   Slider,
   Switch,
   Toggle,
+  ToggleGroup,
 };
