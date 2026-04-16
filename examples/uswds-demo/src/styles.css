@@ -1,2 +1,4 @@
 @import "tailwindcss";
 @import "../../../packages/uswds/src/lib/tokens/index.css";
+
+@source "../../../packages/uswds/src/**/*.tsx";
