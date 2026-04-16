@@ -26,6 +26,7 @@ import { Alert as AlertPrimitive } from "./ui/alert";
 import { Progress as ProgressPrimitive } from "./ui/progress";
 import { Skeleton as SkeletonPrimitive } from "./ui/skeleton";
 import { Spinner as SpinnerPrimitive } from "./ui/spinner";
+import { Checkbox as CheckboxPrimitive } from "./ui/checkbox";
 import {
   Select as SelectRoot,
   SelectTrigger,
@@ -378,6 +379,33 @@ function Spinner(all: SpinnerAdapterProps) {
   );
 }
 
+// ── Checkbox ───────────────────────────────────────────────────────────
+type CheckboxAdapterProps = Partial<UswdsProps["Checkbox"]> &
+  Envelope<UswdsProps["Checkbox"]>;
+
+function Checkbox(all: CheckboxAdapterProps) {
+  const { props: envelopeProps, children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) } as {
+    label?: string | null;
+    hint?: string | null;
+    name?: string | null;
+    checked?: boolean | null;
+    disabled?: boolean | null;
+    className?: string | null;
+  };
+
+  return (
+    <CheckboxPrimitive
+      label={p.label ?? undefined}
+      hint={p.hint ?? undefined}
+      name={p.name ?? undefined}
+      defaultChecked={p.checked ?? false}
+      disabled={p.disabled ?? false}
+      className={p.className ?? undefined}
+    />
+  );
+}
+
 // ── Select ─────────────────────────────────────────────────────────────
 type SelectAdapterProps = Partial<UswdsProps["Select"]> &
   Envelope<UswdsProps["Select"]>;
@@ -579,6 +607,7 @@ export const uswdsComponents: Record<string, ComponentType<any>> = {
   Skeleton,
   Spinner,
   Table,
+  Checkbox,
   Select,
   Textarea,
   Input,

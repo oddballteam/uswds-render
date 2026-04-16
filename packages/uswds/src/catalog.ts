@@ -185,6 +185,19 @@ export const uswdsComponentDefinitions = {
       "USWDS table (usa-table). Children are TableHeader/TableBody rows.",
     example: { caption: "Users", striped: true },
   },
+  Checkbox: {
+    props: z.object({
+      label: z.string().nullish(),
+      hint: z.string().nullish(),
+      name: z.string().nullish(),
+      checked: z.boolean().nullish(),
+      disabled: z.boolean().nullish(),
+      className: z.string().nullish(),
+    }),
+    description:
+      "USWDS checkbox (usa-checkbox). Uses @radix-ui/react-checkbox.",
+    example: { label: "Subscribe" },
+  },
   Select: {
     props: z.object({
       label: z.string().nullish(),
