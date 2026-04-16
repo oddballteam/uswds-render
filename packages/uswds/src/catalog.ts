@@ -173,6 +173,18 @@ export const uswdsComponentDefinitions = {
     description: "Loading spinner",
     example: { size: "md" },
   },
+  Table: {
+    props: z.object({
+      caption: z.string().nullish(),
+      striped: z.boolean().nullish(),
+      borderless: z.boolean().nullish(),
+      className: z.string().nullish(),
+    }),
+    slots: ["default"],
+    description:
+      "USWDS table (usa-table). Children are TableHeader/TableBody rows.",
+    example: { caption: "Users", striped: true },
+  },
 } satisfies Record<string, ComponentDefinition>;
 
 export type UswdsProps = {

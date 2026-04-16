@@ -26,6 +26,15 @@ import { Alert as AlertPrimitive } from "./ui/alert";
 import { Progress as ProgressPrimitive } from "./ui/progress";
 import { Skeleton as SkeletonPrimitive } from "./ui/skeleton";
 import { Spinner as SpinnerPrimitive } from "./ui/spinner";
+import {
+  Table as TablePrimitive,
+  TableHeader as TableHeaderPrimitive,
+  TableBody as TableBodyPrimitive,
+  TableRow as TableRowPrimitive,
+  TableHead as TableHeadPrimitive,
+  TableCell as TableCellPrimitive,
+  TableCaption as TableCaptionPrimitive,
+} from "./ui/table";
 import { cn } from "./lib/cn";
 import type { UswdsProps } from "./catalog";
 
@@ -358,6 +367,26 @@ function Spinner(all: SpinnerAdapterProps) {
   );
 }
 
+// ── Table ──────────────────────────────────────────────────────────────
+type TableAdapterProps = Partial<UswdsProps["Table"]> &
+  Envelope<UswdsProps["Table"]>;
+
+function Table(all: TableAdapterProps) {
+  const { props: envelopeProps, children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  return (
+    <TablePrimitive
+      striped={p.striped ?? false}
+      borderless={p.borderless ?? false}
+      className={p.className ?? undefined}
+    >
+      {p.caption && <TableCaptionPrimitive>{p.caption}</TableCaptionPrimitive>}
+      {children}
+    </TablePrimitive>
+  );
+}
+
 export const uswdsComponents: Record<string, ComponentType<any>> = {
   Button,
   Card,
@@ -373,4 +402,5 @@ export const uswdsComponents: Record<string, ComponentType<any>> = {
   Progress,
   Skeleton,
   Spinner,
+  Table,
 };
