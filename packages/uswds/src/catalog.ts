@@ -185,6 +185,26 @@ export const uswdsComponentDefinitions = {
       "USWDS table (usa-table). Children are TableHeader/TableBody rows.",
     example: { caption: "Users", striped: true },
   },
+  Select: {
+    props: z.object({
+      label: z.string().nullish(),
+      hint: z.string().nullish(),
+      error: z.string().nullish(),
+      placeholder: z.string().nullish(),
+      options: z
+        .array(z.object({ value: z.string(), label: z.string() }))
+        .nullish(),
+      value: z.string().nullish(),
+      disabled: z.boolean().nullish(),
+      className: z.string().nullish(),
+    }),
+    description:
+      "USWDS select (usa-select). Uses @radix-ui/react-select for behavior.",
+    example: {
+      label: "State",
+      options: [{ value: "va", label: "Virginia" }],
+    },
+  },
   Textarea: {
     props: z.object({
       placeholder: z.string().nullish(),

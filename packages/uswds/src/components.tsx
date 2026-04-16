@@ -26,6 +26,13 @@ import { Alert as AlertPrimitive } from "./ui/alert";
 import { Progress as ProgressPrimitive } from "./ui/progress";
 import { Skeleton as SkeletonPrimitive } from "./ui/skeleton";
 import { Spinner as SpinnerPrimitive } from "./ui/spinner";
+import {
+  Select as SelectRoot,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "./ui/select";
 import { Input as InputPrimitive } from "./ui/input";
 import { Textarea as TextareaPrimitive } from "./ui/textarea";
 import { ButtonGroup as ButtonGroupPrimitive } from "./ui/button-group";
@@ -371,6 +378,63 @@ function Spinner(all: SpinnerAdapterProps) {
   );
 }
 
+// ── Select ─────────────────────────────────────────────────────────────
+type SelectAdapterProps = Partial<UswdsProps["Select"]> &
+  Envelope<UswdsProps["Select"]>;
+
+function Select(all: SelectAdapterProps) {
+  const { props: envelopeProps, children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) } as {
+    label?: string | null;
+    hint?: string | null;
+    error?: string | null;
+    placeholder?: string | null;
+    options?: Array<{ value: string; label: string }> | null;
+    value?: string | null;
+    disabled?: boolean | null;
+    className?: string | null;
+  };
+
+  const selectId = React.useId();
+  const options = p.options ?? [];
+
+  return (
+    <div className={cn(p.error && "border-l-4 border-error-dark pl-3", p.className ?? undefined)}>
+      {p.label && (
+        <label
+          id={`${selectId}-label`}
+          className="block font-bold font-sans text-ink mb-1"
+        >
+          {p.label}
+        </label>
+      )}
+      {p.hint && (
+        <span className="block text-sm text-base-dark mb-1">{p.hint}</span>
+      )}
+      {p.error && (
+        <span className="text-error-dark font-bold text-sm mt-1 block">
+          {p.error}
+        </span>
+      )}
+      <SelectRoot
+        defaultValue={p.value ?? undefined}
+        disabled={p.disabled ?? false}
+      >
+        <SelectTrigger aria-labelledby={p.label ? `${selectId}-label` : undefined}>
+          <SelectValue placeholder={p.placeholder ?? "Select..."} />
+        </SelectTrigger>
+        <SelectContent>
+          {options.map((opt) => (
+            <SelectItem key={opt.value} value={opt.value}>
+              {opt.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </SelectRoot>
+    </div>
+  );
+}
+
 // ── Textarea ───────────────────────────────────────────────────────────
 type TextareaAdapterProps = Partial<UswdsProps["Textarea"]> &
   Envelope<UswdsProps["Textarea"]>;
@@ -515,6 +579,7 @@ export const uswdsComponents: Record<string, ComponentType<any>> = {
   Skeleton,
   Spinner,
   Table,
+  Select,
   Textarea,
   Input,
   ButtonGroup,
