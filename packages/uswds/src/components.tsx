@@ -16,6 +16,11 @@ import { Separator as SeparatorPrimitive } from "./ui/separator";
 import { Heading as HeadingPrimitive } from "./ui/heading";
 import { Text as TextPrimitive } from "./ui/text";
 import { Image as ImagePrimitive } from "./ui/image";
+import {
+  Avatar as AvatarPrimitive,
+  AvatarImage,
+  AvatarFallback,
+} from "./ui/avatar";
 import { cn } from "./lib/cn";
 import type { UswdsProps } from "./catalog";
 
@@ -216,6 +221,31 @@ function Image(all: ImageAdapterProps) {
   );
 }
 
+// ── Avatar ──────────────────────────────────────────────────────────────
+type AvatarAdapterProps = Partial<UswdsProps["Avatar"]> &
+  Envelope<UswdsProps["Avatar"]>;
+
+function Avatar(all: AvatarAdapterProps) {
+  const { props: envelopeProps, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) } as {
+    src?: string | null;
+    alt?: string | null;
+    fallback?: string | null;
+    size?: "sm" | "md" | "lg" | null;
+    className?: string | null;
+  };
+
+  const sizeClass =
+    p.size === "sm" ? "size-6" : p.size === "lg" ? "size-14" : "size-10";
+
+  return (
+    <AvatarPrimitive className={cn(sizeClass, p.className ?? undefined)}>
+      {p.src ? <AvatarImage src={p.src} alt={p.alt ?? ""} /> : null}
+      <AvatarFallback>{p.fallback ?? ""}</AvatarFallback>
+    </AvatarPrimitive>
+  );
+}
+
 export const uswdsComponents: Record<string, ComponentType<any>> = {
   Button,
   Card,
@@ -225,4 +255,5 @@ export const uswdsComponents: Record<string, ComponentType<any>> = {
   Heading,
   Text,
   Image,
+  Avatar,
 };

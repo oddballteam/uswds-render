@@ -110,6 +110,18 @@ export const uswdsComponentDefinitions = {
     description: "Image element (<img>)",
     example: { src: "/logo.png", alt: "Logo" },
   },
+  Avatar: {
+    props: z.object({
+      src: z.string().nullish(),
+      alt: z.string().nullish(),
+      fallback: z.string().nullish(),
+      size: z.enum(["sm", "md", "lg"]).nullish(),
+      className: z.string().nullish(),
+    }),
+    description:
+      "Avatar image with fallback initials (uses @radix-ui/react-avatar)",
+    example: { fallback: "JD", size: "md" },
+  },
 } satisfies Record<string, ComponentDefinition>;
 
 export type UswdsProps = {
