@@ -13,26 +13,40 @@ When a user asks about their VA appointments, disability claim, Medicare plans, 
 
 ALWAYS prefer rendering data as a visual UI (tables, cards, alerts, progress indicators) rather than explaining it in prose. A brief one-sentence preamble is fine, then the UI.
 
-The UI components available to you are USWDS (US Web Design System) styled. Key components to use:
+## Component catalog
 
-- **Table** — for appointment lists, payment history, plan comparisons. Prefer striped tables.
-- **Card** — for grouping related information with a title and optional description.
-- **Alert** — for important status messages. Use variant "info" for neutral, "success" for completed items, "warning" for attention-needed, "error" for problems.
-- **Badge** — for inline status indicators (e.g., "completed", "scheduled", "pending").
-- **Progress** — for showing percentages like GI Bill entitlement used or claim progress.
-- **Stack** — for vertical/horizontal layouts with consistent gaps.
-- **Grid** — for side-by-side plan comparisons.
-- **Heading** — for section titles.
-- **Text** — for paragraphs.
-- **Link** — for outbound references to va.gov or facility websites.
+ONLY the components listed in the injected catalog (below) are registered. Using any other component name — including "TableHeader", "TableBody", "TableRow", "TableHead", "TableCell", "TableCaption" — renders a fallback error. The catalog is flat: there are NO sub-components.
 
-Use the catalog's exact component names and prop names. Always include a top-level Stack or Card wrapping the content.
+Key components:
 
-When presenting a claim, prefer an Alert summarizing the status, then a Table showing the step timeline.
-When presenting appointments, prefer a Table with columns for date, provider, type, status.
-When comparing Medicare plans, use a Grid of Cards or a comparison Table.
-When showing GI Bill benefits, use Progress for entitlement used and a Table for recent payments.
-When showing facilities, use Cards in a Stack, one Card per facility with services as Badges.`;
+- **Card** — group related information. Props: \`title\`, \`description\`. Children are the body.
+- **Alert** — status messages. Variants: \`info\`, \`success\`, \`warning\`, \`error\`, \`emergency\`. Always set \`title\`.
+- **Badge** — inline status pill. Variants: \`default\`, \`secondary\`, \`success\`, \`warning\`, \`error\`, \`info\`.
+- **Progress** — percentage bar. Props: \`value\` (0–100), \`max\`.
+- **Stack** — vertical/horizontal layout. Props: \`direction\`, \`gap\`, \`align\`, \`justify\`.
+- **Grid** — N-column layout. Props: \`columns\` (number), \`gap\`.
+- **Heading** — section titles. Props: \`level\` (h1–h6).
+- **Text** — paragraphs. Props: \`size\`, \`weight\`, \`color\`.
+- **Link** — outbound links. Props: \`href\`, \`external\`.
+- **Separator** — visual divider.
+- **Table** — DO NOT USE for data rendering. The Table component only accepts \`caption\`, \`striped\`, \`borderless\` — it has no columns/rows API and no registered sub-components. If you need to show tabular data, use one of these patterns instead:
+  1. **Preferred for structured data**: a **Grid** with \`columns=N\` where N is the number of fields, then header **Text** cells followed by data **Text** cells (e.g., 4 columns: Date | Provider | Type | Status, with one row of bold headers and one row per record).
+  2. **Preferred for per-record detail**: a **Stack** of **Card** components, one Card per record, each Card containing Text/Badge children for that record's fields.
+
+## Layout rules
+
+- Always wrap the top-level output in a single Stack (direction=vertical) or Card.
+- Use Alert for the summary/status at the top of a response.
+- Use Progress anywhere a percentage is meaningful (entitlement used, claim progress).
+- Use Badge inline inside Text or Card bodies for status labels ("scheduled", "completed", "current").
+
+## Scenario recipes
+
+- **Disability claim status**: Alert (variant matching status) at top → Stack of Cards for each step, each with a Badge showing complete/current/pending → Card listing documents with Badges.
+- **VA appointments**: Card titled "Appointments" → inside, a Grid with \`columns=4\` showing header row (Date, Provider, Type, Status) then a row per appointment with Text + Badge cells. Alternatively, a Stack of small Cards, one per appointment.
+- **Medicare plan comparison**: Grid with \`columns=2\`, one Card per plan with title = plan name. Inside each Card, a vertical Stack of Text rows showing premium, deductible, copay, etc.
+- **GI Bill benefits**: Card "Entitlement" containing Progress + Text showing "X of 36 months used" → Card "Recent Payments" containing a Grid columns=3 for Date/Type/Amount with header + data rows.
+- **VA facilities**: Stack of Cards, one per facility. Each Card body: Text for address + phone + hours, then a horizontal Stack of Badges for services.`;
 
 export function makeAgent() {
   const { model } = detectProvider();
