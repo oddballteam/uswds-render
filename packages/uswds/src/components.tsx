@@ -11,6 +11,7 @@ import {
   CardTitle,
 } from "./ui/card";
 import { Stack as StackPrimitive } from "./ui/stack";
+import { Grid as GridPrimitive } from "./ui/grid";
 import { cn } from "./lib/cn";
 import type { UswdsProps } from "./catalog";
 
@@ -109,8 +110,28 @@ function Stack(all: StackAdapterProps) {
   );
 }
 
+// ── Grid ────────────────────────────────────────────────────────────────
+type GridAdapterProps = Partial<UswdsProps["Grid"]> &
+  Envelope<UswdsProps["Grid"]>;
+
+function Grid(all: GridAdapterProps) {
+  const { props: envelopeProps, children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  return (
+    <GridPrimitive
+      columns={p.columns ?? 1}
+      gap={p.gap ?? "md"}
+      className={p.className ?? undefined}
+    >
+      {children}
+    </GridPrimitive>
+  );
+}
+
 export const uswdsComponents: Record<string, ComponentType<any>> = {
   Button,
   Card,
   Stack,
+  Grid,
 };

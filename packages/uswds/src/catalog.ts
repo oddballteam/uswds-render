@@ -59,6 +59,16 @@ export const uswdsComponentDefinitions = {
     description: "Flex container for layouts",
     example: { direction: "vertical", gap: "md" },
   },
+  Grid: {
+    props: z.object({
+      columns: z.number().nullish(),
+      gap: z.enum(["sm", "md", "lg", "xl"]).nullish(),
+      className: z.string().nullish(),
+    }),
+    slots: ["default"],
+    description: "Grid layout (1-12 columns), built on USWDS grid-row/grid-col",
+    example: { columns: 3, gap: "md" },
+  },
 } satisfies Record<string, ComponentDefinition>;
 
 export type UswdsProps = {
