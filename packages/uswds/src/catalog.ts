@@ -149,6 +149,15 @@ export const uswdsComponentDefinitions = {
       "USWDS alert (usa-alert). Variants: info/success/warning/error/emergency.",
     example: { variant: "info", title: "Heads up" },
   },
+  Progress: {
+    props: z.object({
+      value: z.number().nullish(),
+      max: z.number().nullish(),
+      className: z.string().nullish(),
+    }),
+    description: "Progress bar (uses @radix-ui/react-progress)",
+    example: { value: 40 },
+  },
 } satisfies Record<string, ComponentDefinition>;
 
 export type UswdsProps = {

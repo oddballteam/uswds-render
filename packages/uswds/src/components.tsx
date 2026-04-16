@@ -23,6 +23,7 @@ import {
 } from "./ui/avatar";
 import { Badge as BadgePrimitive } from "./ui/badge";
 import { Alert as AlertPrimitive } from "./ui/alert";
+import { Progress as ProgressPrimitive } from "./ui/progress";
 import { cn } from "./lib/cn";
 import type { UswdsProps } from "./catalog";
 
@@ -302,6 +303,27 @@ function Alert(all: AlertAdapterProps) {
   );
 }
 
+// ── Progress ────────────────────────────────────────────────────────────
+type ProgressAdapterProps = Partial<UswdsProps["Progress"]> &
+  Envelope<UswdsProps["Progress"]>;
+
+function Progress(all: ProgressAdapterProps) {
+  const { props: envelopeProps, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) } as {
+    value?: number | null;
+    max?: number | null;
+    className?: string | null;
+  };
+
+  return (
+    <ProgressPrimitive
+      value={p.value ?? 0}
+      max={p.max ?? 100}
+      className={p.className ?? undefined}
+    />
+  );
+}
+
 export const uswdsComponents: Record<string, ComponentType<any>> = {
   Button,
   Card,
@@ -314,4 +336,5 @@ export const uswdsComponents: Record<string, ComponentType<any>> = {
   Avatar,
   Badge,
   Alert,
+  Progress,
 };
