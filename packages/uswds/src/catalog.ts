@@ -311,6 +311,17 @@ export const uswdsComponentDefinitions = {
       "Range slider (uses @radix-ui/react-slider). No USWDS analogue.",
     example: { label: "Volume", min: 0, max: 100, value: 50 },
   },
+  Collapsible: {
+    props: z.object({
+      open: z.boolean().nullish(),
+      title: z.string().nullish(),
+      className: z.string().nullish(),
+    }),
+    slots: ["default"],
+    description:
+      "Single collapsible section (uses @radix-ui/react-collapsible).",
+    example: { title: "Details" },
+  },
   Accordion: {
     props: z.object({
       type: z.enum(["single", "multiple"]).nullish(),

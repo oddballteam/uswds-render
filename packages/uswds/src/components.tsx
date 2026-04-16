@@ -40,6 +40,11 @@ import { Textarea as TextareaPrimitive } from "./ui/textarea";
 import { ButtonGroup as ButtonGroupPrimitive } from "./ui/button-group";
 import { Link as LinkPrimitive } from "./ui/link";
 import {
+  Collapsible as CollapsibleRoot,
+  CollapsibleTrigger,
+  CollapsibleContent,
+} from "./ui/collapsible";
+import {
   Accordion as AccordionRoot,
   AccordionItem,
   AccordionTrigger,
@@ -698,6 +703,29 @@ function Slider(all: SliderAdapterProps) {
   );
 }
 
+// ── Collapsible ────────────────────────────────────────────────────────
+type CollapsibleAdapterProps = Partial<UswdsProps["Collapsible"]> &
+  Envelope<UswdsProps["Collapsible"]>;
+
+function Collapsible(all: CollapsibleAdapterProps) {
+  const { props: envelopeProps, children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) } as {
+    open?: boolean | null;
+    title?: string | null;
+    className?: string | null;
+  };
+
+  return (
+    <CollapsibleRoot
+      defaultOpen={p.open ?? false}
+      className={p.className ?? undefined}
+    >
+      <CollapsibleTrigger>{p.title ?? "Toggle"}</CollapsibleTrigger>
+      <CollapsibleContent>{children}</CollapsibleContent>
+    </CollapsibleRoot>
+  );
+}
+
 // ── Accordion ──────────────────────────────────────────────────────────
 type AccordionAdapterProps = Partial<UswdsProps["Accordion"]> &
   Envelope<UswdsProps["Accordion"]>;
@@ -851,4 +879,5 @@ export const uswdsComponents: Record<string, ComponentType<any>> = {
   Toggle,
   ToggleGroup,
   Accordion,
+  Collapsible,
 };
