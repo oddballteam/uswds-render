@@ -11,5 +11,5 @@
     "outDir": "dist",
     "lib": ["ES2022", "DOM", "DOM.Iterable"]
   },
-  "include": ["src"]
+  "include": ["src", "tests", "vitest.config.ts", "vitest-env.d.ts"]
 }

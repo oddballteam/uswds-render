@@ -1,17 +1,20 @@
+import { uswdsComponents } from "@oddball/json-render-uswds";
+
+const UswdsText = uswdsComponents.Text;
+const UswdsLink = uswdsComponents.Link;
+
 export function OddballBanner() {
   return (
-    <div className="w-full border-b border-zinc-200 bg-zinc-50 px-4 py-1.5 text-xs text-zinc-700 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300">
-      <div className="mx-auto flex max-w-6xl items-center gap-2">
-        <span>An</span>
-        <a
+    <div className="w-full border-b-2 border-base-light bg-white px-4 py-2 text-sm sm:px-6">
+      <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-1 gap-y-1 font-sans text-green-50v">
+        <UswdsText as="span" size="sm" color="muted" className="!text-green-50v" text="An" />
+        <UswdsLink
           href="https://oddball.io"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="font-semibold text-sky-700 underline-offset-2 hover:underline dark:text-sky-400"
-        >
-          Oddball Labs
-        </a>
-        <span>product</span>
+          external
+          label="Oddball Labs"
+          className="font-semibold text-green underline-offset-2 hover:underline"
+        />
+        <UswdsText as="span" size="sm" color="muted" className="!text-green-50v" text="product" />
       </div>
     </div>
   );

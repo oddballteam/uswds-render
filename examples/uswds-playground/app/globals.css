@@ -10,15 +10,17 @@
 @theme inline {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  /* playground chrome accent — USWDS green-50v */
+  --color-green: var(--color-green-50v);
 }
 
 html, body { height: 100%; }
 body {
   font-family: var(--font-sans);
   background: white;
-  color: #1b1b1b;
+  color: var(--color-ink);
 }
 .dark body {
-  background: #111827;
-  color: #e5e7eb;
+  background: var(--color-gray-90);
+  color: var(--color-gray-5);
 }

@@ -2,7 +2,12 @@
 
 import { useState } from "react";
 import type { Spec } from "@json-render/react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@oddball/json-render-uswds";
 import { PlaygroundRenderer } from "@/lib/render/renderer";
 
 interface SpecViewerProps {
@@ -16,9 +21,13 @@ export function SpecViewer({ spec, loading }: SpecViewerProps) {
   if (!spec) return null;
 
   return (
-    <div className="overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-800">
-      <Tabs value={tab} onValueChange={(v) => setTab(v as "preview" | "code")}>
-        <TabsList className="w-full justify-start rounded-none border-b bg-zinc-50 px-2 dark:bg-zinc-900">
+    <div className="overflow-hidden rounded-lg border-2 border-base-light bg-gray-1 font-sans text-ink shadow-sm">
+      <Tabs
+        value={tab}
+        onValueChange={(v) => setTab(v as "preview" | "code")}
+        className="w-full"
+      >
+        <TabsList className="w-full justify-start rounded-none border-b-2 border-base-light bg-base-lightest px-2">
           <TabsTrigger value="preview">Preview</TabsTrigger>
           <TabsTrigger value="code">Code</TabsTrigger>
         </TabsList>
@@ -26,7 +35,7 @@ export function SpecViewer({ spec, loading }: SpecViewerProps) {
           <PlaygroundRenderer spec={spec} loading={loading} />
         </TabsContent>
         <TabsContent value="code" className="m-0">
-          <pre className="overflow-x-auto bg-zinc-950 p-4 text-xs text-zinc-100">
+          <pre className="max-h-[min(70vh,32rem)] overflow-x-auto overflow-y-auto border-t-0 bg-base-lightest p-4 font-mono text-xs leading-relaxed text-primary-darker">
             <code>{JSON.stringify(spec, null, 2)}</code>
           </pre>
         </TabsContent>

@@ -1,5 +1,5 @@
-import { describe, expect, it } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { describe, expect, it, vi } from "vitest";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { axe } from "jest-axe";
 import { uswdsComponents } from "../../src/components";
 
@@ -17,5 +17,22 @@ describe("Input", () => {
       <Input label="Name" placeholder="Jane Doe" type="text" />,
     );
     expect(await axe(container)).toHaveNoViolations();
+  });
+
+  it("supports controlled value with onChange", () => {
+    const onChange = vi.fn();
+    render(
+      <Input
+        label="Name"
+        placeholder="Jane Doe"
+        type="text"
+        value="a"
+        onChange={onChange}
+      />,
+    );
+    const field = screen.getByLabelText("Name");
+    expect(field).toHaveValue("a");
+    fireEvent.change(field, { target: { value: "ab" } });
+    expect(onChange).toHaveBeenCalled();
   });
 });

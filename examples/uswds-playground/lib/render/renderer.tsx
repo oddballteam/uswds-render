@@ -26,7 +26,7 @@ const { registry } = defineRegistry(playgroundCatalog, {
 
 function Fallback({ type }: { type: string }) {
   return (
-    <div className="rounded border border-dashed border-zinc-400 p-2 text-xs text-zinc-500">
+    <div className="rounded border border-dashed border-base-light p-2 text-xs text-base-dark">
       Unknown component: <code>{type}</code>
     </div>
   );
@@ -55,6 +55,36 @@ function isRenderable(spec: Spec): boolean {
   return Object.prototype.hasOwnProperty.call(s.elements, s.root);
 }
 
+// resolveElementProps / resolveBindings in @json-render/core use Object.entries(props).
+// Streamed specs sometimes emit props: null or non-object props; that crashes the renderer.
+function withSafeElementProps(spec: Spec): Spec {
+  const s = spec as unknown as {
+    elements?: Record<string, { props?: unknown } & Record<string, unknown>>;
+  };
+  const els = s.elements;
+  if (!els || typeof els !== "object") return spec;
+
+  let elements = els;
+  let copied = false;
+  const ensureCopy = () => {
+    if (!copied) {
+      elements = { ...els };
+      copied = true;
+    }
+  };
+
+  for (const key of Object.keys(els)) {
+    const el = els[key];
+    if (!el || typeof el !== "object") continue;
+    const p = el.props;
+    if (p !== null && typeof p === "object" && !Array.isArray(p)) continue;
+    ensureCopy();
+    elements[key] = { ...el, props: {} };
+  }
+
+  return copied ? ({ ...spec, elements } as unknown as Spec) : spec;
+}
+
 export function PlaygroundRenderer({
   spec,
   loading,
@@ -63,18 +93,20 @@ export function PlaygroundRenderer({
   if (!isRenderable(spec)) {
     if (loading) {
       return (
-        <div className="p-3 text-xs text-zinc-500">Rendering UI…</div>
+        <div className="p-3 text-xs text-base-dark">Rendering UI…</div>
       );
     }
     return null;
   }
+
+  const safeSpec = withSafeElementProps(spec);
 
   return (
     <StateProvider initialState={{}}>
       <VisibilityProvider>
         <ActionProvider>
           <Renderer
-            spec={spec}
+            spec={safeSpec}
             registry={registry}
             fallback={fallback}
             loading={loading}

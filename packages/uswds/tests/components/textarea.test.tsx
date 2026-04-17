@@ -1,5 +1,5 @@
-import { describe, expect, it } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { describe, expect, it, vi } from "vitest";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { axe } from "jest-axe";
 import { uswdsComponents } from "../../src/components";
 
@@ -19,5 +19,21 @@ describe("Textarea", () => {
       <Textarea label="Comments" placeholder="Enter your comments" />,
     );
     expect(await axe(container)).toHaveNoViolations();
+  });
+
+  it("supports controlled value with onChange", () => {
+    const onChange = vi.fn();
+    render(
+      <Textarea
+        label="Comments"
+        placeholder="Enter your comments"
+        value="hello"
+        onChange={onChange}
+      />,
+    );
+    const field = screen.getByLabelText("Comments");
+    expect(field).toHaveValue("hello");
+    fireEvent.change(field, { target: { value: "hello!" } });
+    expect(onChange).toHaveBeenCalled();
   });
 });

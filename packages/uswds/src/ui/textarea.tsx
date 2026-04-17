@@ -42,7 +42,7 @@ function Textarea({
         data-slot="textarea"
         id={textareaId}
         rows={rows ?? 3}
-        className="block w-full max-w-md border border-base-dark rounded-md px-3 py-2 text-base font-sans focus-visible:outline-2 focus-visible:outline-primary disabled:bg-base-lighter disabled:cursor-not-allowed min-h-[100px] resize-y"
+        className="block w-full max-w-full border border-base-dark rounded-md px-3 py-2 text-base font-sans focus-visible:outline-2 focus-visible:outline-primary disabled:bg-base-lighter disabled:cursor-not-allowed min-h-[100px] resize-y"
         {...props}
       />
     </div>

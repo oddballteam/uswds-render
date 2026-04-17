@@ -128,6 +128,12 @@ function Button(all: ButtonAdapterProps) {
   const { props: envelopeProps, emit, children, ...rest } = all;
   const p = { ...rest, ...(envelopeProps ?? {}) };
 
+  const rawClick = (p as unknown as { onClick?: unknown }).onClick;
+  const nativeOnClick =
+    !emit && typeof rawClick === "function"
+      ? (rawClick as React.MouseEventHandler<HTMLButtonElement>)
+      : undefined;
+
   const variant = (p.variant ?? "default") as
     | "default"
     | "secondary"
@@ -146,7 +152,7 @@ function Button(all: ButtonAdapterProps) {
       disabled={p.disabled ?? false}
       type={p.type ?? "button"}
       className={p.className ?? undefined}
-      onClick={emit ? () => emit("press") : undefined}
+      onClick={emit ? () => emit("press") : nativeOnClick}
     >
       {children}
     </ButtonPrimitive>
@@ -607,7 +613,25 @@ function Textarea(all: TextareaAdapterProps) {
     value?: string | null;
     rows?: number | null;
     className?: string | null;
+    onChange?: React.ChangeEventHandler<HTMLTextAreaElement> | null;
+    defaultValue?: string | null;
   };
+
+  const controlled = typeof p.onChange === "function";
+
+  const valueProps = controlled
+    ? {
+        value: p.value ?? "",
+        onChange: p.onChange ?? undefined,
+      }
+    : {
+        defaultValue:
+          p.defaultValue !== undefined && p.defaultValue !== null
+            ? (p.defaultValue ?? undefined)
+            : (p.value ?? undefined),
+      };
+
+  const extra = p as { autoFocus?: boolean; id?: string };
 
   return (
     <TextareaPrimitive
@@ -617,9 +641,11 @@ function Textarea(all: TextareaAdapterProps) {
       label={p.label ?? undefined}
       hint={p.hint ?? undefined}
       error={p.error ?? undefined}
-      defaultValue={p.value ?? undefined}
       rows={p.rows ?? 3}
       className={p.className ?? undefined}
+      autoFocus={extra.autoFocus}
+      id={extra.id}
+      {...valueProps}
     />
   );
 }
@@ -640,7 +666,23 @@ function Input(all: InputAdapterProps) {
     error?: string | null;
     value?: string | null;
     className?: string | null;
+    onChange?: React.ChangeEventHandler<HTMLInputElement> | null;
+    defaultValue?: string | null;
   };
+
+  const controlled = typeof p.onChange === "function";
+
+  const valueProps = controlled
+    ? {
+        value: p.value ?? "",
+        onChange: p.onChange ?? undefined,
+      }
+    : {
+        defaultValue:
+          p.defaultValue !== undefined && p.defaultValue !== null
+            ? (p.defaultValue ?? undefined)
+            : (p.value ?? undefined),
+      };
 
   return (
     <InputPrimitive
@@ -651,8 +693,8 @@ function Input(all: InputAdapterProps) {
       label={p.label ?? undefined}
       hint={p.hint ?? undefined}
       error={p.error ?? undefined}
-      defaultValue={p.value ?? undefined}
       className={p.className ?? undefined}
+      {...valueProps}
     />
   );
 }
