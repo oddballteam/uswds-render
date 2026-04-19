@@ -1,35 +1,113 @@
+import * as React from "react";
 import { describe, expect, it } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { axe } from "jest-axe";
 import { uswdsComponents } from "../../src/components";
 
 describe("Table", () => {
-  const Table = uswdsComponents.Table;
+  const Table = uswdsComponents.Table as React.ComponentType<any>;
 
-  const Body = () => (
-    <tbody>
-      <tr>
-        <td>cell</td>
-      </tr>
-    </tbody>
-  );
-
-  it("renders with required props", () => {
+  it("renders table children", () => {
     render(
-      <Table caption="Users">
-        <Body />
-      </Table>,
+      <Table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Jane</td>
+            <td>Active</td>
+          </tr>
+        </tbody>
+      </Table>
     );
-    expect(screen.getByRole("table")).toBeInTheDocument();
-    expect(screen.getByText("Users")).toBeInTheDocument();
+    expect(screen.getByText("Name")).toBeInTheDocument();
+    expect(screen.getByText("Jane")).toBeInTheDocument();
+  });
+
+  it("renders a caption when provided", () => {
+    render(
+      <Table caption="User list">
+        <tbody>
+          <tr>
+            <td>Row</td>
+          </tr>
+        </tbody>
+      </Table>
+    );
+    expect(screen.getByText("User list")).toBeInTheDocument();
+  });
+
+  it("applies usa-table class", () => {
+    const { container } = render(
+      <Table>
+        <tbody>
+          <tr>
+            <td>X</td>
+          </tr>
+        </tbody>
+      </Table>
+    );
+    expect(container.querySelector(".usa-table")).toBeInTheDocument();
+  });
+
+  it("renders striped variant", () => {
+    const { container } = render(
+      <Table striped>
+        <tbody>
+          <tr>
+            <td>X</td>
+          </tr>
+        </tbody>
+      </Table>
+    );
+    expect(container.querySelector(".usa-table--striped")).toBeInTheDocument();
+  });
+
+  it("renders compact variant", () => {
+    const { container } = render(
+      <Table compact>
+        <tbody>
+          <tr>
+            <td>X</td>
+          </tr>
+        </tbody>
+      </Table>
+    );
+    expect(container.querySelector(".usa-table--compact")).toBeInTheDocument();
   });
 
   it("has no a11y violations", async () => {
     const { container } = render(
-      <Table caption="Users">
-        <Body />
-      </Table>,
+      <Table caption="Test table">
+        <thead>
+          <tr>
+            <th scope="col">Column</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Value</td>
+          </tr>
+        </tbody>
+      </Table>
     );
     expect(await axe(container)).toHaveNoViolations();
+  });
+
+  it("merges envelope props", () => {
+    const { container } = render(
+      <Table props={{ striped: true }}>
+        <tbody>
+          <tr>
+            <td>X</td>
+          </tr>
+        </tbody>
+      </Table>
+    );
+    expect(container.querySelector(".usa-table--striped")).toBeInTheDocument();
   });
 });

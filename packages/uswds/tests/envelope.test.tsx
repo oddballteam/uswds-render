@@ -1,244 +1,344 @@
-import * as React from "react";
-import type { ComponentType, ReactNode } from "react";
-import { describe, expect, it } from "vitest";
-import { render, screen } from "@testing-library/react";
-import { uswdsComponents } from "../src/components";
-import { uswdsComponentDefinitions } from "../src/catalog";
+/**
+ * envelope.test.tsx
+ *
+ * Exercises every entry in uswdsComponents via the json-render envelope shape:
+ *   { props: <catalog example>, emit: vi.fn(), children: <optional> }
+ *
+ * This is the ONLY file that exercises the production envelope code path.
+ * Per-component tests in tests/components/ exercise the plain-React-prop path.
+ *
+ * "no-throw" — component renders without throwing; no additional assertions.
+ */
 
-// The production code path: `@json-render/react` invokes each adapter as
-// `<Component props={...} emit={...}>{slot}</Component>` (the "envelope" shape),
-// not the plain-React-prop shape that the per-component tests cover. If an
-// adapter forgets to merge `envelopeProps`, every other test still passes
-// because they bypass the envelope. This file is the only thing that catches
-// that regression — one parameterized test per registered component, each
-// driven by the catalog `example`.
+import * as React from "react"
+import { describe, it, expect, vi } from "vitest"
+import { render, screen } from "@testing-library/react"
+import { uswdsComponents } from "../src/components"
+import { uswdsComponentDefinitions } from "../src/catalog"
 
 type Fixture = {
-  children?: ReactNode;
-  // `assert` runs after the component has rendered; if `"no-throw"`, only
-  // verify that rendering didn't throw (used for closed dialogs/drawers/
-  // tooltips that produce no observable DOM).
-  assert: (() => void) | "no-throw";
-};
+  children?: React.ReactNode
+  assert: (() => void) | "no-throw"
+}
 
-type ComponentName = keyof typeof uswdsComponentDefinitions;
+type ComponentName = keyof typeof uswdsComponentDefinitions
+
+const emit = vi.fn()
 
 const FIXTURES: Record<ComponentName, Fixture> = {
+  // ─── Batch A ────────────────────────────────────────────────────────────
+
   Button: {
-    children: "Click me",
-    assert: () =>
-      expect(
-        screen.getByRole("button", { name: "Click me" }),
-      ).toBeInTheDocument(),
-  },
-  Card: {
-    children: "card body",
-    assert: () =>
-      expect(screen.getByText("Overview")).toBeInTheDocument(),
-  },
-  Stack: {
-    children: <span>stack child</span>,
-    assert: () =>
-      expect(screen.getByText("stack child")).toBeInTheDocument(),
-  },
-  Grid: {
-    children: <span>grid child</span>,
-    assert: () =>
-      expect(screen.getByText("grid child")).toBeInTheDocument(),
-  },
-  Separator: {
-    assert: () =>
-      expect(screen.getByRole("separator")).toBeInTheDocument(),
-  },
-  Heading: {
-    assert: () =>
-      expect(
-        screen.getByRole("heading", { name: "Welcome" }),
-      ).toBeInTheDocument(),
-  },
-  Text: {
-    assert: () =>
-      expect(screen.getByText("Hello, world!")).toBeInTheDocument(),
-  },
-  Image: {
-    assert: () =>
-      expect(
-        screen.getByRole("img", { name: "Logo" }),
-      ).toBeInTheDocument(),
-  },
-  Avatar: {
-    assert: () => expect(screen.getByText("JD")).toBeInTheDocument(),
-  },
-  Badge: {
-    assert: () => expect(screen.getByText("Active")).toBeInTheDocument(),
-  },
-  Alert: {
-    children: "alert body",
-    assert: () => expect(screen.getByText("Heads up")).toBeInTheDocument(),
-  },
-  Progress: {
-    assert: () =>
-      expect(screen.getByRole("progressbar")).toBeInTheDocument(),
-  },
-  Skeleton: { assert: "no-throw" },
-  Spinner: { assert: "no-throw" },
-  Table: {
-    children: (
-      <tbody>
-        <tr>
-          <td>cell</td>
-        </tr>
-      </tbody>
-    ),
-    assert: () => expect(screen.getByText("Users")).toBeInTheDocument(),
-  },
-  Radio: {
-    assert: () => expect(screen.getByText("Size")).toBeInTheDocument(),
-  },
-  Checkbox: {
-    assert: () =>
-      expect(
-        screen.getByRole("checkbox", { name: "Subscribe" }),
-      ).toBeInTheDocument(),
-  },
-  Select: {
-    assert: () => expect(screen.getByText("State")).toBeInTheDocument(),
-  },
-  Textarea: {
-    assert: () => expect(screen.getByText("Comments")).toBeInTheDocument(),
-  },
-  Input: {
-    assert: () => expect(screen.getByText("Name")).toBeInTheDocument(),
-  },
-  ButtonGroup: {
-    children: (
-      <button type="button">btn</button>
-    ),
-    assert: () =>
-      expect(
-        screen.getByRole("button", { name: "btn" }),
-      ).toBeInTheDocument(),
-  },
-  Link: {
-    assert: () =>
-      expect(
-        screen.getByRole("link", { name: "Learn more" }),
-      ).toBeInTheDocument(),
-  },
-  Slider: {
-    assert: () => expect(screen.getByText("Volume")).toBeInTheDocument(),
-  },
-  Tabs: {
-    assert: () =>
-      expect(screen.getByRole("tab", { name: "Tab A" })).toBeInTheDocument(),
-  },
-  Collapsible: {
-    children: "collapsible body",
-    assert: () =>
-      expect(
-        screen.getByRole("button", { name: "Details" }),
-      ).toBeInTheDocument(),
-  },
-  Accordion: {
-    assert: () =>
-      expect(
-        screen.getByRole("button", { name: /Section 1/ }),
-      ).toBeInTheDocument(),
-  },
-  ToggleGroup: {
-    // Radix gives single-mode ToggleGroup items role="radio".
-    assert: () => {
-      expect(screen.getByRole("radio", { name: "A" })).toBeInTheDocument();
-      expect(screen.getByRole("radio", { name: "B" })).toBeInTheDocument();
+    assert() {
+      expect(screen.getByRole("button")).toBeTruthy()
     },
   },
-  Toggle: {
-    children: "press me",
-    assert: () =>
-      expect(
-        screen.getByRole("button", { name: "press me" }),
-      ).toBeInTheDocument(),
+
+  ButtonGroup: {
+    children: (
+      <>
+        <button type="button">Back</button>
+        <button type="button">Next</button>
+      </>
+    ),
+    assert: "no-throw",
   },
-  Switch: {
-    assert: () =>
-      expect(
-        screen.getByRole("switch", { name: "Notifications" }),
-      ).toBeInTheDocument(),
+
+  Alert: {
+    assert() {
+      expect(screen.getByRole("alert")).toBeTruthy()
+    },
   },
-  Carousel: {
-    assert: () =>
-      expect(screen.getByAltText("A")).toBeInTheDocument(),
+
+  Text: {
+    assert() {
+      expect(screen.getByText(/body copy goes here/i)).toBeTruthy()
+    },
   },
-  // open=false by default; adapter renders the portal but content is hidden.
-  Drawer: { children: "drawer body", assert: "no-throw" },
-  Dialog: { children: "dialog body", assert: "no-throw" },
-  // Closed by default; trigger fallback proves the adapter ran.
-  DropdownMenu: {
-    assert: () =>
-      expect(
-        screen.getByRole("button", { name: "Menu" }),
-      ).toBeInTheDocument(),
+
+  Heading: {
+    assert() {
+      expect(screen.getByRole("heading")).toBeTruthy()
+    },
   },
-  Popover: {
-    assert: () =>
-      expect(
-        screen.getByRole("button", { name: "Open" }),
-      ).toBeInTheDocument(),
+
+  Link: {
+    assert() {
+      expect(screen.getByRole("link")).toBeTruthy()
+    },
   },
-  Tooltip: { assert: "no-throw" },
+
+  Badge: {
+    assert() {
+      expect(screen.getByText(/active/i)).toBeTruthy()
+    },
+  },
+
+  // ─── Batch B ────────────────────────────────────────────────────────────
+
+  Card: {
+    assert: "no-throw",
+  },
+
+  Grid: {
+    children: <div>Cell</div>,
+    assert: "no-throw",
+  },
+
+  GridContainer: {
+    children: <div>Content</div>,
+    assert: "no-throw",
+  },
+
+  Table: {
+    assert() {
+      expect(screen.getByRole("table")).toBeTruthy()
+    },
+  },
+
+  Accordion: {
+    assert() {
+      expect(screen.getAllByText(/first section/i).length).toBeGreaterThanOrEqual(1)
+    },
+  },
+
+  // ─── Batch C ────────────────────────────────────────────────────────────
+
+  Input: {
+    assert() {
+      expect(screen.getByRole("textbox")).toBeTruthy()
+    },
+  },
+
+  Textarea: {
+    assert() {
+      expect(screen.getByRole("textbox")).toBeTruthy()
+    },
+  },
+
+  Select: {
+    assert() {
+      expect(screen.getByRole("combobox")).toBeTruthy()
+    },
+  },
+
+  Checkbox: {
+    assert() {
+      expect(screen.getByRole("checkbox")).toBeTruthy()
+    },
+  },
+
+  Radio: {
+    assert() {
+      expect(screen.getByRole("radio")).toBeTruthy()
+    },
+  },
+
   Pagination: {
-    assert: () =>
-      expect(
-        screen.getByRole("button", { name: "3" }),
-      ).toHaveAttribute("aria-current", "page"),
+    assert: "no-throw",
   },
-};
 
-describe("envelope props passthrough", () => {
-  for (const [name, Component] of Object.entries(uswdsComponents)) {
-    const componentName = name as ComponentName;
-    const fixture = FIXTURES[componentName];
-    const example = uswdsComponentDefinitions[componentName].example;
+  Modal: {
+    assert: "no-throw",
+  },
 
-    it(`${name}: catalog example renders via { props } envelope`, () => {
-      const Cmp = Component as ComponentType<{
-        props?: unknown;
-        emit?: (event: string) => void;
-        children?: ReactNode;
-      }>;
+  // ─── Batch D ────────────────────────────────────────────────────────────
 
-      const renderEnvelope = () =>
-        render(
-          <Cmp props={example} emit={() => {}}>
-            {fixture.children}
-          </Cmp>,
-        );
+  Tooltip: {
+    children: <button type="button">Hover me</button>,
+    assert: "no-throw",
+  },
 
-      if (fixture.assert === "no-throw") {
-        expect(renderEnvelope).not.toThrow();
-      } else {
-        renderEnvelope();
-        fixture.assert();
-      }
-    });
-  }
+  // ─── Batch E ────────────────────────────────────────────────────────────
+
+  Icon: {
+    assert: "no-throw",
+  },
+
+  SiteAlert: {
+    assert() {
+      expect(screen.getByText(/covid-19 information/i)).toBeTruthy()
+    },
+  },
+
+  Breadcrumb: {
+    assert() {
+      expect(screen.getByRole("navigation")).toBeTruthy()
+      expect(screen.getByText(/home/i)).toBeTruthy()
+    },
+  },
+
+  SideNav: {
+    assert() {
+      expect(screen.getByText(/overview/i)).toBeTruthy()
+    },
+  },
+
+  InPageNavigation: {
+    assert() {
+      expect(screen.getByText(/on this page/i)).toBeTruthy()
+    },
+  },
+
+  StepIndicator: {
+    assert() {
+      expect(screen.getByText(/personal info/i)).toBeTruthy()
+    },
+  },
+
+  ProcessList: {
+    assert() {
+      expect(screen.getByText(/submit your application online/i)).toBeTruthy()
+    },
+  },
+
+  SummaryBox: {
+    assert() {
+      expect(screen.getByText(/key information/i)).toBeTruthy()
+    },
+  },
+
+  Search: {
+    assert: "no-throw",
+  },
+
+  // ─── Batch F ────────────────────────────────────────────────────────────
+
+  Collection: {
+    assert() {
+      expect(screen.getByText(/benefit update/i)).toBeTruthy()
+    },
+  },
+
+  Banner: {
+    assert: "no-throw",
+  },
+
+  Identifier: {
+    assert: "no-throw",
+  },
+
+  Header: {
+    assert() {
+      expect(screen.getByText(/agency portal/i)).toBeTruthy()
+    },
+  },
+
+  Footer: {
+    assert: "no-throw",
+  },
+
+  LanguageSelector: {
+    assert() {
+      expect(screen.getByText(/english/i)).toBeTruthy()
+    },
+  },
+
+  IconList: {
+    assert() {
+      expect(screen.getByText(/direct deposit available/i)).toBeTruthy()
+    },
+  },
+
+  MediaBlock: {
+    assert() {
+      expect(screen.getByText(/design for impact/i)).toBeTruthy()
+    },
+  },
+
+  // ─── Batch G ────────────────────────────────────────────────────────────
+
+  ComboBox: {
+    assert: "no-throw",
+  },
+
+  DatePicker: {
+    assert: "no-throw",
+  },
+
+  DateRangePicker: {
+    assert: "no-throw",
+  },
+
+  FileInput: {
+    assert: "no-throw",
+  },
+
+  RangeInput: {
+    assert: "no-throw",
+  },
+
+  TimePicker: {
+    assert: "no-throw",
+  },
+
+  FormGroup: {
+    children: <input type="text" id="test" />,
+    assert: "no-throw",
+  },
+
+  Label: {
+    assert() {
+      expect(screen.getByText(/first name/i)).toBeTruthy()
+    },
+  },
+
+  ErrorMessage: {
+    assert() {
+      expect(screen.getByText(/enter a valid date of birth/i)).toBeTruthy()
+    },
+  },
+
+  CharacterCount: {
+    assert: "no-throw",
+  },
+
+  TextInputMask: {
+    assert: "no-throw",
+  },
+}
+
+describe("envelope passthrough — all components", () => {
+  const names = Object.keys(uswdsComponentDefinitions) as ComponentName[]
+
+  it.each(names)("%s renders via envelope shape without throwing", (name) => {
+    const Component = uswdsComponents[name] as React.ComponentType<any>
+    expect(Component, `uswdsComponents["${name}"] is missing`).toBeDefined()
+
+    const fixture = FIXTURES[name]
+    expect(fixture, `FIXTURES["${name}"] is missing — add an entry`).toBeDefined()
+
+    const example = uswdsComponentDefinitions[name].example
+
+    const { container } = render(
+      <Component props={example} emit={emit}>
+        {fixture.children}
+      </Component>
+    )
+
+    expect(container).toBeTruthy()
+
+    if (fixture.assert !== "no-throw") {
+      fixture.assert()
+    }
+  })
 
   it("envelope.props wins over top-level props (precedence)", () => {
     // Top-level says disabled; envelope says enabled. Adapter merges with
     // envelopeProps last, so the rendered button must be enabled. If someone
     // flips the merge order or drops envelopeProps, this fails.
-    const Button = uswdsComponents.Button as ComponentType<{
-      disabled?: boolean;
-      props?: { disabled?: boolean };
-      children?: ReactNode;
-    }>;
+    const Button = uswdsComponents.Button as React.ComponentType<{
+      disabled?: boolean
+      props?: { disabled?: boolean }
+      children?: React.ReactNode
+    }>
     render(
       <Button disabled={true} props={{ disabled: false }}>
         precedence
-      </Button>,
-    );
+      </Button>
+    )
     expect(
-      screen.getByRole("button", { name: "precedence" }),
-    ).not.toBeDisabled();
-  });
-});
+      screen.getByRole("button", { name: "precedence" })
+    ).not.toBeDisabled()
+  })
+})

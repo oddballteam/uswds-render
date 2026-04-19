@@ -11,6 +11,10 @@ export default defineConfig({
         __dirname,
         "../../packages/uswds/src/lib/tokens",
       ),
+      "@trussworks/react-uswds/lib/uswds.css": path.resolve(
+        __dirname,
+        "node_modules/@trussworks/react-uswds/lib/uswds.css",
+      ),
     },
   },
 });

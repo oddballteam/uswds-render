@@ -22,6 +22,7 @@ import { playgroundCatalog } from "./catalog";
 // cast through the catalog-typed Components<C>.
 const { registry } = defineRegistry(playgroundCatalog, {
   components: uswdsComponents as unknown as Components<typeof playgroundCatalog>,
+  actions: {},
 });
 
 function Fallback({ type }: { type: string }) {

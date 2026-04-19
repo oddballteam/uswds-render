@@ -1,128 +1,233 @@
 "use client";
 
 import * as React from "react";
-import type { ComponentType, ReactNode } from "react";
-import { Button as ButtonPrimitive } from "./ui/button";
+import type { ReactNode } from "react";
 import {
-  Card as CardPrimitive,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "./ui/card";
-import { Stack as StackPrimitive } from "./ui/stack";
-import { Grid as GridPrimitive } from "./ui/grid";
-import { Separator as SeparatorPrimitive } from "./ui/separator";
-import { Heading as HeadingPrimitive } from "./ui/heading";
-import { Text as TextPrimitive } from "./ui/text";
-import { Image as ImagePrimitive } from "./ui/image";
-import {
-  Avatar as AvatarPrimitive,
-  AvatarImage,
-  AvatarFallback,
-} from "./ui/avatar";
-import { Badge as BadgePrimitive } from "./ui/badge";
-import { Alert as AlertPrimitive } from "./ui/alert";
-import { Progress as ProgressPrimitive } from "./ui/progress";
-import { Skeleton as SkeletonPrimitive } from "./ui/skeleton";
-import { Spinner as SpinnerPrimitive } from "./ui/spinner";
-import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
-import { Checkbox as CheckboxPrimitive } from "./ui/checkbox";
-import {
-  Select as SelectRoot,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "./ui/select";
-import { Input as InputPrimitive } from "./ui/input";
-import { Textarea as TextareaPrimitive } from "./ui/textarea";
-import { ButtonGroup as ButtonGroupPrimitive } from "./ui/button-group";
-import { Link as LinkPrimitive } from "./ui/link";
-import {
-  Tabs as TabsRoot,
-  TabsList,
-  TabsTrigger,
-  TabsContent,
-} from "./ui/tabs";
-import {
-  Collapsible as CollapsibleRoot,
-  CollapsibleTrigger,
-  CollapsibleContent,
-} from "./ui/collapsible";
-import {
-  Accordion as AccordionRoot,
-  AccordionItem,
-  AccordionTrigger,
-  AccordionContent,
-} from "./ui/accordion";
-import { Switch as SwitchPrimitive } from "./ui/switch";
-import { Slider as SliderPrimitive } from "./ui/slider";
-import { Toggle as TogglePrimitive } from "./ui/toggle";
-import {
-  ToggleGroup as ToggleGroupRoot,
-  ToggleGroupItem,
-} from "./ui/toggle-group";
-import {
-  Table as TablePrimitive,
-  TableHeader as TableHeaderPrimitive,
-  TableBody as TableBodyPrimitive,
-  TableRow as TableRowPrimitive,
-  TableHead as TableHeadPrimitive,
-  TableCell as TableCellPrimitive,
-  TableCaption as TableCaptionPrimitive,
-} from "./ui/table";
-import { Pagination as PaginationPrimitive } from "./ui/pagination";
-import {
-  Carousel as CarouselPrimitive,
-  CarouselContent,
-  CarouselItem,
-  CarouselPrevious,
-  CarouselNext,
-} from "./ui/carousel";
-import {
-  Drawer as DrawerRoot,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerDescription,
-} from "./ui/drawer";
-import {
-  Dialog as DialogRoot,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from "./ui/dialog";
-import {
-  DropdownMenu as DropdownMenuRoot,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-} from "./ui/dropdown-menu";
-import {
-  Popover as PopoverRoot,
-  PopoverTrigger,
-  PopoverContent,
-} from "./ui/popover";
-import {
-  Tooltip as TooltipRoot,
-  TooltipTrigger,
-  TooltipContent,
-  TooltipProvider,
-} from "./ui/tooltip";
-import { cn } from "./lib/cn";
+  Button as _TrussButton,
+  ButtonGroup as _TrussButtonGroup,
+  Alert as _TrussAlert,
+  Tag as _Tag,
+  Link as _TrussLink,
+  Card as _TrussCard,
+  CardBody as _CardBody,
+  Accordion as _TrussAccordion,
+  Table as _TrussTable,
+  TextInput as _TrussTextInput,
+  Select as _TrussSelect,
+  Textarea as _TrussTextarea,
+  Checkbox as _TrussCheckbox,
+  Radio as _TrussRadio,
+  FormGroup as _TrussFormGroup,
+  Label as _TrussLabel,
+  Pagination as _TrussPagination,
+  Tooltip as _TrussTooltip,
+  Grid as _TrussGrid,
+  GridContainer as _TrussGridContainer,
+  Icon as TrussIcon,
+  SiteAlert as _TrussSiteAlert,
+  BreadcrumbBar as _TrussBreadcrumbBar,
+  Breadcrumb as _TrussBreadcrumb,
+  SideNav as _TrussSideNav,
+  InPageNavigation as _TrussInPageNavigation,
+  StepIndicator as _TrussStepIndicator,
+  StepIndicatorStep as _TrussStepIndicatorStep,
+  ProcessList as _TrussProcessList,
+  ProcessListItem as _TrussProcessListItem,
+  SummaryBox as _TrussSummaryBox,
+  SummaryBoxHeading as _TrussSummaryBoxHeading,
+  Search as _TrussSearch,
+  GovBanner as _TrussGovBanner,
+  Collection as _TrussCollection,
+  CollectionItem as _TrussCollectionItem,
+  CollectionHeading as _TrussCollectionHeading,
+  CollectionDescription as _TrussCollectionDescription,
+  CollectionMeta as _TrussCollectionMeta,
+  CollectionMetaItem as _TrussCollectionMetaItem,
+  Identifier as _TrussIdentifier,
+  IdentifierMasthead as _TrussIdentifierMasthead,
+  IdentifierLogos as _TrussIdentifierLogos,
+  IdentifierLogo as _TrussIdentifierLogo,
+  IdentifierIdentity as _TrussIdentifierIdentity,
+  IdentifierLinks as _TrussIdentifierLinks,
+  IdentifierLinkItem as _TrussIdentifierLinkItem,
+  IdentifierLink as _TrussIdentifierLink,
+  IdentifierGov as _TrussIdentifierGov,
+  Header as _TrussHeader,
+  Title as _TrussTitle,
+  NavMenuButton as _TrussNavMenuButton,
+  PrimaryNav as _TrussPrimaryNav,
+  Footer as _TrussFooter,
+  FooterNav as _TrussFooterNav,
+  Logo as _TrussLogo,
+  LanguageSelector as _TrussLanguageSelector,
+  IconList as _TrussIconList,
+  IconListItem as _TrussIconListItem,
+  IconListIcon as _TrussIconListIcon,
+  IconListContent as _TrussIconListContent,
+  MediaBlockBody as _TrussMediaBlockBody,
+  ComboBox as _TrussComboBox,
+  DatePicker as _TrussDatePicker,
+  DateRangePicker as _TrussDateRangePicker,
+  FileInput as _TrussFileInput,
+  RangeInput as _TrussRangeInput,
+  TimePicker as _TrussTimePicker,
+  CharacterCount as _TrussCharacterCount,
+  TextInputMask as _TrussTextInputMask,
+  ErrorMessage as _TrussErrorMessage,
+} from "@trussworks/react-uswds";
 import type { UswdsProps } from "./catalog";
 
-type Envelope<P> = {
+// Truss components return ReactElement; React 18 @types/react expects ReactNode
+// from JSX function components. Cast once here so every usage site is clean.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussButton = _TrussButton as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussButtonGroup = _TrussButtonGroup as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussAlert = _TrussAlert as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const Tag = _Tag as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussLink = _TrussLink as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussCard = _TrussCard as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const CardBody = _CardBody as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussAccordion = _TrussAccordion as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussTable = _TrussTable as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussTextInput = _TrussTextInput as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussSelect = _TrussSelect as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussTextarea = _TrussTextarea as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussCheckbox = _TrussCheckbox as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussRadio = _TrussRadio as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussFormGroup = _TrussFormGroup as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussLabel = _TrussLabel as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussPagination = _TrussPagination as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussTooltip = _TrussTooltip as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussGrid = _TrussGrid as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussGridContainer = _TrussGridContainer as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussSiteAlert = _TrussSiteAlert as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussBreadcrumbBar = _TrussBreadcrumbBar as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussBreadcrumb = _TrussBreadcrumb as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussSideNav = _TrussSideNav as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussInPageNavigation = _TrussInPageNavigation as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussStepIndicator = _TrussStepIndicator as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussStepIndicatorStep = _TrussStepIndicatorStep as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussProcessList = _TrussProcessList as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussProcessListItem = _TrussProcessListItem as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussSummaryBox = _TrussSummaryBox as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussSummaryBoxHeading = _TrussSummaryBoxHeading as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussSearch = _TrussSearch as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussGovBanner = _TrussGovBanner as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussCollection = _TrussCollection as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussCollectionItem = _TrussCollectionItem as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussCollectionHeading = _TrussCollectionHeading as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussCollectionDescription = _TrussCollectionDescription as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussCollectionMeta = _TrussCollectionMeta as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussCollectionMetaItem = _TrussCollectionMetaItem as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussIdentifier = _TrussIdentifier as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussIdentifierMasthead = _TrussIdentifierMasthead as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussIdentifierLogos = _TrussIdentifierLogos as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussIdentifierLogo = _TrussIdentifierLogo as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussIdentifierIdentity = _TrussIdentifierIdentity as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussIdentifierLinks = _TrussIdentifierLinks as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussIdentifierLinkItem = _TrussIdentifierLinkItem as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussIdentifierLink = _TrussIdentifierLink as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussIdentifierGov = _TrussIdentifierGov as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussHeader = _TrussHeader as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussTitle = _TrussTitle as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussNavMenuButton = _TrussNavMenuButton as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussPrimaryNav = _TrussPrimaryNav as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussFooter = _TrussFooter as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussFooterNav = _TrussFooterNav as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussLogo = _TrussLogo as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussLanguageSelector = _TrussLanguageSelector as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussIconList = _TrussIconList as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussIconListItem = _TrussIconListItem as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussIconListIcon = _TrussIconListIcon as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussIconListContent = _TrussIconListContent as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussMediaBlockBody = _TrussMediaBlockBody as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussComboBox = _TrussComboBox as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussDatePicker = _TrussDatePicker as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussDateRangePicker = _TrussDateRangePicker as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussFileInput = _TrussFileInput as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussRangeInput = _TrussRangeInput as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussTimePicker = _TrussTimePicker as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussCharacterCount = _TrussCharacterCount as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussTextInputMask = _TrussTextInputMask as unknown as React.FC<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TrussErrorMessage = _TrussErrorMessage as unknown as React.FC<any>;
+
+export type Envelope<P> = {
   props?: Partial<P>;
   emit?: (event: string) => void;
   children?: ReactNode;
 };
 
-// ── Button ──────────────────────────────────────────────────────────────
-type ButtonAdapterProps = Partial<UswdsProps["Button"]> &
-  Envelope<UswdsProps["Button"]>;
+// ── Button ───────────────────────────────────────────────────────────────────
+type ButtonAdapterProps = Partial<UswdsProps["Button"]> & Envelope<UswdsProps["Button"]>;
 
 function Button(all: ButtonAdapterProps) {
   const { props: envelopeProps, emit, children, ...rest } = all;
@@ -134,1082 +239,1272 @@ function Button(all: ButtonAdapterProps) {
       ? (rawClick as React.MouseEventHandler<HTMLButtonElement>)
       : undefined;
 
-  const variant = (p.variant ?? "default") as
-    | "default"
-    | "secondary"
-    | "outline"
-    | "accent-cool"
-    | "accent-warm"
-    | "base"
-    | "ghost"
-    | "link";
-  const size = (p.size ?? "default") as "default" | "sm" | "lg" | "big";
+  const variant = p.variant ?? "default";
+  const secondary = variant === "secondary";
+  const base = variant === "base";
+  const accentStyle: "cool" | "warm" | undefined =
+    variant === "accent-cool" ? "cool" : variant === "accent-warm" ? "warm" : undefined;
+  const outline = variant === "outline";
+  const unstyled = variant === "unstyled";
 
   return (
-    <ButtonPrimitive
-      variant={variant}
-      size={size}
-      disabled={p.disabled ?? false}
+    <TrussButton
       type={p.type ?? "button"}
+      secondary={secondary || undefined}
+      base={base || undefined}
+      accentStyle={accentStyle}
+      outline={outline || undefined}
+      unstyled={unstyled || undefined}
+      size={p.size === "big" ? "big" : undefined}
+      disabled={p.disabled ?? false}
       className={p.className ?? undefined}
       onClick={emit ? () => emit("press") : nativeOnClick}
     >
       {children}
-    </ButtonPrimitive>
+    </TrussButton>
   );
 }
 
-// ── Card ────────────────────────────────────────────────────────────────
-type CardAdapterProps = Partial<UswdsProps["Card"]> &
-  Envelope<UswdsProps["Card"]>;
-
-function Card(all: CardAdapterProps) {
-  const { props: envelopeProps, children, ...rest } = all;
-  const p = { ...rest, ...(envelopeProps ?? {}) };
-
-  const maxWidthClass =
-    p.maxWidth === "sm"
-      ? "max-w-sm"
-      : p.maxWidth === "md"
-        ? "max-w-md"
-        : p.maxWidth === "lg"
-          ? "max-w-lg"
-          : p.maxWidth === "full"
-            ? "max-w-full"
-            : "";
-  const centeredClass = p.centered ? "mx-auto" : "";
-
-  return (
-    <CardPrimitive
-      className={cn(maxWidthClass, centeredClass, p.className ?? undefined)}
-    >
-      {(p.title || p.description) && (
-        <CardHeader>
-          {p.title && <CardTitle>{p.title}</CardTitle>}
-          {p.description && <CardDescription>{p.description}</CardDescription>}
-        </CardHeader>
-      )}
-      <CardContent>{children}</CardContent>
-    </CardPrimitive>
-  );
-}
-
-// ── Stack ───────────────────────────────────────────────────────────────
-type StackAdapterProps = Partial<UswdsProps["Stack"]> &
-  Envelope<UswdsProps["Stack"]>;
-
-function Stack(all: StackAdapterProps) {
-  const { props: envelopeProps, children, ...rest } = all;
-  const p = { ...rest, ...(envelopeProps ?? {}) };
-
-  return (
-    <StackPrimitive
-      direction={p.direction ?? "vertical"}
-      gap={p.gap ?? "md"}
-      align={p.align ?? undefined}
-      justify={p.justify ?? undefined}
-      className={p.className ?? undefined}
-    >
-      {children}
-    </StackPrimitive>
-  );
-}
-
-// ── Grid ────────────────────────────────────────────────────────────────
-type GridAdapterProps = Partial<UswdsProps["Grid"]> &
-  Envelope<UswdsProps["Grid"]>;
-
-function Grid(all: GridAdapterProps) {
-  const { props: envelopeProps, children, ...rest } = all;
-  const p = { ...rest, ...(envelopeProps ?? {}) };
-
-  return (
-    <GridPrimitive
-      columns={p.columns ?? 1}
-      gap={p.gap ?? "md"}
-      className={p.className ?? undefined}
-    >
-      {children}
-    </GridPrimitive>
-  );
-}
-
-// ── Separator ───────────────────────────────────────────────────────────
-type SeparatorAdapterProps = Partial<UswdsProps["Separator"]> &
-  Envelope<UswdsProps["Separator"]> & { className?: string };
-
-function Separator(all: SeparatorAdapterProps) {
-  const { props: envelopeProps, ...rest } = all;
-  const p = { ...rest, ...(envelopeProps ?? {}) } as {
-    orientation?: "horizontal" | "vertical" | null;
-    className?: string;
-  };
-
-  return (
-    <SeparatorPrimitive
-      orientation={p.orientation ?? "horizontal"}
-      className={p.className ?? undefined}
-    />
-  );
-}
-
-// ── Heading ─────────────────────────────────────────────────────────────
-type HeadingAdapterProps = Partial<UswdsProps["Heading"]> &
-  Envelope<UswdsProps["Heading"]>;
-
-function Heading(all: HeadingAdapterProps) {
-  const { props: envelopeProps, children, ...rest } = all;
-  const p = { ...rest, ...(envelopeProps ?? {}) };
-
-  return (
-    <HeadingPrimitive
-      level={p.level ?? "h2"}
-      className={p.className ?? undefined}
-    >
-      {p.text ?? children}
-    </HeadingPrimitive>
-  );
-}
-
-// ── Text ────────────────────────────────────────────────────────────────
-type TextAdapterProps = Partial<UswdsProps["Text"]> &
-  Envelope<UswdsProps["Text"]>;
-
-function Text(all: TextAdapterProps) {
-  const { props: envelopeProps, children, ...rest } = all;
-  const p = { ...rest, ...(envelopeProps ?? {}) };
-
-  return (
-    <TextPrimitive
-      size={p.size ?? "base"}
-      weight={p.weight ?? "normal"}
-      color={p.color ?? "default"}
-      as={p.as ?? "p"}
-      className={p.className ?? undefined}
-    >
-      {p.text ?? children}
-    </TextPrimitive>
-  );
-}
-
-// ── Image ───────────────────────────────────────────────────────────────
-type ImageAdapterProps = Partial<UswdsProps["Image"]> &
-  Envelope<UswdsProps["Image"]>;
-
-function Image(all: ImageAdapterProps) {
-  const { props: envelopeProps, ...rest } = all;
-  const p = { ...rest, ...(envelopeProps ?? {}) } as {
-    src?: string;
-    alt?: string;
-    width?: number | null;
-    height?: number | null;
-    className?: string;
-  };
-
-  return (
-    <ImagePrimitive
-      src={p.src ?? ""}
-      alt={p.alt ?? ""}
-      width={p.width ?? undefined}
-      height={p.height ?? undefined}
-      className={p.className ?? undefined}
-    />
-  );
-}
-
-// ── Avatar ──────────────────────────────────────────────────────────────
-type AvatarAdapterProps = Partial<UswdsProps["Avatar"]> &
-  Envelope<UswdsProps["Avatar"]>;
-
-function Avatar(all: AvatarAdapterProps) {
-  const { props: envelopeProps, ...rest } = all;
-  const p = { ...rest, ...(envelopeProps ?? {}) } as {
-    src?: string | null;
-    alt?: string | null;
-    fallback?: string | null;
-    size?: "sm" | "md" | "lg" | null;
-    className?: string | null;
-  };
-
-  const sizeClass =
-    p.size === "sm" ? "size-6" : p.size === "lg" ? "size-14" : "size-10";
-
-  return (
-    <AvatarPrimitive className={cn(sizeClass, p.className ?? undefined)}>
-      {p.src ? <AvatarImage src={p.src} alt={p.alt ?? ""} /> : null}
-      <AvatarFallback>{p.fallback ?? ""}</AvatarFallback>
-    </AvatarPrimitive>
-  );
-}
-
-// ── Badge ───────────────────────────────────────────────────────────────
-type BadgeAdapterProps = Partial<UswdsProps["Badge"]> &
-  Envelope<UswdsProps["Badge"]>;
-
-function Badge(all: BadgeAdapterProps) {
-  const { props: envelopeProps, children, ...rest } = all;
-  const p = { ...rest, ...(envelopeProps ?? {}) };
-
-  const variant = (p.variant ?? "default") as
-    | "default"
-    | "secondary"
-    | "success"
-    | "warning"
-    | "error"
-    | "info";
-
-  return (
-    <BadgePrimitive
-      variant={variant}
-      className={p.className ?? undefined}
-    >
-      {p.text ?? children}
-    </BadgePrimitive>
-  );
-}
-
-// ── Alert ───────────────────────────────────────────────────────────────
-type AlertAdapterProps = Partial<UswdsProps["Alert"]> &
-  Envelope<UswdsProps["Alert"]>;
-
-function Alert(all: AlertAdapterProps) {
-  const { props: envelopeProps, children, ...rest } = all;
-  const p = { ...rest, ...(envelopeProps ?? {}) };
-
-  const variant = (p.variant ?? "info") as
-    | "info"
-    | "success"
-    | "warning"
-    | "error"
-    | "emergency";
-
-  return (
-    <AlertPrimitive
-      variant={variant}
-      title={p.title ?? undefined}
-      slim={p.slim ?? false}
-      noIcon={p.noIcon ?? false}
-      className={p.className ?? undefined}
-    >
-      {children}
-    </AlertPrimitive>
-  );
-}
-
-// ── Progress ────────────────────────────────────────────────────────────
-type ProgressAdapterProps = Partial<UswdsProps["Progress"]> &
-  Envelope<UswdsProps["Progress"]>;
-
-function Progress(all: ProgressAdapterProps) {
-  const { props: envelopeProps, ...rest } = all;
-  const p = { ...rest, ...(envelopeProps ?? {}) } as {
-    value?: number | null;
-    max?: number | null;
-    className?: string | null;
-  };
-
-  return (
-    <ProgressPrimitive
-      value={p.value ?? 0}
-      max={p.max ?? 100}
-      className={p.className ?? undefined}
-    />
-  );
-}
-
-// ── Skeleton ────────────────────────────────────────────────────────────
-type SkeletonAdapterProps = Partial<UswdsProps["Skeleton"]> &
-  Envelope<UswdsProps["Skeleton"]>;
-
-function Skeleton(all: SkeletonAdapterProps) {
-  const { props: envelopeProps, ...rest } = all;
-  const p = { ...rest, ...(envelopeProps ?? {}) } as {
-    className?: string | null;
-  };
-
-  return <SkeletonPrimitive className={p.className ?? undefined} />;
-}
-
-// ── Spinner ─────────────────────────────────────────────────────────────
-type SpinnerAdapterProps = Partial<UswdsProps["Spinner"]> &
-  Envelope<UswdsProps["Spinner"]>;
-
-function Spinner(all: SpinnerAdapterProps) {
-  const { props: envelopeProps, ...rest } = all;
-  const p = { ...rest, ...(envelopeProps ?? {}) } as {
-    size?: "sm" | "md" | "lg" | null;
-    className?: string | null;
-  };
-
-  return (
-    <SpinnerPrimitive
-      size={p.size ?? "md"}
-      className={p.className ?? undefined}
-    />
-  );
-}
-
-// ── Radio ──────────────────────────────────────────────────────────────
-type RadioAdapterProps = Partial<UswdsProps["Radio"]> &
-  Envelope<UswdsProps["Radio"]>;
-
-function Radio(all: RadioAdapterProps) {
-  const { props: envelopeProps, children, ...rest } = all;
-  const p = { ...rest, ...(envelopeProps ?? {}) } as {
-    label?: string | null;
-    name?: string | null;
-    options?: Array<{ value: string; label: string; hint?: string | null }> | null;
-    value?: string | null;
-    disabled?: boolean | null;
-    className?: string | null;
-  };
-
-  const groupId = React.useId();
-  const options = p.options ?? [];
-
-  return (
-    <div className={p.className ?? undefined}>
-      {p.label && (
-        <span
-          id={`${groupId}-label`}
-          className="block font-bold font-sans text-ink mb-2"
-        >
-          {p.label}
-        </span>
-      )}
-      <RadioGroup
-        defaultValue={p.value ?? undefined}
-        disabled={p.disabled ?? false}
-        aria-labelledby={p.label ? `${groupId}-label` : undefined}
-      >
-        {options.map((opt, idx) => {
-          const itemId = `${groupId}-${idx}`;
-          return (
-            <div key={opt.value} className="flex items-start gap-2">
-              <RadioGroupItem
-                value={opt.value}
-                id={itemId}
-                aria-labelledby={`${itemId}-label`}
-              />
-              <div>
-                <label
-                  id={`${itemId}-label`}
-                  htmlFor={itemId}
-                  className="font-sans text-base text-ink cursor-pointer"
-                >
-                  {opt.label}
-                </label>
-                {opt.hint && (
-                  <span className="text-sm text-base-dark block">
-                    {opt.hint}
-                  </span>
-                )}
-              </div>
-            </div>
-          );
-        })}
-      </RadioGroup>
-    </div>
-  );
-}
-
-// ── Checkbox ───────────────────────────────────────────────────────────
-type CheckboxAdapterProps = Partial<UswdsProps["Checkbox"]> &
-  Envelope<UswdsProps["Checkbox"]>;
-
-function Checkbox(all: CheckboxAdapterProps) {
-  const { props: envelopeProps, children, ...rest } = all;
-  const p = { ...rest, ...(envelopeProps ?? {}) } as {
-    label?: string | null;
-    hint?: string | null;
-    name?: string | null;
-    checked?: boolean | null;
-    disabled?: boolean | null;
-    className?: string | null;
-  };
-
-  return (
-    <CheckboxPrimitive
-      label={p.label ?? undefined}
-      hint={p.hint ?? undefined}
-      name={p.name ?? undefined}
-      defaultChecked={p.checked ?? false}
-      disabled={p.disabled ?? false}
-      className={p.className ?? undefined}
-    />
-  );
-}
-
-// ── Select ─────────────────────────────────────────────────────────────
-type SelectAdapterProps = Partial<UswdsProps["Select"]> &
-  Envelope<UswdsProps["Select"]>;
-
-function Select(all: SelectAdapterProps) {
-  const { props: envelopeProps, children, ...rest } = all;
-  const p = { ...rest, ...(envelopeProps ?? {}) } as {
-    label?: string | null;
-    hint?: string | null;
-    error?: string | null;
-    placeholder?: string | null;
-    options?: Array<{ value: string; label: string }> | null;
-    value?: string | null;
-    disabled?: boolean | null;
-    className?: string | null;
-  };
-
-  const selectId = React.useId();
-  const options = p.options ?? [];
-
-  return (
-    <div className={cn(p.error && "border-l-4 border-error-dark pl-3", p.className ?? undefined)}>
-      {p.label && (
-        <label
-          id={`${selectId}-label`}
-          className="block font-bold font-sans text-ink mb-1"
-        >
-          {p.label}
-        </label>
-      )}
-      {p.hint && (
-        <span className="block text-sm text-base-dark mb-1">{p.hint}</span>
-      )}
-      {p.error && (
-        <span className="text-error-dark font-bold text-sm mt-1 block">
-          {p.error}
-        </span>
-      )}
-      <SelectRoot
-        defaultValue={p.value ?? undefined}
-        disabled={p.disabled ?? false}
-      >
-        <SelectTrigger aria-labelledby={p.label ? `${selectId}-label` : undefined}>
-          <SelectValue placeholder={p.placeholder ?? "Select..."} />
-        </SelectTrigger>
-        <SelectContent>
-          {options.map((opt) => (
-            <SelectItem key={opt.value} value={opt.value}>
-              {opt.label}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </SelectRoot>
-    </div>
-  );
-}
-
-// ── Textarea ───────────────────────────────────────────────────────────
-type TextareaAdapterProps = Partial<UswdsProps["Textarea"]> &
-  Envelope<UswdsProps["Textarea"]>;
-
-function Textarea(all: TextareaAdapterProps) {
-  const { props: envelopeProps, children, ...rest } = all;
-  const p = { ...rest, ...(envelopeProps ?? {}) } as {
-    placeholder?: string | null;
-    disabled?: boolean | null;
-    name?: string | null;
-    label?: string | null;
-    hint?: string | null;
-    error?: string | null;
-    value?: string | null;
-    rows?: number | null;
-    className?: string | null;
-    onChange?: React.ChangeEventHandler<HTMLTextAreaElement> | null;
-    defaultValue?: string | null;
-  };
-
-  const controlled = typeof p.onChange === "function";
-
-  const valueProps = controlled
-    ? {
-        value: p.value ?? "",
-        onChange: p.onChange ?? undefined,
-      }
-    : {
-        defaultValue:
-          p.defaultValue !== undefined && p.defaultValue !== null
-            ? (p.defaultValue ?? undefined)
-            : (p.value ?? undefined),
-      };
-
-  const extra = p as { autoFocus?: boolean; id?: string };
-
-  return (
-    <TextareaPrimitive
-      placeholder={p.placeholder ?? undefined}
-      disabled={p.disabled ?? false}
-      name={p.name ?? undefined}
-      label={p.label ?? undefined}
-      hint={p.hint ?? undefined}
-      error={p.error ?? undefined}
-      rows={p.rows ?? 3}
-      className={p.className ?? undefined}
-      autoFocus={extra.autoFocus}
-      id={extra.id}
-      {...valueProps}
-    />
-  );
-}
-
-// ── Input ──────────────────────────────────────────────────────────────
-type InputAdapterProps = Partial<UswdsProps["Input"]> &
-  Envelope<UswdsProps["Input"]>;
-
-function Input(all: InputAdapterProps) {
-  const { props: envelopeProps, children, ...rest } = all;
-  const p = { ...rest, ...(envelopeProps ?? {}) } as {
-    type?: "text" | "email" | "password" | "tel" | "url" | "number" | "search" | null;
-    placeholder?: string | null;
-    disabled?: boolean | null;
-    name?: string | null;
-    label?: string | null;
-    hint?: string | null;
-    error?: string | null;
-    value?: string | null;
-    className?: string | null;
-    onChange?: React.ChangeEventHandler<HTMLInputElement> | null;
-    defaultValue?: string | null;
-  };
-
-  const controlled = typeof p.onChange === "function";
-
-  const valueProps = controlled
-    ? {
-        value: p.value ?? "",
-        onChange: p.onChange ?? undefined,
-      }
-    : {
-        defaultValue:
-          p.defaultValue !== undefined && p.defaultValue !== null
-            ? (p.defaultValue ?? undefined)
-            : (p.value ?? undefined),
-      };
-
-  return (
-    <InputPrimitive
-      type={p.type ?? "text"}
-      placeholder={p.placeholder ?? undefined}
-      disabled={p.disabled ?? false}
-      name={p.name ?? undefined}
-      label={p.label ?? undefined}
-      hint={p.hint ?? undefined}
-      error={p.error ?? undefined}
-      className={p.className ?? undefined}
-      {...valueProps}
-    />
-  );
-}
-
-// ── ButtonGroup ────────────────────────────────────────────────────────
-type ButtonGroupAdapterProps = Partial<UswdsProps["ButtonGroup"]> &
-  Envelope<UswdsProps["ButtonGroup"]>;
+// ── ButtonGroup ──────────────────────────────────────────────────────────────
+type ButtonGroupAdapterProps = Partial<UswdsProps["ButtonGroup"]> & Envelope<UswdsProps["ButtonGroup"]>;
 
 function ButtonGroup(all: ButtonGroupAdapterProps) {
-  const { props: envelopeProps, children, ...rest } = all;
+  const { props: envelopeProps, emit: _emit, children, ...rest } = all;
   const p = { ...rest, ...(envelopeProps ?? {}) };
 
   return (
-    <ButtonGroupPrimitive
-      orientation={p.orientation ?? "horizontal"}
-      attached={p.attached ?? false}
+    <TrussButtonGroup
+      type={p.type === "segmented" ? "segmented" : "default"}
       className={p.className ?? undefined}
     >
       {children}
-    </ButtonGroupPrimitive>
+    </TrussButtonGroup>
   );
 }
 
-// ── Link ───────────────────────────────────────────────────────────────
-type LinkAdapterProps = Partial<UswdsProps["Link"]> &
-  Envelope<UswdsProps["Link"]>;
+// ── Alert ────────────────────────────────────────────────────────────────────
+type AlertAdapterProps = Partial<UswdsProps["Alert"]> & Envelope<UswdsProps["Alert"]>;
 
-function Link(all: LinkAdapterProps) {
-  const { props: envelopeProps, children, ...rest } = all;
-  const p = { ...rest, ...(envelopeProps ?? {}) } as {
-    label?: string | null;
-    href?: string;
-    external?: boolean | null;
-    className?: string | null;
-  };
+function Alert(all: AlertAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  const rawType = p.type ?? p.variant;
+  const resolvedType: "success" | "warning" | "error" | "info" =
+    rawType === "emergency" ? "error" : (rawType as "success" | "warning" | "error" | "info") ?? "info";
 
   return (
-    <LinkPrimitive
+    <TrussAlert
+      type={resolvedType}
+      heading={p.heading ?? undefined}
+      headingLevel={(p.headingLevel as "h1" | "h2" | "h3" | "h4" | "h5" | "h6") ?? "h4"}
+      slim={p.slim ?? undefined}
+      noIcon={p.noIcon ?? undefined}
+      className={p.className ?? undefined}
+      role="alert"
+    >
+      {children}
+    </TrussAlert>
+  );
+}
+
+// ── Badge (Tag) ───────────────────────────────────────────────────────────────
+type BadgeAdapterProps = Partial<UswdsProps["Badge"]> & Envelope<UswdsProps["Badge"]>;
+
+function Badge(all: BadgeAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  return (
+    <Tag background={p.background ?? undefined} className={p.className ?? undefined}>
+      {p.text ?? children}
+    </Tag>
+  );
+}
+
+// ── Link ──────────────────────────────────────────────────────────────────────
+type LinkAdapterProps = Partial<UswdsProps["Link"]> & Envelope<UswdsProps["Link"]> & { href?: string };
+
+function Link(all: LinkAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  return (
+    <TrussLink
       href={p.href ?? "#"}
-      external={p.external ?? false}
+      variant={p.variant ?? undefined}
       className={p.className ?? undefined}
     >
       {p.label ?? children}
-    </LinkPrimitive>
+    </TrussLink>
   );
 }
 
-// ── Table ──────────────────────────────────────────────────────────────
-type TableAdapterProps = Partial<UswdsProps["Table"]> &
-  Envelope<UswdsProps["Table"]>;
+// ── Card ─────────────────────────────────────────────────────────────────────
+type CardAdapterProps = Partial<UswdsProps["Card"]> & Envelope<UswdsProps["Card"]>;
 
-function Table(all: TableAdapterProps) {
-  const { props: envelopeProps, children, ...rest } = all;
+function Card(all: CardAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children, ...rest } = all;
   const p = { ...rest, ...(envelopeProps ?? {}) };
 
   return (
-    <TablePrimitive
-      striped={p.striped ?? false}
-      borderless={p.borderless ?? false}
+    <TrussCard
+      layout={p.layout ?? "standardDefault"}
+      headerFirst={p.headerFirst ?? undefined}
       className={p.className ?? undefined}
     >
-      {p.caption && <TableCaptionPrimitive>{p.caption}</TableCaptionPrimitive>}
-      {children}
-    </TablePrimitive>
+      <CardBody>{children}</CardBody>
+    </TrussCard>
   );
 }
 
-// ── Slider ─────────────────────────────────────────────────────────────
-type SliderAdapterProps = Partial<UswdsProps["Slider"]> &
-  Envelope<UswdsProps["Slider"]>;
+// ── Heading ───────────────────────────────────────────────────────────────────
+type HeadingAdapterProps = Partial<UswdsProps["Heading"]> & Envelope<UswdsProps["Heading"]>;
 
-function Slider(all: SliderAdapterProps) {
-  const { props: envelopeProps, ...rest } = all;
-  const p = { ...rest, ...(envelopeProps ?? {}) } as {
-    label?: string | null;
-    min?: number | null;
-    max?: number | null;
-    step?: number | null;
-    value?: number | null;
-    disabled?: boolean | null;
-    className?: string | null;
-  };
+function Heading(all: HeadingAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  const level = p.level ?? "h2";
+  const className = ["usa-prose", p.className].filter(Boolean).join(" ");
+  const content = p.text ?? children;
+
+  return React.createElement(level, { className }, content);
+}
+
+// ── Text ──────────────────────────────────────────────────────────────────────
+const TEXT_SIZE_CLASS: Record<string, string> = {
+  xs: "font-sans-xs",
+  sm: "font-sans-sm",
+  base: "font-sans-md",
+  lg: "font-sans-lg",
+  xl: "font-sans-xl",
+};
+
+type TextAdapterProps = Partial<UswdsProps["Text"]> & Envelope<UswdsProps["Text"]>;
+
+function Text(all: TextAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  const tag = p.as ?? "p";
+  const sizeClass = p.size ? TEXT_SIZE_CLASS[p.size] : undefined;
+  const className = [sizeClass, p.className].filter(Boolean).join(" ") || undefined;
+  const content = p.text ?? children;
+
+  return React.createElement(tag, { className }, content);
+}
+
+// ── Accordion ─────────────────────────────────────────────────────────────────
+type AccordionItem = {
+  id: string;
+  title: string;
+  content: string;
+  expanded: boolean;
+  headingLevel?: "h2" | "h3" | "h4" | "h5" | "h6" | null;
+  className?: string | null;
+};
+
+type AccordionAdapterProps = Partial<UswdsProps["Accordion"]> & Envelope<UswdsProps["Accordion"]>;
+
+function Accordion(all: AccordionAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children: _children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  const items = (p.items ?? []) as AccordionItem[];
+  const trussItems = items.map((item) => ({
+    id: item.id,
+    title: item.title as React.ReactNode,
+    content: item.content as React.ReactNode,
+    expanded: item.expanded,
+    headingLevel: (item.headingLevel ?? "h4") as "h2" | "h3" | "h4" | "h5" | "h6",
+    className: item.className ?? undefined,
+  }));
 
   return (
-    <SliderPrimitive
-      label={p.label ?? undefined}
-      min={p.min ?? 0}
-      max={p.max ?? 100}
-      step={p.step ?? 1}
-      value={p.value ?? undefined}
-      disabled={p.disabled ?? false}
+    <TrussAccordion
+      bordered={p.bordered ?? undefined}
+      multiselectable={p.multiselectable ?? undefined}
+      items={trussItems}
       className={p.className ?? undefined}
     />
   );
 }
 
-// ── Tabs ───────────────────────────────────────────────────────────────
-type TabsAdapterProps = Partial<UswdsProps["Tabs"]> &
-  Envelope<UswdsProps["Tabs"]>;
+// ── Table ─────────────────────────────────────────────────────────────────────
+type TableAdapterProps = Partial<UswdsProps["Table"]> & Envelope<UswdsProps["Table"]>;
 
-function Tabs(all: TabsAdapterProps) {
-  const { props: envelopeProps, ...rest } = all;
-  const p = { ...rest, ...(envelopeProps ?? {}) } as {
-    defaultValue?: string | null;
-    items?: Array<{ value: string; title: string; content: string }> | null;
-    className?: string | null;
-  };
-
-  const items = p.items ?? [];
-  const defaultValue = p.defaultValue ?? items[0]?.value;
+function Table(all: TableAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
 
   return (
-    <TabsRoot defaultValue={defaultValue} className={p.className ?? undefined}>
-      <TabsList>
-        {items.map((item) => (
-          <TabsTrigger key={item.value} value={item.value}>
-            {item.title}
-          </TabsTrigger>
-        ))}
-      </TabsList>
-      {items.map((item) => (
-        <TabsContent key={item.value} value={item.value}>
-          {item.content}
-        </TabsContent>
-      ))}
-    </TabsRoot>
-  );
-}
-
-// ── Collapsible ────────────────────────────────────────────────────────
-type CollapsibleAdapterProps = Partial<UswdsProps["Collapsible"]> &
-  Envelope<UswdsProps["Collapsible"]>;
-
-function Collapsible(all: CollapsibleAdapterProps) {
-  const { props: envelopeProps, children, ...rest } = all;
-  const p = { ...rest, ...(envelopeProps ?? {}) } as {
-    open?: boolean | null;
-    title?: string | null;
-    className?: string | null;
-  };
-
-  return (
-    <CollapsibleRoot
-      defaultOpen={p.open ?? false}
+    <TrussTable
+      bordered={p.bordered ?? undefined}
+      caption={p.caption ?? undefined}
+      fullWidth={p.fullWidth ?? undefined}
+      fixed={p.fixed ?? undefined}
+      scrollable={p.scrollable ?? undefined}
+      striped={p.striped ?? undefined}
+      compact={p.compact ?? undefined}
+      stackedStyle={p.stackedStyle ?? undefined}
+      stickyHeader={p.stickyHeader ?? undefined}
       className={p.className ?? undefined}
     >
-      <CollapsibleTrigger>{p.title ?? "Toggle"}</CollapsibleTrigger>
-      <CollapsibleContent>{children}</CollapsibleContent>
-    </CollapsibleRoot>
+      {children}
+    </TrussTable>
   );
 }
 
-// ── Accordion ──────────────────────────────────────────────────────────
-type AccordionAdapterProps = Partial<UswdsProps["Accordion"]> &
-  Envelope<UswdsProps["Accordion"]>;
+// ── Input (TextInput) ─────────────────────────────────────────────────────────
+type InputAdapterProps = Partial<UswdsProps["Input"]> & Envelope<UswdsProps["Input"]>;
 
-function Accordion(all: AccordionAdapterProps) {
-  const { props: envelopeProps, ...rest } = all;
-  const p = { ...rest, ...(envelopeProps ?? {}) } as {
-    type?: "single" | "multiple" | null;
-    items?: Array<{ value: string; title: string; content: string }> | null;
-    bordered?: boolean | null;
-    className?: string | null;
-  };
+function Input(all: InputAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children: _children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
 
-  const items = p.items ?? [];
-  const type = p.type ?? "single";
-  const bordered = p.bordered ?? false;
+  const id = p.id ?? "input";
+  const name = p.name ?? id;
 
-  const rootProps =
-    type === "multiple"
-      ? { type: "multiple" as const }
-      : { type: "single" as const, collapsible: true };
-
-  return (
-    <AccordionRoot {...rootProps} className={p.className ?? undefined}>
-      {items.map((item) => (
-        <AccordionItem key={item.value} value={item.value} bordered={bordered}>
-          <AccordionTrigger>{item.title}</AccordionTrigger>
-          <AccordionContent>{item.content}</AccordionContent>
-        </AccordionItem>
-      ))}
-    </AccordionRoot>
-  );
-}
-
-// ── ToggleGroup ────────────────────────────────────────────────────────
-type ToggleGroupAdapterProps = Partial<UswdsProps["ToggleGroup"]> &
-  Envelope<UswdsProps["ToggleGroup"]>;
-
-function ToggleGroup(all: ToggleGroupAdapterProps) {
-  const { props: envelopeProps, ...rest } = all;
-  const p = { ...rest, ...(envelopeProps ?? {}) } as {
-    type?: "single" | "multiple" | null;
-    value?: string | string[] | null;
-    options?: Array<{ value: string; label: string }> | null;
-    disabled?: boolean | null;
-    className?: string | null;
-  };
-
-  const options = p.options ?? [];
-  const type = p.type ?? "single";
-
-  const groupProps =
-    type === "multiple"
-      ? {
-          type: "multiple" as const,
-          defaultValue: Array.isArray(p.value) ? p.value : [],
-        }
-      : {
-          type: "single" as const,
-          defaultValue: typeof p.value === "string" ? p.value : undefined,
-        };
-
-  return (
-    <ToggleGroupRoot
-      {...groupProps}
+  const input = (
+    <TrussTextInput
+      id={id}
+      name={name}
+      type={p.type ?? "text"}
+      validationStatus={p.validationStatus ?? undefined}
+      inputSize={p.inputSize ?? undefined}
+      placeholder={p.placeholder ?? undefined}
+      defaultValue={p.defaultValue ?? undefined}
       disabled={p.disabled ?? false}
+      required={p.required ?? undefined}
+      className={p.className ?? undefined}
+    />
+  );
+
+  if (!p.label) return input;
+
+  return (
+    <TrussFormGroup>
+      <TrussLabel htmlFor={id}>{p.label}</TrussLabel>
+      {p.hint && (
+        <span className="usa-hint" id={`${id}-hint`}>
+          {p.hint}
+        </span>
+      )}
+      {input}
+    </TrussFormGroup>
+  );
+}
+
+// ── Textarea ──────────────────────────────────────────────────────────────────
+type TextareaAdapterProps = Partial<UswdsProps["Textarea"]> & Envelope<UswdsProps["Textarea"]>;
+
+function Textarea(all: TextareaAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children: _children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  const id = p.id ?? "textarea";
+  const name = p.name ?? id;
+
+  const ta = (
+    <TrussTextarea
+      id={id}
+      name={name}
+      placeholder={p.placeholder ?? undefined}
+      rows={p.rows ?? undefined}
+      defaultValue={p.defaultValue ?? undefined}
+      disabled={p.disabled ?? false}
+      required={p.required ?? undefined}
+      error={p.error ?? undefined}
+      className={p.className ?? undefined}
+    />
+  );
+
+  if (!p.label) return ta;
+
+  return (
+    <TrussFormGroup>
+      <TrussLabel htmlFor={id}>{p.label}</TrussLabel>
+      {p.hint && (
+        <span className="usa-hint" id={`${id}-hint`}>
+          {p.hint}
+        </span>
+      )}
+      {ta}
+    </TrussFormGroup>
+  );
+}
+
+// ── Select ────────────────────────────────────────────────────────────────────
+type SelectOption = { value: string; label: string };
+type SelectAdapterProps = Partial<UswdsProps["Select"]> & Envelope<UswdsProps["Select"]>;
+
+function Select(all: SelectAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children: _children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  const id = p.id ?? "select";
+  const name = p.name ?? id;
+  const options = (p.options ?? []) as SelectOption[];
+
+  const select = (
+    <TrussSelect
+      id={id}
+      name={name}
+      validationStatus={p.validationStatus ?? undefined}
+      defaultValue={p.defaultValue ?? undefined}
+      disabled={p.disabled ?? false}
+      required={p.required ?? undefined}
       className={p.className ?? undefined}
     >
       {options.map((opt) => (
-        <ToggleGroupItem key={opt.value} value={opt.value}>
+        <option key={opt.value} value={opt.value}>
           {opt.label}
-        </ToggleGroupItem>
+        </option>
       ))}
-    </ToggleGroupRoot>
+    </TrussSelect>
+  );
+
+  if (!p.label) return select;
+
+  return (
+    <TrussFormGroup>
+      <TrussLabel htmlFor={id}>{p.label}</TrussLabel>
+      {select}
+    </TrussFormGroup>
   );
 }
 
-// ── Toggle ─────────────────────────────────────────────────────────────
-type ToggleAdapterProps = Partial<UswdsProps["Toggle"]> &
-  Envelope<UswdsProps["Toggle"]>;
+// ── Checkbox ──────────────────────────────────────────────────────────────────
+type CheckboxAdapterProps = Partial<UswdsProps["Checkbox"]> & Envelope<UswdsProps["Checkbox"]>;
 
-function Toggle(all: ToggleAdapterProps) {
-  const { props: envelopeProps, children, ...rest } = all;
-  const p = { ...rest, ...(envelopeProps ?? {}) } as {
-    pressed?: boolean | null;
-    disabled?: boolean | null;
-    className?: string | null;
-  };
+function Checkbox(all: CheckboxAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children: _children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
 
   return (
-    <TogglePrimitive
-      defaultPressed={p.pressed ?? false}
+    <TrussCheckbox
+      id={p.id ?? "checkbox"}
+      name={p.name ?? "checkbox"}
+      label={p.label ?? ""}
+      tile={p.tile ?? undefined}
+      labelDescription={p.labelDescription ?? undefined}
+      defaultChecked={p.defaultChecked ?? undefined}
       disabled={p.disabled ?? false}
+      className={p.className ?? undefined}
+    />
+  );
+}
+
+// ── Radio ─────────────────────────────────────────────────────────────────────
+type RadioAdapterProps = Partial<UswdsProps["Radio"]> & Envelope<UswdsProps["Radio"]>;
+
+function Radio(all: RadioAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children: _children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  return (
+    <TrussRadio
+      id={p.id ?? "radio"}
+      name={p.name ?? "radio"}
+      label={p.label ?? ""}
+      tile={p.tile ?? undefined}
+      labelDescription={p.labelDescription ?? undefined}
+      defaultChecked={p.defaultChecked ?? undefined}
+      disabled={p.disabled ?? false}
+      className={p.className ?? undefined}
+    />
+  );
+}
+
+// ── Modal ─────────────────────────────────────────────────────────────────────
+type ModalAdapterProps = Partial<UswdsProps["Modal"]> & Envelope<UswdsProps["Modal"]>;
+
+function Modal(all: ModalAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  if (!p.open) return null;
+
+  const id = p.id ?? "modal";
+  const sizeClass = p.isLarge ? "usa-modal--lg" : "";
+  const className = ["usa-modal", sizeClass, p.className].filter(Boolean).join(" ");
+
+  // Render USWDS modal markup directly to avoid jsdom focus-trap activation.
+  // TrussModal's isInitiallyOpen triggers focus-trap which requires tabbable
+  // nodes — not reliably available in jsdom. Direct markup keeps full
+  // accessibility semantics (role=dialog, aria-modal, aria-labelledby) without
+  // the focus-trap side-effect.
+  return (
+    <div
+      id={id}
+      role="dialog"
+      aria-modal="true"
+      className={className}
+      aria-labelledby={p.heading ? `${id}-heading` : undefined}
+      aria-describedby={`${id}-description`}
+    >
+      <div className="usa-modal__content">
+        <div className="usa-modal__main">
+          {p.heading && (
+            <h2 className="usa-modal__heading" id={`${id}-heading`}>
+              {p.heading}
+            </h2>
+          )}
+          <div className="usa-prose" id={`${id}-description`}>
+            {children}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Pagination ────────────────────────────────────────────────────────────────
+type PaginationAdapterProps = Partial<UswdsProps["Pagination"]> & Envelope<UswdsProps["Pagination"]>;
+
+function Pagination(all: PaginationAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children: _children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  return (
+    <TrussPagination
+      pathname={p.pathname ?? "/"}
+      currentPage={p.currentPage ?? 1}
+      totalPages={p.totalPages ?? undefined}
+      maxSlots={p.maxSlots ?? undefined}
+      className={p.className ?? undefined}
+    />
+  );
+}
+
+// ── Tooltip ───────────────────────────────────────────────────────────────────
+type TooltipAdapterProps = Partial<UswdsProps["Tooltip"]> & Envelope<UswdsProps["Tooltip"]>;
+
+function Tooltip(all: TooltipAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  const trigger = children ?? <span>{p.label}</span>;
+
+  return (
+    <TrussTooltip
+      label={p.label ?? ""}
+      position={p.position ?? undefined}
+      wrapperclasses={p.wrapperclasses ?? undefined}
+      className={p.className ?? undefined}
+    >
+      {trigger}
+    </TrussTooltip>
+  );
+}
+
+// ── Grid ──────────────────────────────────────────────────────────────────────
+type GridAdapterProps = Partial<UswdsProps["Grid"]> & Envelope<UswdsProps["Grid"]>;
+
+function Grid(all: GridAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  return (
+    <TrussGrid
+      row={p.row ?? undefined}
+      col={p.col ?? undefined}
+      gap={p.gap ?? undefined}
       className={p.className ?? undefined}
     >
       {children}
-    </TogglePrimitive>
+    </TrussGrid>
   );
 }
 
-// ── Switch ─────────────────────────────────────────────────────────────
-type SwitchAdapterProps = Partial<UswdsProps["Switch"]> &
-  Envelope<UswdsProps["Switch"]>;
+// ── GridContainer ─────────────────────────────────────────────────────────────
+type GridContainerAdapterProps = Partial<UswdsProps["GridContainer"]> & Envelope<UswdsProps["GridContainer"]>;
 
-function Switch(all: SwitchAdapterProps) {
-  const { props: envelopeProps, ...rest } = all;
-  const p = { ...rest, ...(envelopeProps ?? {}) } as {
-    label?: string | null;
-    name?: string | null;
-    checked?: boolean | null;
-    disabled?: boolean | null;
-    className?: string | null;
-  };
+function GridContainer(all: GridContainerAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
 
   return (
-    <SwitchPrimitive
-      label={p.label ?? undefined}
-      name={p.name ?? undefined}
-      defaultChecked={p.checked ?? false}
-      disabled={p.disabled ?? false}
+    <TrussGridContainer className={p.className ?? undefined}>
+      {children}
+    </TrussGridContainer>
+  );
+}
+
+// ── Icon ──────────────────────────────────────────────────────────────────────
+type IconAdapterProps = Partial<UswdsProps["Icon"]> & Envelope<UswdsProps["Icon"]>;
+
+function Icon(all: IconAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children: _children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  const IconComponent = (TrussIcon as unknown as Record<string, React.ComponentType<{ size?: number; className?: string }>>)[p.name ?? ""];
+  if (!IconComponent) return <span className={p.className ?? undefined}>?</span>;
+
+  return <IconComponent size={p.size ?? undefined} className={p.className ?? undefined} />;
+}
+
+// ── SiteAlert ─────────────────────────────────────────────────────────────────
+type SiteAlertAdapterProps = Partial<UswdsProps["SiteAlert"]> & Envelope<UswdsProps["SiteAlert"]>;
+
+function SiteAlert(all: SiteAlertAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  return (
+    <TrussSiteAlert
+      variant={p.variant ?? "info"}
+      heading={p.heading ?? undefined}
+      slim={p.slim ?? undefined}
+      showIcon={p.showIcon ?? undefined}
       className={p.className ?? undefined}
-    />
-  );
-}
-
-// ── Carousel ──────────────────────────────────────────────────────────
-type CarouselAdapterProps = Partial<UswdsProps["Carousel"]> &
-  Envelope<UswdsProps["Carousel"]>;
-
-function Carousel(all: CarouselAdapterProps) {
-  const { props: envelopeProps, ...rest } = all;
-  const p = { ...rest, ...(envelopeProps ?? {}) } as {
-    items?: Array<{ src: string; alt: string }> | null;
-    className?: string | null;
-  };
-
-  const items = p.items ?? [];
-
-  return (
-    <CarouselPrimitive className={cn("w-full", p.className ?? undefined)}>
-      <CarouselContent>
-        {items.map((item, i) => (
-          <CarouselItem key={i}>
-            <img
-              src={item.src}
-              alt={item.alt}
-              className="w-full h-auto object-cover rounded-md"
-            />
-          </CarouselItem>
-        ))}
-      </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
-    </CarouselPrimitive>
-  );
-}
-
-// ── Drawer ────────────────────────────────────────────────────────────
-type DrawerAdapterProps = Partial<UswdsProps["Drawer"]> &
-  Envelope<UswdsProps["Drawer"]>;
-
-function Drawer(all: DrawerAdapterProps) {
-  const { props: envelopeProps, children, ...rest } = all;
-  const p = { ...rest, ...(envelopeProps ?? {}) } as {
-    title?: string | null;
-    description?: string | null;
-    open?: boolean | null;
-    direction?: "top" | "right" | "bottom" | "left" | null;
-    className?: string | null;
-  };
-
-  return (
-    <DrawerRoot
-      open={p.open ?? false}
-      direction={p.direction ?? "bottom"}
     >
-      <DrawerContent className={p.className ?? undefined}>
-        <DrawerHeader>
-          {p.title && <DrawerTitle>{p.title}</DrawerTitle>}
-          {p.description && (
-            <DrawerDescription>{p.description}</DrawerDescription>
-          )}
-        </DrawerHeader>
-        <div className="p-6">{children}</div>
-      </DrawerContent>
-    </DrawerRoot>
+      {children}
+    </TrussSiteAlert>
   );
 }
 
-// ── Dialog ────────────────────────────────────────────────────────────
-type DialogAdapterProps = Partial<UswdsProps["Dialog"]> &
-  Envelope<UswdsProps["Dialog"]>;
+// ── Breadcrumb ────────────────────────────────────────────────────────────────
+type BreadcrumbItem = { label: string; href?: string | null; current?: boolean | null };
+type BreadcrumbAdapterProps = Partial<UswdsProps["Breadcrumb"]> & Envelope<UswdsProps["Breadcrumb"]>;
 
-function Dialog(all: DialogAdapterProps) {
-  const { props: envelopeProps, children, ...rest } = all;
-  const p = { ...rest, ...(envelopeProps ?? {}) } as {
-    title?: string | null;
-    description?: string | null;
-    open?: boolean | null;
-    className?: string | null;
-  };
+function Breadcrumb(all: BreadcrumbAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children: _children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  const crumbs = (p.crumbs ?? []) as BreadcrumbItem[];
 
   return (
-    <DialogRoot open={p.open ?? false}>
-      <DialogContent className={p.className ?? undefined}>
-        <DialogHeader>
-          {p.title && <DialogTitle>{p.title}</DialogTitle>}
-          {p.description && (
-            <DialogDescription>{p.description}</DialogDescription>
-          )}
-        </DialogHeader>
-        {children}
-      </DialogContent>
-    </DialogRoot>
+    <TrussBreadcrumbBar variant={p.variant ?? undefined} className={p.className ?? undefined}>
+      {crumbs.map((crumb, i) => {
+        const isCurrent = crumb.current ?? i === crumbs.length - 1;
+        return (
+          <TrussBreadcrumb key={crumb.label} current={isCurrent}>
+            {isCurrent ? crumb.label : <a href={crumb.href ?? "#"}>{crumb.label}</a>}
+          </TrussBreadcrumb>
+        );
+      })}
+    </TrussBreadcrumbBar>
   );
 }
 
-// ── DropdownMenu ──────────────────────────────────────────────────────
-type DropdownMenuAdapterProps = Partial<UswdsProps["DropdownMenu"]> &
-  Envelope<UswdsProps["DropdownMenu"]>;
+// ── SideNav ───────────────────────────────────────────────────────────────────
+type SideNavItem = { label: string; href: string; current?: boolean | null };
+type SideNavAdapterProps = Partial<UswdsProps["SideNav"]> & Envelope<UswdsProps["SideNav"]>;
 
-function DropdownMenu(all: DropdownMenuAdapterProps) {
-  const { props: envelopeProps, emit, children, ...rest } = all;
-  const p = { ...rest, ...(envelopeProps ?? {}) } as {
-    items?: Array<{ value: string; label: string; disabled?: boolean | null }> | null;
-    className?: string | null;
-  };
+function SideNav(all: SideNavAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children: _children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
 
-  const items = p.items ?? [];
-
-  return (
-    <DropdownMenuRoot>
-      <DropdownMenuTrigger asChild>
-        {children ?? <button type="button">Menu</button>}
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className={p.className ?? undefined}>
-        {items.map((item) => (
-          <DropdownMenuItem
-            key={item.value}
-            disabled={item.disabled ?? false}
-            onSelect={emit ? () => emit("select") : undefined}
-          >
-            {item.label}
-          </DropdownMenuItem>
-        ))}
-      </DropdownMenuContent>
-    </DropdownMenuRoot>
-  );
-}
-
-// ── Popover ───────────────────────────────────────────────────────────
-type PopoverAdapterProps = Partial<UswdsProps["Popover"]> &
-  Envelope<UswdsProps["Popover"]>;
-
-function Popover(all: PopoverAdapterProps) {
-  const { props: envelopeProps, children, ...rest } = all;
-  const p = { ...rest, ...(envelopeProps ?? {}) } as {
-    side?: "top" | "right" | "bottom" | "left" | null;
-    className?: string | null;
-  };
+  const items = (p.items ?? []) as SideNavItem[];
+  const navItems = items.map((item) => (
+    <a key={item.href} href={item.href} className={item.current ? "usa-current" : undefined}>
+      {item.label}
+    </a>
+  ));
 
   return (
-    <PopoverRoot>
-      <PopoverTrigger asChild>
-        <button type="button">Open</button>
-      </PopoverTrigger>
-      <PopoverContent
-        side={p.side ?? "bottom"}
-        className={p.className ?? undefined}
-      >
-        {children}
-      </PopoverContent>
-    </PopoverRoot>
-  );
-}
-
-// ── Tooltip ───────────────────────────────────────────────────────────
-type TooltipAdapterProps = Partial<UswdsProps["Tooltip"]> &
-  Envelope<UswdsProps["Tooltip"]>;
-
-function Tooltip(all: TooltipAdapterProps) {
-  const { props: envelopeProps, children, ...rest } = all;
-  const p = { ...rest, ...(envelopeProps ?? {}) } as {
-    content?: string;
-    side?: "top" | "right" | "bottom" | "left" | null;
-    className?: string | null;
-  };
-
-  return (
-    <TooltipProvider>
-      <TooltipRoot>
-        <TooltipTrigger asChild>
-          {children ?? <span />}
-        </TooltipTrigger>
-        <TooltipContent
-          side={p.side ?? "top"}
-          className={p.className ?? undefined}
-        >
-          <p>{p.content ?? ""}</p>
-        </TooltipContent>
-      </TooltipRoot>
-    </TooltipProvider>
-  );
-}
-
-// ── Pagination ────────────────────────────────────────────────────────
-type PaginationAdapterProps = Partial<UswdsProps["Pagination"]> &
-  Envelope<UswdsProps["Pagination"]>;
-
-function Pagination(all: PaginationAdapterProps) {
-  const { props: envelopeProps, emit, ...rest } = all;
-  const p = { ...rest, ...(envelopeProps ?? {}) } as {
-    currentPage?: number;
-    totalPages?: number;
-    onPageChange?: string | null;
-    className?: string | null;
-  };
-
-  return (
-    <PaginationPrimitive
-      currentPage={p.currentPage ?? 1}
-      totalPages={p.totalPages ?? 1}
-      onPageChange={emit ? () => emit("pageChange") : undefined}
+    <TrussSideNav
+      items={navItems}
+      isSubnav={p.isSubnav ?? undefined}
       className={p.className ?? undefined}
     />
   );
 }
 
-export const uswdsComponents: Record<string, ComponentType<any>> = {
+// ── InPageNavigation ──────────────────────────────────────────────────────────
+// TrussInPageNavigation requires a `content: JSX.Element` prop and scans it for
+// heading elements via ResizeObserver — incompatible with jsdom + our items API.
+// Render USWDS in-page nav markup directly instead.
+type InPageNavItem = { text: string; href: string };
+type InPageNavigationAdapterProps = Partial<UswdsProps["InPageNavigation"]> & Envelope<UswdsProps["InPageNavigation"]>;
+
+function InPageNavigation(all: InPageNavigationAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children: _children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  const items = (p.items ?? []) as InPageNavItem[];
+  const headingTag = p.headingUswdsStyle ?? "h4";
+  const title = p.title ?? "On this page";
+  const className = ["usa-in-page-nav", p.className].filter(Boolean).join(" ");
+
+  return (
+    <nav aria-label={title} className={className}>
+      {React.createElement(headingTag, { className: "usa-in-page-nav__heading" }, title)}
+      <ul className="usa-in-page-nav__list">
+        {items.map((item) => (
+          <li key={item.href} className="usa-in-page-nav__item">
+            <a href={item.href} className="usa-in-page-nav__link">
+              {item.text}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+}
+
+// ── StepIndicator ─────────────────────────────────────────────────────────────
+type StepItem = { label: string; status?: "complete" | "current" | "incomplete" | null };
+type StepIndicatorAdapterProps = Partial<UswdsProps["StepIndicator"]> & Envelope<UswdsProps["StepIndicator"]>;
+
+function StepIndicator(all: StepIndicatorAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children: _children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  const steps = (p.steps ?? []) as StepItem[];
+
+  return (
+    <TrussStepIndicator
+      headingLevel={p.headingLevel ?? "h4"}
+      showLabels={p.showLabels ?? undefined}
+      counters={p.counters ?? undefined}
+      centered={p.centered ?? undefined}
+      className={p.className ?? undefined}
+    >
+      {steps.map((step) => (
+        <TrussStepIndicatorStep
+          key={step.label}
+          label={step.label}
+          status={step.status ?? "incomplete"}
+        />
+      ))}
+    </TrussStepIndicator>
+  );
+}
+
+// ── ProcessList ───────────────────────────────────────────────────────────────
+type ProcessListAdapterProps = Partial<UswdsProps["ProcessList"]> & Envelope<UswdsProps["ProcessList"]>;
+
+function ProcessList(all: ProcessListAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children: _children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  const steps = (p.steps ?? []) as string[];
+
+  return (
+    <TrussProcessList className={p.className ?? undefined}>
+      {steps.map((step) => (
+        <TrussProcessListItem key={step}>{step}</TrussProcessListItem>
+      ))}
+    </TrussProcessList>
+  );
+}
+
+// ── SummaryBox ────────────────────────────────────────────────────────────────
+type SummaryBoxAdapterProps = Partial<UswdsProps["SummaryBox"]> & Envelope<UswdsProps["SummaryBox"]>;
+
+function SummaryBox(all: SummaryBoxAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  const items = (p.items ?? []) as string[];
+
+  return (
+    <TrussSummaryBox className={p.className ?? undefined}>
+      {p.heading && <TrussSummaryBoxHeading headingLevel="h3">{p.heading}</TrussSummaryBoxHeading>}
+      {items.length > 0 && (
+        <ul className="usa-list">
+          {items.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      )}
+      {children}
+    </TrussSummaryBox>
+  );
+}
+
+// ── Search ────────────────────────────────────────────────────────────────────
+type SearchAdapterProps = Partial<UswdsProps["Search"]> & Envelope<UswdsProps["Search"]>;
+
+function Search(all: SearchAdapterProps) {
+  const { props: envelopeProps, emit, children: _children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  // onSubmit prop is an action-binding name (string) for emit system.
+  // Standalone (plain React) callers cannot bind submit — use a wrapping form.
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (p.onSubmit && emit) emit(p.onSubmit);
+  };
+
+  return (
+    <TrussSearch
+      label={p.label ?? "Search"}
+      size={p.size ?? undefined}
+      inputId={p.inputId ?? "search-input"}
+      onSubmit={handleSubmit}
+      className={p.className ?? undefined}
+    />
+  );
+}
+
+// ── Collection ────────────────────────────────────────────────────────────────
+type CollectionItemDef = {
+  heading: string;
+  href?: string | null;
+  description?: string | null;
+  meta?: string[] | null;
+};
+
+type CollectionAdapterProps = Partial<UswdsProps["Collection"]> & Envelope<UswdsProps["Collection"]>;
+
+function Collection(all: CollectionAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children: _children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  const items = (p.items ?? []) as CollectionItemDef[];
+
+  return (
+    <TrussCollection className={p.className ?? undefined}>
+      {items.map((item) => (
+        <TrussCollectionItem key={item.heading}>
+          <TrussCollectionHeading headingLevel="h3">
+            {item.href ? <a href={item.href}>{item.heading}</a> : item.heading}
+          </TrussCollectionHeading>
+          {item.description && (
+            <TrussCollectionDescription>{item.description}</TrussCollectionDescription>
+          )}
+          {item.meta && item.meta.length > 0 && (
+            <TrussCollectionMeta>
+              {item.meta.map((m, j) => (
+                <TrussCollectionMetaItem key={j}>{m}</TrussCollectionMetaItem>
+              ))}
+            </TrussCollectionMeta>
+          )}
+        </TrussCollectionItem>
+      ))}
+    </TrussCollection>
+  );
+}
+
+// ── Banner (GovBanner) ────────────────────────────────────────────────────────
+// GovBanner's tld prop expects ".gov" | ".mil" (with leading dot) but our
+// catalog exposes "gov" | "mil" for simplicity. We prepend the dot internally.
+type BannerAdapterProps = Partial<UswdsProps["Banner"]> & Envelope<UswdsProps["Banner"]>;
+
+function Banner(all: BannerAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children: _children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  const rawTld = p.tld ?? "gov";
+  const tld = (rawTld.startsWith(".") ? rawTld : `.${rawTld}`) as ".gov" | ".mil";
+
+  return (
+    <TrussGovBanner
+      language={(p.language ?? "english") as "english" | "spanish"}
+      tld={tld}
+      className={p.className ?? undefined}
+    />
+  );
+}
+
+// ── Identifier ────────────────────────────────────────────────────────────────
+type IdentifierLinkDef = { label: string; href: string };
+type IdentifierAdapterProps = Partial<UswdsProps["Identifier"]> & Envelope<UswdsProps["Identifier"]>;
+
+function Identifier(all: IdentifierAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children: _children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  const identity = p.identity ?? { domain: "" };
+  const links = (p.links ?? []) as IdentifierLinkDef[];
+
+  return (
+    <TrussIdentifier className={p.className ?? undefined}>
+      <TrussIdentifierMasthead aria-label={identity.ariaLabel ?? undefined}>
+        <TrussIdentifierLogos>
+          <TrussIdentifierLogo href="#">
+            {p.logoSrc ? (
+              <img src={p.logoSrc} alt={p.logoAlt ?? ""} className="usa-identifier__logo-img" />
+            ) : (
+              <span className="usa-identifier__logo-img">{identity.domain}</span>
+            )}
+          </TrussIdentifierLogo>
+        </TrussIdentifierLogos>
+        <TrussIdentifierIdentity domain={identity.domain}>
+          {identity.disclaimerText ?? undefined}
+        </TrussIdentifierIdentity>
+      </TrussIdentifierMasthead>
+      {links.length > 0 && (
+        <TrussIdentifierLinks>
+          {links.map((link) => (
+            <TrussIdentifierLinkItem key={link.href}>
+              <TrussIdentifierLink href={link.href}>{link.label}</TrussIdentifierLink>
+            </TrussIdentifierLinkItem>
+          ))}
+        </TrussIdentifierLinks>
+      )}
+      <TrussIdentifierGov />
+    </TrussIdentifier>
+  );
+}
+
+// ── Header ────────────────────────────────────────────────────────────────────
+type HeaderNavItem = { label: string; href: string; current?: boolean | null };
+type HeaderAdapterProps = Partial<UswdsProps["Header"]> & Envelope<UswdsProps["Header"]>;
+
+function Header(all: HeaderAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children: _children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  const navItems = (p.navItems ?? []) as HeaderNavItem[];
+  const [mobileExpanded, setMobileExpanded] = React.useState(false);
+
+  const navLinks = navItems.map((item) => (
+    <a
+      key={item.href}
+      href={item.href}
+      className={item.current ? "usa-current" : undefined}
+    >
+      {item.label}
+    </a>
+  ));
+
+  return (
+    <TrussHeader
+      basic={p.basic !== false}
+      className={p.className ?? undefined}
+    >
+      <div className="usa-nav-container">
+        <div className="usa-navbar">
+          <TrussTitle>
+            <a href="/">{p.title ?? ""}</a>
+          </TrussTitle>
+          {navItems.length > 0 && (
+            <TrussNavMenuButton
+              label="Menu"
+              onClick={() => setMobileExpanded((v) => !v)}
+            />
+          )}
+        </div>
+        {navItems.length > 0 && (
+          <TrussPrimaryNav
+            items={navLinks}
+            mobileExpanded={mobileExpanded}
+            onToggleMobileNav={() => setMobileExpanded((v) => !v)}
+          />
+        )}
+      </div>
+    </TrussHeader>
+  );
+}
+
+// ── Footer ────────────────────────────────────────────────────────────────────
+type FooterColumn = { heading: string; links: Array<{ label: string; href: string }> };
+type FooterAdapterProps = Partial<UswdsProps["Footer"]> & Envelope<UswdsProps["Footer"]>;
+
+function Footer(all: FooterAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children: _children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  const size = p.size ?? "slim";
+  const columns = (p.columns ?? []) as FooterColumn[];
+
+  // col.heading is not rendered — USWDS slim footer layout does not
+  // support per-column headings in this adapter's simplified structure.
+  const navLinks = columns.flatMap((col) =>
+    col.links.map((link) => (
+      <a key={link.href} href={link.href} className="usa-footer__primary-link">
+        {link.label}
+      </a>
+    ))
+  );
+
+  // FooterNav crashes when links array is empty — render nav markup directly in that case
+  const primaryContent =
+    navLinks.length > 0 ? (
+      <TrussFooterNav size={size} links={navLinks} />
+    ) : (
+      <nav className="usa-footer__nav" aria-label="Footer navigation" />
+    );
+
+  const logoImage = p.logoSrc ? (
+    <img src={p.logoSrc} alt={p.logoAlt ?? ""} />
+  ) : (
+    <span />
+  );
+
+  const secondaryContent = (
+    <TrussLogo size={size} image={logoImage} />
+  );
+
+  return (
+    <TrussFooter
+      size={size}
+      primary={primaryContent}
+      secondary={secondaryContent}
+      className={p.className ?? undefined}
+    />
+  );
+}
+
+// ── LanguageSelector ──────────────────────────────────────────────────────────
+type LangDef = { label: string; lang: string; href?: string | null };
+type LanguageSelectorAdapterProps = Partial<UswdsProps["LanguageSelector"]> & Envelope<UswdsProps["LanguageSelector"]>;
+
+function LanguageSelector(all: LanguageSelectorAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children: _children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  const langs = (p.langs ?? []) as LangDef[];
+
+  // LanguageDefinition: { label, label_local?, attr, on_click }
+  const languageDefinitions = langs.map((l) => ({
+    label: l.label,
+    attr: l.lang,
+    // on_click: string path for navigation-based language selection.
+    // When href is omitted, "#" is used — callers should provide href for each lang.
+    on_click: l.href ?? "#",
+  }));
+
+  return (
+    <TrussLanguageSelector
+      langs={languageDefinitions}
+      small={p.small ?? undefined}
+      className={p.className ?? undefined}
+    />
+  );
+}
+
+// ── IconList ──────────────────────────────────────────────────────────────────
+type IconListItemDef = { iconName: string; text: string; iconColor?: string | null };
+type IconListAdapterProps = Partial<UswdsProps["IconList"]> & Envelope<UswdsProps["IconList"]>;
+
+function IconList(all: IconListAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children: _children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  const items = (p.items ?? []) as IconListItemDef[];
+
+  return (
+    <TrussIconList className={p.className ?? undefined}>
+      {items.map((item) => {
+        const IconComponent = (TrussIcon as unknown as Record<string, React.ComponentType<{ className?: string }>>)[item.iconName];
+        return (
+          <TrussIconListItem key={`${item.iconName}-${item.text}`}>
+            <TrussIconListIcon className={item.iconColor ?? undefined}>
+              {IconComponent ? (
+                <IconComponent />
+              ) : (
+                <span aria-hidden="true">•</span>
+              )}
+            </TrussIconListIcon>
+            <TrussIconListContent>{item.text}</TrussIconListContent>
+          </TrussIconListItem>
+        );
+      })}
+    </TrussIconList>
+  );
+}
+
+// ── MediaBlock ────────────────────────────────────────────────────────────────
+// Truss exports MediaBlockBody but not a composite MediaBlock. We render
+// USWDS media block markup directly using the usa-media-block CSS classes.
+type MediaBlockAdapterProps = Partial<UswdsProps["MediaBlock"]> & Envelope<UswdsProps["MediaBlock"]>;
+
+function MediaBlock(all: MediaBlockAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children: _children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  const containerClass = ["usa-media-block", p.reversed ? "usa-media-block--reversed" : "", p.className]
+    .filter(Boolean)
+    .join(" ");
+
+  const img = (
+    <img
+      className="usa-media-block__img"
+      src={p.imgSrc ?? ""}
+      alt={p.imgAlt ?? ""}
+    />
+  );
+
+  return (
+    <div className={containerClass}>
+      {!p.reversed && img}
+      <TrussMediaBlockBody className="usa-media-block__body">
+        {p.heading && <h2 className="usa-media-block__heading">{p.heading}</h2>}
+        {p.body && <p>{p.body}</p>}
+      </TrussMediaBlockBody>
+      {p.reversed && img}
+    </div>
+  );
+}
+
+// ── ComboBox ──────────────────────────────────────────────────────────────────
+type ComboBoxAdapterProps = Partial<UswdsProps["ComboBox"]> & Envelope<UswdsProps["ComboBox"]>;
+
+function ComboBox(all: ComboBoxAdapterProps) {
+  const { props: envelopeProps, emit, children: _children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  const handleChange = (_val?: string) => {
+    if (p.onChange && emit) emit(p.onChange);
+  };
+
+  return (
+    <TrussComboBox
+      id={p.id!}
+      name={p.name!}
+      options={p.options ?? []}
+      onChange={handleChange}
+      defaultValue={p.defaultValue ?? undefined}
+      disabled={p.disabled ?? undefined}
+      assistiveHint={p.assistiveHint ?? undefined}
+      noResults={p.noResults ?? undefined}
+    />
+  );
+}
+
+// ── DatePicker ────────────────────────────────────────────────────────────────
+type DatePickerAdapterProps = Partial<UswdsProps["DatePicker"]> & Envelope<UswdsProps["DatePicker"]>;
+
+function DatePicker(all: DatePickerAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children: _children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  return (
+    <div>
+      {p.label && <TrussLabel htmlFor={p.id!}>{p.label}</TrussLabel>}
+      <TrussDatePicker
+        id={p.id!}
+        name={p.name!}
+        defaultValue={p.defaultValue ?? undefined}
+        minDate={p.minDate ?? undefined}
+        maxDate={p.maxDate ?? undefined}
+        disabled={p.disabled ?? undefined}
+        required={p.required ?? undefined}
+        validationStatus={p.validationStatus ?? undefined}
+      />
+    </div>
+  );
+}
+
+// ── DateRangePicker ───────────────────────────────────────────────────────────
+type DateRangePickerAdapterProps = Partial<UswdsProps["DateRangePicker"]> & Envelope<UswdsProps["DateRangePicker"]>;
+
+function DateRangePicker(all: DateRangePickerAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children: _children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  return (
+    <TrussDateRangePicker
+      startDatePickerProps={{ id: p.startDateId!, name: p.startDateName!, minDate: p.minDate ?? undefined, maxDate: p.maxDate ?? undefined }}
+      endDatePickerProps={{ id: p.endDateId!, name: p.endDateName!, minDate: p.minDate ?? undefined, maxDate: p.maxDate ?? undefined }}
+      startDateLabel={p.startDateLabel ?? undefined}
+      endDateLabel={p.endDateLabel ?? undefined}
+    />
+  );
+}
+
+// ── FileInput ─────────────────────────────────────────────────────────────────
+type FileInputAdapterProps = Partial<UswdsProps["FileInput"]> & Envelope<UswdsProps["FileInput"]>;
+
+function FileInput(all: FileInputAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children: _children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  return (
+    <div>
+      {p.label && <TrussLabel htmlFor={p.id!}>{p.label}</TrussLabel>}
+      <TrussFileInput
+        id={p.id!}
+        name={p.name!}
+        multiple={p.multiple ?? undefined}
+        accept={p.accept ?? undefined}
+        disabled={p.disabled ?? undefined}
+        dragText={p.dragText ?? undefined}
+        chooseText={p.chooseText ?? undefined}
+      />
+    </div>
+  );
+}
+
+// ── RangeInput ────────────────────────────────────────────────────────────────
+type RangeInputAdapterProps = Partial<UswdsProps["RangeInput"]> & Envelope<UswdsProps["RangeInput"]>;
+
+function RangeInput(all: RangeInputAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children: _children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  return (
+    <div>
+      {p.label && <TrussLabel htmlFor={p.id!}>{p.label}</TrussLabel>}
+      <TrussRangeInput
+        id={p.id!}
+        name={p.name!}
+        min={p.min ?? undefined}
+        max={p.max ?? undefined}
+        step={p.step ?? undefined}
+        defaultValue={p.defaultValue ?? undefined}
+        disabled={p.disabled ?? undefined}
+      />
+    </div>
+  );
+}
+
+// ── TimePicker ────────────────────────────────────────────────────────────────
+type TimePickerAdapterProps = Partial<UswdsProps["TimePicker"]> & Envelope<UswdsProps["TimePicker"]>;
+
+function TimePicker(all: TimePickerAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children: _children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  return (
+    <div>
+      {p.label && <TrussLabel htmlFor={p.id!}>{p.label}</TrussLabel>}
+      <TrussTimePicker
+        id={p.id!}
+        name={p.name!}
+        defaultValue={p.defaultValue ?? undefined}
+        minTime={p.minTime ?? undefined}
+        maxTime={p.maxTime ?? undefined}
+        step={p.step ?? undefined}
+        disabled={p.disabled ?? undefined}
+      />
+    </div>
+  );
+}
+
+// ── FormGroup ─────────────────────────────────────────────────────────────────
+type FormGroupAdapterProps = Partial<UswdsProps["FormGroup"]> & Envelope<UswdsProps["FormGroup"]>;
+
+function FormGroup(all: FormGroupAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  return (
+    <TrussFormGroup error={p.error ?? undefined} className={p.className ?? undefined}>
+      {children}
+    </TrussFormGroup>
+  );
+}
+
+// ── Label ─────────────────────────────────────────────────────────────────────
+type LabelAdapterProps = Partial<UswdsProps["Label"]> & Envelope<UswdsProps["Label"]>;
+
+function Label(all: LabelAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  return (
+    <TrussLabel
+      htmlFor={p.htmlFor!}
+      hint={p.hint ?? undefined}
+      error={p.error ?? undefined}
+      className={p.className ?? undefined}
+    >
+      {p.text ?? children}
+    </TrussLabel>
+  );
+}
+
+// ── ErrorMessage ──────────────────────────────────────────────────────────────
+type ErrorMessageAdapterProps = Partial<UswdsProps["ErrorMessage"]> & Envelope<UswdsProps["ErrorMessage"]>;
+
+function ErrorMessage(all: ErrorMessageAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  return (
+    <TrussErrorMessage id={p.id ?? undefined}>
+      {p.text ?? children}
+    </TrussErrorMessage>
+  );
+}
+
+// ── CharacterCount ────────────────────────────────────────────────────────────
+type CharacterCountAdapterProps = Partial<UswdsProps["CharacterCount"]> & Envelope<UswdsProps["CharacterCount"]>;
+
+function CharacterCount(all: CharacterCountAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children: _children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  return (
+    <TrussCharacterCount
+      id={p.id!}
+      name={p.name!}
+      maxLength={p.maxLength!}
+      isTextArea={p.isTextArea ?? undefined}
+      defaultValue={p.defaultValue ?? undefined}
+      label={p.label ?? undefined}
+    />
+  );
+}
+
+// ── TextInputMask ─────────────────────────────────────────────────────────────
+type TextInputMaskAdapterProps = Partial<UswdsProps["TextInputMask"]> & Envelope<UswdsProps["TextInputMask"]>;
+
+function TextInputMask(all: TextInputMaskAdapterProps) {
+  const { props: envelopeProps, emit: _emit, children: _children, ...rest } = all;
+  const p = { ...rest, ...(envelopeProps ?? {}) };
+
+  return (
+    <TrussTextInputMask
+      id={p.id!}
+      name={p.name!}
+      mask={p.mask!}
+      label={p.label!}
+      type={p.type ?? undefined}
+      defaultValue={p.defaultValue ?? undefined}
+      disabled={p.disabled ?? undefined}
+    />
+  );
+}
+
+// ── Registry ──────────────────────────────────────────────────────────────────
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const uswdsComponents: Record<string, React.ComponentType<any>> = {
   Button,
+  ButtonGroup,
+  Alert,
+  Badge,
+  Link,
   Card,
-  Stack,
-  Grid,
-  Separator,
   Heading,
   Text,
-  Image,
-  Avatar,
-  Badge,
-  Alert,
-  Progress,
-  Skeleton,
-  Spinner,
-  Table,
-  Radio,
-  Checkbox,
-  Select,
-  Textarea,
-  Input,
-  ButtonGroup,
-  Link,
-  Slider,
-  Switch,
-  Toggle,
-  ToggleGroup,
   Accordion,
-  Collapsible,
-  Tabs,
-  Carousel,
-  Drawer,
-  Dialog,
-  DropdownMenu,
-  Popover,
-  Tooltip,
+  Table,
+  Input,
+  Textarea,
+  Select,
+  Checkbox,
+  Radio,
+  Modal,
   Pagination,
+  Tooltip,
+  Grid,
+  GridContainer,
+  Icon,
+  SiteAlert,
+  Breadcrumb,
+  SideNav,
+  InPageNavigation,
+  StepIndicator,
+  ProcessList,
+  SummaryBox,
+  Search,
+  Collection,
+  Banner,
+  Identifier,
+  Header,
+  Footer,
+  LanguageSelector,
+  IconList,
+  MediaBlock,
+  ComboBox,
+  DatePicker,
+  DateRangePicker,
+  FileInput,
+  RangeInput,
+  TimePicker,
+  FormGroup,
+  Label,
+  ErrorMessage,
+  CharacterCount,
+  TextInputMask,
 };
+
+export type { UswdsProps };

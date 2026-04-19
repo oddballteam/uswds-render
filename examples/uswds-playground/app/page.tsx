@@ -194,8 +194,7 @@ export default function Page() {
         </div>
         <UswdsButton
           type="button"
-          variant="ghost"
-          size="sm"
+          unstyled
           className="!text-green hover:!bg-green-5v"
           onClick={() => setMessages([])}
         >
@@ -210,9 +209,7 @@ export default function Page() {
               <UswdsText
                 as="p"
                 size="sm"
-                weight="semibold"
-                color="primary"
-                className="text-center uppercase tracking-[0.2em] !text-green"
+                className="text-center font-semibold uppercase tracking-[0.2em] !text-green"
                 text="The generative UI framework"
               />
               <h1 className="mx-auto flex w-full max-w-6xl flex-row flex-wrap items-center justify-center gap-x-3 gap-y-2 px-2 text-left font-sans font-bold leading-snug sm:gap-x-5 sm:px-4">
@@ -231,14 +228,12 @@ export default function Page() {
                 <UswdsText
                   as="p"
                   size="lg"
-                  color="muted"
                   className="!text-green-50v"
                   text="Dynamic, personalized, reliable government-service UIs from prompts."
                 />
                 <UswdsText
                   as="p"
                   size="base"
-                  color="muted"
                   className="!text-green-50v"
                   text="Predefined USWDS components for safe, predictable output."
                 />
@@ -254,6 +249,7 @@ export default function Page() {
                 <div className="relative rounded-lg border-2 border-base-light bg-white p-2 shadow-sm">
                   <UswdsTextarea
                     name="message"
+                    id="message"
                     rows={4}
                     placeholder="Describe what you want to do..."
                     disabled={isStreaming}
@@ -266,7 +262,6 @@ export default function Page() {
                   />
                   <UswdsButton
                     type="submit"
-                    size="sm"
                     disabled={isStreaming || !input.trim()}
                     className="absolute bottom-3 right-3 !h-10 !w-10 !min-w-0 !rounded-full !border-0 !bg-green !p-0 !text-white hover:!bg-green-40v focus-visible:!outline-green-40v"
                     aria-label="Send message"
@@ -303,6 +298,7 @@ export default function Page() {
             <div className="relative mx-auto max-w-3xl rounded-lg border-2 border-base-light bg-white p-2 shadow-sm">
               <UswdsTextarea
                 name="message"
+                id="message"
                 rows={2}
                 placeholder="Describe a government UI to build..."
                 disabled={isStreaming}
@@ -314,7 +310,6 @@ export default function Page() {
               />
               <UswdsButton
                 type="submit"
-                size="sm"
                 disabled={isStreaming || !input.trim()}
                 className="absolute bottom-3 right-3 !h-10 !w-10 !min-w-0 !rounded-full !border-0 !bg-green !p-0 !text-white hover:!bg-green-40v focus-visible:!outline-green-40v"
                 aria-label="Send message"

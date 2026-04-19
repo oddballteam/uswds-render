@@ -6,7 +6,7 @@ Guide Claude Code (claude.ai/code) when working in this repo.
 
 pnpm workspace, three members:
 
-- **`packages/uswds/`** — `@oddball/json-render-uswds`: publishable component library. 36 USWDS-styled React components + Zod catalog, consumes `@json-render/core` as peer. Published to npm.
+- **`packages/uswds/`** — `@oddball/json-render-uswds`: publishable component library. 48 USWDS-styled React components + Zod catalog (via `@trussworks/react-uswds`), consumes `@json-render/core` as peer. Published to npm.
 - **`examples/uswds-demo/`** — Vite SPA. Split-pane json-render playground: CodeMirror JSON editor left, live `@json-render/react` preview right. 4 preset specs (`src/specs/*.json`) show spec format. No AI.
 - **`examples/uswds-playground/`** — Next.js 15 App Router. AI chat playground: prompt → Vercel AI SDK ToolLoopAgent → `pipeJsonRender` stream → inline USWDS render. 5 mock gov-service tools (VA appointments, claim status, Medicare plans, GI Bill, VA facilities).
 
@@ -31,7 +31,7 @@ pnpm -r test
 
 # Per-workspace (examples)
 pnpm --filter @oddball/json-render-uswds build        # tsup CJS+ESM+types
-pnpm --filter @oddball/json-render-uswds test         # vitest (112 tests: per-component smoke + axe + catalog contract + shadcn parity + envelope passthrough)
+pnpm --filter @oddball/json-render-uswds test         # vitest (304 tests: per-component smoke + axe + catalog contract + envelope passthrough)
 pnpm --filter @oddball/json-render-uswds storybook    # localhost:6006
 pnpm --filter uswds-demo dev                           # localhost:5173
 pnpm --filter uswds-playground dev                     # localhost:3000 (requires .env.local)
@@ -57,32 +57,23 @@ Two contract tests guard lockstep:
 - `tests/catalog.test.ts` — `uswdsComponentDefinitions` keys ↔ `uswdsComponents` keys, every `example` validates against own Zod schema, every key in `@json-render/shadcn`'s catalog present in ours (parity guarantee).
 - `tests/envelope.test.tsx` — every entry in `uswdsComponents` renders correctly when invoked via json-render envelope shape `{ props: example, emit, children }` using catalog `example`. Per-component tests in `tests/components/` exercise plain-React-prop path; this file = only thing exercising production code path. Adapter forgets to merge `envelopeProps` → this fails.
 
-Visual primitives live in `packages/uswds/src/ui/<name>.tsx` (CVA-based, identical pattern to shadcn's `packages/shadcn/src/ui/`). Adapter layer in `src/components.tsx` wraps each primitive, handles envelope shape.
+Components are `@trussworks/react-uswds` wrappers. Adapter layer in `src/components.tsx` contains 48 named function adapters that wrap Truss components and handle the envelope shape. No CVA or `src/ui/` primitives remain.
 
 ### Text-bearing components
 
 `Text`, `Heading`, `Badge`, `Link` accept content via `text` prop (or `label` for Link) — NOT only React children. Matches shadcn catalog convention, load-bearing for AI-generated flat-tree specs where `children` = array of element key refs, not inline strings. Adapters fall back to React children when prop absent.
 
-### Token CSS
+### Styling
 
-`packages/uswds/src/lib/tokens/` vendors Tailwind v4 preset from `IHIutch/uswds-tailwind` (MIT, see `NOTICES.md` + `LICENSE-uswds-tailwind`). Exposed to consumers as:
+Components use `@trussworks/react-uswds` which ships a compiled USWDS stylesheet. Consumers must import it:
 
-- `@oddball/json-render-uswds/tokens` — JS preset export (re-exports tailwind.config.ts object).
-- `@oddball/json-render-uswds/tokens.css` — CSS layer with `@theme`, `@utility`, semantic aliases (primary, base, ink, etc.), USWDS color palette.
-
-Preset raw palette = USWDS-specific (`blue-60v`, `gray-cool-60`, …). Semantic-alias `@theme` block in `tokens/index.css` maps common names (`primary`, `primary-dark`, `ink`, `success`, …) to raw palette vars so USWDS-idiomatic class strings in components resolve. See `docs/superpowers/notes/uswds-tailwind-class-map.md` for full mapping table.
-
-`tokens.css` loads four Tailwind plugins via `@plugin`: `@tailwindcss/forms`, `@tailwindcss/typography`, `@iconify/tailwind4`, `tailwindcss-animate`. Declared as peerDependencies — consumers must install.
-
-### Tailwind class scanning (important gotcha)
-
-Consumers of `@oddball/json-render-uswds` must tell Tailwind to scan package's built output so utility classes used internally by components get emitted:
-
-```css
-@source "../node_modules/@oddball/json-render-uswds/dist/**/*.{js,mjs}";
+```typescript
+import '@trussworks/react-uswds/lib/uswds.css'
 ```
 
-Without this, components render structurally but unstyled (plain-text). `examples/uswds-demo/src/styles.css` + `examples/uswds-playground/app/globals.css` both do this against workspace-local package path.
+Both demo apps do this: `examples/uswds-playground/app/layout.tsx` (JS import) and `examples/uswds-demo/src/styles.css` (CSS `@import`).
+
+The `src/lib/tokens/` directory and `tokens.css`/`tokens.js` subpath exports were removed in the Truss migration. The USWDS token CSS is now provided by `@trussworks/react-uswds/lib/uswds.css`.
 
 ### Json-render rendering pipeline
 
@@ -108,8 +99,9 @@ Both demo apps same shape:
 
 ## Known follow-ups
 
-- Vendored typography-plugin config in `packages/uswds/src/lib/tokens/tailwind.config.ts` loaded by neither package nor consumers (`@config` directive removed from `tokens/index.css` to fix consumer resolution). Remains in-tree for historical reference only.
 - Cast `uswdsComponents as unknown as Components<C>` in demo apps' renderer files could go away if package narrows `uswdsComponents` type to mapped type keyed by `keyof typeof uswdsComponentDefinitions`.
+- Several Truss components (ComboBox, DatePicker, TimePicker, CharacterCount, TextInputMask) require USWDS JS initialization for full interactivity. In jsdom tests, only static render is verified. Production usage requires `@uswds/uswds` JS package loaded on the page.
+- `UNSUPPORTED_COMPONENTS` export lists the 18 CVA components dropped in this migration (Avatar, Carousel, Collapsible, Dialog, Drawer, DropdownMenu, Image, Popover, Progress, Separator, Skeleton, Slider, Spinner, Stack, Switch, Tabs, ToggleGroup, Toggle).
 
 ## When forking a new demo app
 

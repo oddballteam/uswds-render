@@ -2,8 +2,8 @@
   "name": "@oddball/json-render-uswds",
   "version": "0.1.0",
   "license": "Apache-2.0",
-  "description": "USWDS-styled component library for @json-render/core. JSON becomes federally-compliant Tailwind-styled React components.",
-  "keywords": ["json", "ui", "react", "uswds", "tailwind", "radix", "ai", "generative-ui", "llm", "renderer", "components"],
+  "description": "USWDS-compliant component library for @json-render/core. JSON becomes federally-compliant React components powered by @trussworks/react-uswds.",
+  "keywords": ["json", "ui", "react", "uswds", "ai", "generative-ui", "llm", "renderer", "components"],
   "publishConfig": { "access": "public" },
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -18,66 +18,37 @@
       "types": "./dist/catalog.d.ts",
       "import": "./dist/catalog.mjs",
       "require": "./dist/catalog.js"
-    },
-    "./tokens": {
-      "types": "./dist/lib/tokens.d.ts",
-      "import": "./dist/lib/tokens.mjs",
-      "require": "./dist/lib/tokens.js"
-    },
-    "./tokens.css": "./src/lib/tokens/index.css"
+    }
   },
-  "files": ["dist", "src/lib/tokens/index.css", "LICENSE-uswds-tailwind", "NOTICES.md"],
+  "files": ["dist"],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
     "check-types": "tsc --noEmit",
-    "typecheck": "tsc --noEmit",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@json-render/core": "^0.17.0",
     "@json-render/react": "^0.17.0",
-    "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1",
-    "embla-carousel-react": "^8.6.0",
-    "lucide-react": "^0.564.0",
-    "radix-ui": "^1.4.3",
-    "tailwind-merge": "^3.4.1",
-    "vaul": "^1.1.2"
+    "@trussworks/react-uswds": "^8.0.0"
   },
   "devDependencies": {
     "@json-render/shadcn": "^0.17.0",
-    "@storybook/addon-essentials": "^8.0.0",
-    "@storybook/react": "^8.0.0",
-    "@storybook/react-vite": "^8.0.0",
-    "@iconify/tailwind4": "^1.0.0",
-    "@tailwindcss/forms": "^0.5.0",
-    "@tailwindcss/postcss": "^4.0.0",
-    "@tailwindcss/typography": "^0.5.0",
-    "@tailwindcss/vite": "^4.0.0",
-    "tailwindcss-animate": "^1.0.0",
     "@testing-library/jest-dom": "^6.6.0",
     "@testing-library/react": "^16.1.0",
-    "@types/react": "19.2.3",
+    "@types/react": "^18.3.0",
     "jest-axe": "^9.0.0",
     "jsdom": "^25.0.0",
-    "storybook": "^8.0.0",
     "tsup": "^8.0.2",
     "typescript": "^5.4.5",
     "vitest": "^2.1.0",
     "zod": "^4.3.6"
   },
   "peerDependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "tailwindcss": "^4.0.0",
-    "zod": "^4.0.0",
-    "@tailwindcss/forms": "^0.5.0",
-    "@tailwindcss/typography": "^0.5.0",
-    "@iconify/tailwind4": "^1.0.0",
-    "tailwindcss-animate": "^1.0.0"
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0",
+    "zod": "^4.0.0"
   }
 }

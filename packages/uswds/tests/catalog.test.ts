@@ -1,7 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { uswdsComponentDefinitions } from "../src/catalog";
+import { uswdsComponentDefinitions, UNSUPPORTED_COMPONENTS } from "../src/catalog";
 import { uswdsComponents } from "../src/components";
-import { shadcnComponentDefinitions } from "@json-render/shadcn/catalog";
 
 describe("uswds catalog contract", () => {
   it("every catalog entry has a matching component implementation", () => {
@@ -15,17 +14,22 @@ describe("uswds catalog contract", () => {
       const result = def.props.safeParse(def.example);
       if (!result.success) {
         throw new Error(
-          `Example for "${name}" failed schema validation: ${result.error.message}`,
+          `Example for "${name}" failed schema validation: ${result.error.message}`
         );
       }
     }
   });
 
-  // Re-enabled in the finalization phase once all 36 components land.
-  it("is a key-superset of @json-render/shadcn catalog", () => {
-    const shadcnKeys = Object.keys(shadcnComponentDefinitions);
-    const uswdsKeys = new Set(Object.keys(uswdsComponentDefinitions));
-    const missing = shadcnKeys.filter((k) => !uswdsKeys.has(k));
-    expect(missing).toEqual([]);
+  it("UNSUPPORTED_COMPONENTS is exported and is an array", () => {
+    expect(Array.isArray(UNSUPPORTED_COMPONENTS)).toBe(true);
+    expect(UNSUPPORTED_COMPONENTS.length).toBeGreaterThan(0);
+  });
+
+  it("no UNSUPPORTED_COMPONENTS key exists in the catalog", () => {
+    const catalogKeys = new Set(Object.keys(uswdsComponentDefinitions));
+    const conflicts = (UNSUPPORTED_COMPONENTS as readonly string[]).filter((k) =>
+      catalogKeys.has(k)
+    );
+    expect(conflicts).toEqual([]);
   });
 });

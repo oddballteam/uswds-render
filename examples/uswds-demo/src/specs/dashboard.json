@@ -2,8 +2,8 @@
   "root": "root",
   "elements": {
     "root": {
-      "type": "Stack",
-      "props": { "direction": "vertical", "gap": "lg" },
+      "type": "GridContainer",
+      "props": {},
       "children": ["heading", "stats", "actions"]
     },
     "heading": {
@@ -12,16 +12,15 @@
     },
     "stats": {
       "type": "Grid",
-      "props": { "columns": 3, "gap": "md" },
+      "props": { "col": 4 },
       "children": ["card1", "card2", "card3"]
     },
     "card1": {
       "type": "Card",
       "props": { "title": "GI Bill Entitlement" },
-      "children": ["progress1", "progressLabel1"]
+      "children": ["progressLabel1"]
     },
-    "progress1": { "type": "Progress", "props": { "value": 67 } },
-    "progressLabel1": { "type": "Text", "props": { "text": "24 of 36 months used", "size": "sm", "color": "muted" } },
+    "progressLabel1": { "type": "Text", "props": { "text": "24 of 36 months used", "size": "sm" } },
     "card2": {
       "type": "Card",
       "props": { "title": "Open Claims" },
@@ -40,8 +39,8 @@
       "children": ["actionGroup"]
     },
     "actionGroup": {
-      "type": "Stack",
-      "props": { "direction": "horizontal", "gap": "sm" },
+      "type": "ButtonGroup",
+      "props": {},
       "children": ["actionBtn1", "actionBtn2", "actionBtn3"]
     },
     "actionBtn1": {

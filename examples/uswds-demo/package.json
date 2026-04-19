@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "@oddball/json-render-uswds": "workspace:*",
+    "@trussworks/react-uswds": "^8.0.0",
     "@json-render/core": "^0.17.0",
     "@json-render/react": "^0.17.0",
     "@codemirror/lang-json": "^6.0.1",

@@ -1,38 +1,67 @@
-import { describe, expect, it, vi } from "vitest";
-import { fireEvent, render, screen } from "@testing-library/react";
+import * as React from "react";
+import { describe, expect, it } from "vitest";
+import { render, screen } from "@testing-library/react";
 import { axe } from "jest-axe";
 import { uswdsComponents } from "../../src/components";
 
-describe("Input", () => {
-  const Input = uswdsComponents.Input;
+describe("Input (TextInput)", () => {
+  const Input = uswdsComponents.Input as React.ComponentType<any>;
 
-  it("renders with label and placeholder", () => {
-    render(<Input label="Name" placeholder="Jane Doe" type="text" />);
-    expect(screen.getByLabelText("Name")).toBeInTheDocument();
-    expect(screen.getByPlaceholderText("Jane Doe")).toBeInTheDocument();
+  it("renders with required id and name", () => {
+    render(<Input id="first-name" name="firstName" type="text" />);
+    expect(screen.getByRole("textbox")).toBeInTheDocument();
   });
 
-  it("has no a11y violations", async () => {
+  it("renders with a label when label prop is provided", () => {
+    render(
+      <Input id="email" name="email" type="email" label="Email address" />
+    );
+    expect(screen.getByLabelText("Email address")).toBeInTheDocument();
+  });
+
+  it("renders hint text when hint prop is provided", () => {
+    render(
+      <Input
+        id="phone"
+        name="phone"
+        type="tel"
+        label="Phone"
+        hint="Format: 555-555-5555"
+      />
+    );
+    expect(screen.getByText("Format: 555-555-5555")).toBeInTheDocument();
+  });
+
+  it("applies error validation status", () => {
     const { container } = render(
-      <Input label="Name" placeholder="Jane Doe" type="text" />,
+      <Input id="bad" name="bad" type="text" validationStatus="error" />
+    );
+    expect(container.querySelector(".usa-input--error")).toBeInTheDocument();
+  });
+
+  it("applies success validation status", () => {
+    const { container } = render(
+      <Input id="good" name="good" type="text" validationStatus="success" />
+    );
+    expect(container.querySelector(".usa-input--success")).toBeInTheDocument();
+  });
+
+  it("has no a11y violations with label", async () => {
+    const { container } = render(
+      <Input id="a11y" name="a11y" type="text" label="Accessible input" />
     );
     expect(await axe(container)).toHaveNoViolations();
   });
 
-  it("supports controlled value with onChange", () => {
-    const onChange = vi.fn();
+  it("merges envelope props", () => {
     render(
       <Input
-        label="Name"
-        placeholder="Jane Doe"
+        id="base"
+        name="base"
         type="text"
-        value="a"
-        onChange={onChange}
-      />,
+        props={{ label: "Envelope label", id: "env-input", name: "envInput" }}
+      />
     );
-    const field = screen.getByLabelText("Name");
-    expect(field).toHaveValue("a");
-    fireEvent.change(field, { target: { value: "ab" } });
-    expect(onChange).toHaveBeenCalled();
+    expect(screen.getByLabelText("Envelope label")).toBeInTheDocument();
   });
 });

@@ -2,8 +2,8 @@
   "root": "root",
   "elements": {
     "root": {
-      "type": "Stack",
-      "props": { "direction": "vertical", "gap": "lg" },
+      "type": "GridContainer",
+      "props": {},
       "children": ["heading", "alert", "steps", "docs"]
     },
     "heading": {
@@ -12,7 +12,7 @@
     },
     "alert": {
       "type": "Alert",
-      "props": { "variant": "info", "title": "Evidence Gathering" },
+      "props": { "variant": "info", "heading": "Evidence Gathering" },
       "children": ["alertBody"]
     },
     "alertBody": {
@@ -26,7 +26,7 @@
     },
     "stepsGrid": {
       "type": "Grid",
-      "props": { "columns": 2, "gap": "md" },
+      "props": { "col": 2 },
       "children": ["step1Name", "step1Badge", "step2Name", "step2Badge", "step3Name", "step3Badge", "step4Name", "step4Badge"]
     },
     "step1Name": { "type": "Text", "props": { "text": "Claim Received" } },
@@ -44,7 +44,7 @@
     },
     "docsGrid": {
       "type": "Grid",
-      "props": { "columns": 2, "gap": "sm" },
+      "props": { "col": 2 },
       "children": ["doc1Name", "doc1Badge", "doc2Name", "doc2Badge"]
     },
     "doc1Name": { "type": "Text", "props": { "text": "DD214" } },

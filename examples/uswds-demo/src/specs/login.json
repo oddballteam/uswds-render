@@ -3,12 +3,12 @@
   "elements": {
     "root": {
       "type": "Card",
-      "props": { "title": "Sign in to your account", "description": "Access government services with your Login.gov account.", "maxWidth": "md", "centered": true },
+      "props": { "title": "Sign in to your account" },
       "children": ["form"]
     },
     "form": {
-      "type": "Stack",
-      "props": { "direction": "vertical", "gap": "md" },
+      "type": "GridContainer",
+      "props": {},
       "children": ["email", "password", "submit", "helper"]
     },
     "email": {
@@ -30,7 +30,7 @@
     },
     "helper": {
       "type": "Text",
-      "props": { "text": "Forgot your password? Contact support.", "size": "sm", "color": "muted" }
+      "props": { "text": "Forgot your password? Contact support.", "size": "sm" }
     }
   }
 }
