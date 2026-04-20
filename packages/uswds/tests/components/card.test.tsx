@@ -13,18 +13,14 @@ describe("Card", () => {
   });
 
   it("has no a11y violations", async () => {
-    // Card renders as <li>; must be inside a list for axe to pass.
-    const { container } = render(
-      <ul className="usa-card-group">
-        <Card>Card content</Card>
-      </ul>
-    );
+    const { container } = render(<Card>Card content</Card>);
     expect(await axe(container)).toHaveNoViolations();
   });
 
-  it("renders as an li element", () => {
+  it("renders as a div element (not li)", () => {
     const { container } = render(<Card>Content</Card>);
-    expect(container.querySelector("li")).toBeInTheDocument();
+    expect(container.querySelector("div.usa-card")).toBeInTheDocument();
+    expect(container.querySelector("li")).not.toBeInTheDocument();
   });
 
   it("applies usa-card class", () => {
@@ -42,5 +38,15 @@ describe("Card", () => {
       <Card props={{ layout: "flagDefault" }}>Content</Card>
     );
     expect(container.querySelector(".usa-card--flag")).toBeInTheDocument();
+  });
+
+  it("can be nested without invalid HTML", () => {
+    const { container } = render(
+      <Card>
+        <Card>Nested</Card>
+      </Card>
+    );
+    expect(screen.getByText("Nested")).toBeInTheDocument();
+    expect(container.querySelector("li")).not.toBeInTheDocument();
   });
 });

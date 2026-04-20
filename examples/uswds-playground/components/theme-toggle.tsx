@@ -14,7 +14,7 @@ export function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <button className="p-2 rounded-md border border-border bg-card">
+      <button className="p-2 rounded-md bg-blue-60v text-white">
         <Sun className="h-4 w-4" />
       </button>
     );
@@ -23,7 +23,7 @@ export function ThemeToggle() {
   return (
     <button
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className="p-2 rounded-md border border-border bg-card hover:bg-accent transition-colors"
+      className="p-2 rounded-md bg-blue-60v text-white hover:bg-blue-70v focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-70v transition-colors"
       aria-label="Toggle theme"
     >
       {theme === "dark" ? (

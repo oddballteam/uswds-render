@@ -22,10 +22,11 @@ describe("Heading", () => {
     expect(screen.getByRole("heading", { name: "Default level", level: 2 })).toBeInTheDocument();
   });
 
-  it("applies usa-prose class", () => {
+  it("wraps heading in usa-prose container", () => {
     const { container } = render(<Heading level="h2" text="Styled" />);
-    const heading = container.querySelector("h2");
-    expect(heading?.className).toMatch(/usa-prose/);
+    const wrapper = container.querySelector(".usa-prose");
+    expect(wrapper).toBeInTheDocument();
+    expect(wrapper?.querySelector("h2")).toBeInTheDocument();
   });
 
   it("has no a11y violations", async () => {

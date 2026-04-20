@@ -257,7 +257,6 @@ function Button(all: ButtonAdapterProps) {
       unstyled={unstyled || undefined}
       size={p.size === "big" ? "big" : undefined}
       disabled={p.disabled ?? false}
-      className={p.className ?? undefined}
       onClick={emit ? () => emit("press") : nativeOnClick}
     >
       {children}
@@ -275,7 +274,6 @@ function ButtonGroup(all: ButtonGroupAdapterProps) {
   return (
     <TrussButtonGroup
       type={p.type === "segmented" ? "segmented" : "default"}
-      className={p.className ?? undefined}
     >
       {children}
     </TrussButtonGroup>
@@ -300,10 +298,9 @@ function Alert(all: AlertAdapterProps) {
       headingLevel={(p.headingLevel as "h1" | "h2" | "h3" | "h4" | "h5" | "h6") ?? "h4"}
       slim={p.slim ?? undefined}
       noIcon={p.noIcon ?? undefined}
-      className={p.className ?? undefined}
       role="alert"
     >
-      {children}
+      {p.text ?? children}
     </TrussAlert>
   );
 }
@@ -316,7 +313,7 @@ function Badge(all: BadgeAdapterProps) {
   const p = { ...rest, ...(envelopeProps ?? {}) };
 
   return (
-    <Tag background={p.background ?? undefined} className={p.className ?? undefined}>
+    <Tag background={p.background ?? undefined}>
       {p.text ?? children}
     </Tag>
   );
@@ -333,7 +330,6 @@ function Link(all: LinkAdapterProps) {
     <TrussLink
       href={p.href ?? "#"}
       variant={p.variant ?? undefined}
-      className={p.className ?? undefined}
     >
       {p.label ?? children}
     </TrussLink>
@@ -347,15 +343,26 @@ function Card(all: CardAdapterProps) {
   const { props: envelopeProps, emit: _emit, children, ...rest } = all;
   const p = { ...rest, ...(envelopeProps ?? {}) };
 
+  const layoutClass =
+    p.layout === "flagDefault" ? "usa-card--flag"
+    : p.layout === "flagMediaRight" ? "usa-card--flag usa-card--media-right"
+    : undefined;
+
   return (
-    <TrussCard
-      layout={p.layout ?? "standardDefault"}
-      headerFirst={p.headerFirst ?? undefined}
-      className={p.className ?? undefined}
-    >
-      <CardBody>{children}</CardBody>
-    </TrussCard>
+    <div className={["usa-card", layoutClass].filter(Boolean).join(" ")}>
+      <div className="usa-card__container">
+        <div className="usa-card__body">{children}</div>
+      </div>
+    </div>
   );
+}
+
+// ── Section ───────────────────────────────────────────────────────────────────
+type SectionAdapterProps = Partial<UswdsProps["Section"]> & Envelope<UswdsProps["Section"]>;
+
+function Section(all: SectionAdapterProps) {
+  const { props: _props, emit: _emit, children } = all;
+  return <div>{children}</div>;
 }
 
 // ── Heading ───────────────────────────────────────────────────────────────────
@@ -366,10 +373,9 @@ function Heading(all: HeadingAdapterProps) {
   const p = { ...rest, ...(envelopeProps ?? {}) };
 
   const level = p.level ?? "h2";
-  const className = ["usa-prose", p.className].filter(Boolean).join(" ");
   const content = p.text ?? children;
 
-  return React.createElement(level, { className }, content);
+  return <div className="usa-prose">{React.createElement(level, {}, content)}</div>;
 }
 
 // ── Text ──────────────────────────────────────────────────────────────────────
@@ -389,10 +395,9 @@ function Text(all: TextAdapterProps) {
 
   const tag = p.as ?? "p";
   const sizeClass = p.size ? TEXT_SIZE_CLASS[p.size] : undefined;
-  const className = [sizeClass, p.className].filter(Boolean).join(" ") || undefined;
   const content = p.text ?? children;
 
-  return React.createElement(tag, { className }, content);
+  return React.createElement(tag, { className: sizeClass }, content);
 }
 
 // ── Accordion ─────────────────────────────────────────────────────────────────
@@ -402,7 +407,6 @@ type AccordionItem = {
   content: string;
   expanded: boolean;
   headingLevel?: "h2" | "h3" | "h4" | "h5" | "h6" | null;
-  className?: string | null;
 };
 
 type AccordionAdapterProps = Partial<UswdsProps["Accordion"]> & Envelope<UswdsProps["Accordion"]>;
@@ -418,7 +422,6 @@ function Accordion(all: AccordionAdapterProps) {
     content: item.content as React.ReactNode,
     expanded: item.expanded,
     headingLevel: (item.headingLevel ?? "h4") as "h2" | "h3" | "h4" | "h5" | "h6",
-    className: item.className ?? undefined,
   }));
 
   return (
@@ -426,7 +429,6 @@ function Accordion(all: AccordionAdapterProps) {
       bordered={p.bordered ?? undefined}
       multiselectable={p.multiselectable ?? undefined}
       items={trussItems}
-      className={p.className ?? undefined}
     />
   );
 }
@@ -449,7 +451,6 @@ function Table(all: TableAdapterProps) {
       compact={p.compact ?? undefined}
       stackedStyle={p.stackedStyle ?? undefined}
       stickyHeader={p.stickyHeader ?? undefined}
-      className={p.className ?? undefined}
     >
       {children}
     </TrussTable>
@@ -463,32 +464,51 @@ function Input(all: InputAdapterProps) {
   const { props: envelopeProps, emit: _emit, children: _children, ...rest } = all;
   const p = { ...rest, ...(envelopeProps ?? {}) };
 
-  const id = p.id ?? "input";
-  const name = p.name ?? id;
+  const {
+    id: idProp,
+    name: nameProp,
+    label,
+    hint,
+    type,
+    validationStatus,
+    inputSize,
+    placeholder,
+    defaultValue,
+    disabled,
+    required,
+    ...passthrough
+  } = p;
+
+  const id = idProp ?? "input";
+  const name = nameProp ?? id;
 
   const input = (
     <TrussTextInput
       id={id}
       name={name}
-      type={p.type ?? "text"}
-      validationStatus={p.validationStatus ?? undefined}
-      inputSize={p.inputSize ?? undefined}
-      placeholder={p.placeholder ?? undefined}
-      defaultValue={p.defaultValue ?? undefined}
-      disabled={p.disabled ?? false}
-      required={p.required ?? undefined}
-      className={p.className ?? undefined}
+      type={type ?? "text"}
+      validationStatus={validationStatus ?? undefined}
+      inputSize={inputSize ?? undefined}
+      placeholder={placeholder ?? undefined}
+      defaultValue={
+        defaultValue !== undefined && !("value" in passthrough)
+          ? defaultValue
+          : undefined
+      }
+      disabled={disabled ?? false}
+      required={required ?? undefined}
+      {...passthrough}
     />
   );
 
-  if (!p.label) return input;
+  if (!label) return input;
 
   return (
     <TrussFormGroup>
-      <TrussLabel htmlFor={id}>{p.label}</TrussLabel>
-      {p.hint && (
+      <TrussLabel htmlFor={id}>{label}</TrussLabel>
+      {hint && (
         <span className="usa-hint" id={`${id}-hint`}>
-          {p.hint}
+          {hint}
         </span>
       )}
       {input}
@@ -503,31 +523,49 @@ function Textarea(all: TextareaAdapterProps) {
   const { props: envelopeProps, emit: _emit, children: _children, ...rest } = all;
   const p = { ...rest, ...(envelopeProps ?? {}) };
 
-  const id = p.id ?? "textarea";
-  const name = p.name ?? id;
+  const {
+    id: idProp,
+    name: nameProp,
+    label,
+    hint,
+    placeholder,
+    rows,
+    defaultValue,
+    disabled,
+    required,
+    error,
+    ...passthrough
+  } = p;
+
+  const id = idProp ?? "textarea";
+  const name = nameProp ?? id;
 
   const ta = (
     <TrussTextarea
       id={id}
       name={name}
-      placeholder={p.placeholder ?? undefined}
-      rows={p.rows ?? undefined}
-      defaultValue={p.defaultValue ?? undefined}
-      disabled={p.disabled ?? false}
-      required={p.required ?? undefined}
-      error={p.error ?? undefined}
-      className={p.className ?? undefined}
+      placeholder={placeholder ?? undefined}
+      rows={rows ?? undefined}
+      defaultValue={
+        defaultValue !== undefined && !("value" in passthrough)
+          ? defaultValue
+          : undefined
+      }
+      disabled={disabled ?? false}
+      required={required ?? undefined}
+      error={error ?? undefined}
+      {...passthrough}
     />
   );
 
-  if (!p.label) return ta;
+  if (!label) return ta;
 
   return (
     <TrussFormGroup>
-      <TrussLabel htmlFor={id}>{p.label}</TrussLabel>
-      {p.hint && (
+      <TrussLabel htmlFor={id}>{label}</TrussLabel>
+      {hint && (
         <span className="usa-hint" id={`${id}-hint`}>
-          {p.hint}
+          {hint}
         </span>
       )}
       {ta}
@@ -555,7 +593,6 @@ function Select(all: SelectAdapterProps) {
       defaultValue={p.defaultValue ?? undefined}
       disabled={p.disabled ?? false}
       required={p.required ?? undefined}
-      className={p.className ?? undefined}
     >
       {options.map((opt) => (
         <option key={opt.value} value={opt.value}>
@@ -591,7 +628,6 @@ function Checkbox(all: CheckboxAdapterProps) {
       labelDescription={p.labelDescription ?? undefined}
       defaultChecked={p.defaultChecked ?? undefined}
       disabled={p.disabled ?? false}
-      className={p.className ?? undefined}
     />
   );
 }
@@ -612,7 +648,6 @@ function Radio(all: RadioAdapterProps) {
       labelDescription={p.labelDescription ?? undefined}
       defaultChecked={p.defaultChecked ?? undefined}
       disabled={p.disabled ?? false}
-      className={p.className ?? undefined}
     />
   );
 }
@@ -628,7 +663,7 @@ function Modal(all: ModalAdapterProps) {
 
   const id = p.id ?? "modal";
   const sizeClass = p.isLarge ? "usa-modal--lg" : "";
-  const className = ["usa-modal", sizeClass, p.className].filter(Boolean).join(" ");
+  const className = ["usa-modal", sizeClass].filter(Boolean).join(" ");
 
   // Render USWDS modal markup directly to avoid jsdom focus-trap activation.
   // TrussModal's isInitiallyOpen triggers focus-trap which requires tabbable
@@ -673,7 +708,6 @@ function Pagination(all: PaginationAdapterProps) {
       currentPage={p.currentPage ?? 1}
       totalPages={p.totalPages ?? undefined}
       maxSlots={p.maxSlots ?? undefined}
-      className={p.className ?? undefined}
     />
   );
 }
@@ -692,7 +726,6 @@ function Tooltip(all: TooltipAdapterProps) {
       label={p.label ?? ""}
       position={p.position ?? undefined}
       wrapperclasses={p.wrapperclasses ?? undefined}
-      className={p.className ?? undefined}
     >
       {trigger}
     </TrussTooltip>
@@ -711,7 +744,6 @@ function Grid(all: GridAdapterProps) {
       row={p.row ?? undefined}
       col={p.col ?? undefined}
       gap={p.gap ?? undefined}
-      className={p.className ?? undefined}
     >
       {children}
     </TrussGrid>
@@ -726,7 +758,7 @@ function GridContainer(all: GridContainerAdapterProps) {
   const p = { ...rest, ...(envelopeProps ?? {}) };
 
   return (
-    <TrussGridContainer className={p.className ?? undefined}>
+    <TrussGridContainer>
       {children}
     </TrussGridContainer>
   );
@@ -758,7 +790,6 @@ function SiteAlert(all: SiteAlertAdapterProps) {
       heading={p.heading ?? undefined}
       slim={p.slim ?? undefined}
       showIcon={p.showIcon ?? undefined}
-      className={p.className ?? undefined}
     >
       {children}
     </TrussSiteAlert>
@@ -776,12 +807,12 @@ function Breadcrumb(all: BreadcrumbAdapterProps) {
   const crumbs = (p.crumbs ?? []) as BreadcrumbItem[];
 
   return (
-    <TrussBreadcrumbBar variant={p.variant ?? undefined} className={p.className ?? undefined}>
+    <TrussBreadcrumbBar variant={p.variant ?? undefined}>
       {crumbs.map((crumb, i) => {
         const isCurrent = crumb.current ?? i === crumbs.length - 1;
         return (
           <TrussBreadcrumb key={crumb.label} current={isCurrent}>
-            {isCurrent ? crumb.label : <a href={crumb.href ?? "#"}>{crumb.label}</a>}
+            {isCurrent ? crumb.label : <a href={crumb.href ?? "#"} className="usa-breadcrumb__link">{crumb.label}</a>}
           </TrussBreadcrumb>
         );
       })}
@@ -808,7 +839,6 @@ function SideNav(all: SideNavAdapterProps) {
     <TrussSideNav
       items={navItems}
       isSubnav={p.isSubnav ?? undefined}
-      className={p.className ?? undefined}
     />
   );
 }
@@ -827,10 +857,8 @@ function InPageNavigation(all: InPageNavigationAdapterProps) {
   const items = (p.items ?? []) as InPageNavItem[];
   const headingTag = p.headingUswdsStyle ?? "h4";
   const title = p.title ?? "On this page";
-  const className = ["usa-in-page-nav", p.className].filter(Boolean).join(" ");
-
   return (
-    <nav aria-label={title} className={className}>
+    <nav aria-label={title} className="usa-in-page-nav">
       {React.createElement(headingTag, { className: "usa-in-page-nav__heading" }, title)}
       <ul className="usa-in-page-nav__list">
         {items.map((item) => (
@@ -861,7 +889,6 @@ function StepIndicator(all: StepIndicatorAdapterProps) {
       showLabels={p.showLabels ?? undefined}
       counters={p.counters ?? undefined}
       centered={p.centered ?? undefined}
-      className={p.className ?? undefined}
     >
       {steps.map((step) => (
         <TrussStepIndicatorStep
@@ -884,7 +911,7 @@ function ProcessList(all: ProcessListAdapterProps) {
   const steps = (p.steps ?? []) as string[];
 
   return (
-    <TrussProcessList className={p.className ?? undefined}>
+    <TrussProcessList>
       {steps.map((step) => (
         <TrussProcessListItem key={step}>{step}</TrussProcessListItem>
       ))}
@@ -902,7 +929,7 @@ function SummaryBox(all: SummaryBoxAdapterProps) {
   const items = (p.items ?? []) as string[];
 
   return (
-    <TrussSummaryBox className={p.className ?? undefined}>
+    <TrussSummaryBox>
       {p.heading && <TrussSummaryBoxHeading headingLevel="h3">{p.heading}</TrussSummaryBoxHeading>}
       {items.length > 0 && (
         <ul className="usa-list">
@@ -936,7 +963,6 @@ function Search(all: SearchAdapterProps) {
       size={p.size ?? undefined}
       inputId={p.inputId ?? "search-input"}
       onSubmit={handleSubmit}
-      className={p.className ?? undefined}
     />
   );
 }
@@ -958,11 +984,11 @@ function Collection(all: CollectionAdapterProps) {
   const items = (p.items ?? []) as CollectionItemDef[];
 
   return (
-    <TrussCollection className={p.className ?? undefined}>
+    <TrussCollection>
       {items.map((item) => (
         <TrussCollectionItem key={item.heading}>
           <TrussCollectionHeading headingLevel="h3">
-            {item.href ? <a href={item.href}>{item.heading}</a> : item.heading}
+            {item.href ? <a href={item.href} className="usa-link">{item.heading}</a> : item.heading}
           </TrussCollectionHeading>
           {item.description && (
             <TrussCollectionDescription>{item.description}</TrussCollectionDescription>
@@ -996,7 +1022,6 @@ function Banner(all: BannerAdapterProps) {
     <TrussGovBanner
       language={(p.language ?? "english") as "english" | "spanish"}
       tld={tld}
-      className={p.className ?? undefined}
     />
   );
 }
@@ -1013,7 +1038,7 @@ function Identifier(all: IdentifierAdapterProps) {
   const links = (p.links ?? []) as IdentifierLinkDef[];
 
   return (
-    <TrussIdentifier className={p.className ?? undefined}>
+    <TrussIdentifier>
       <TrussIdentifierMasthead aria-label={identity.ariaLabel ?? undefined}>
         <TrussIdentifierLogos>
           <TrussIdentifierLogo href="#">
@@ -1066,7 +1091,6 @@ function Header(all: HeaderAdapterProps) {
   return (
     <TrussHeader
       basic={p.basic !== false}
-      className={p.className ?? undefined}
     >
       <div className="usa-nav-container">
         <div className="usa-navbar">
@@ -1136,7 +1160,6 @@ function Footer(all: FooterAdapterProps) {
       size={size}
       primary={primaryContent}
       secondary={secondaryContent}
-      className={p.className ?? undefined}
     />
   );
 }
@@ -1164,7 +1187,6 @@ function LanguageSelector(all: LanguageSelectorAdapterProps) {
     <TrussLanguageSelector
       langs={languageDefinitions}
       small={p.small ?? undefined}
-      className={p.className ?? undefined}
     />
   );
 }
@@ -1180,7 +1202,7 @@ function IconList(all: IconListAdapterProps) {
   const items = (p.items ?? []) as IconListItemDef[];
 
   return (
-    <TrussIconList className={p.className ?? undefined}>
+    <TrussIconList>
       {items.map((item) => {
         const IconComponent = (TrussIcon as unknown as Record<string, React.ComponentType<{ className?: string }>>)[item.iconName];
         return (
@@ -1209,7 +1231,7 @@ function MediaBlock(all: MediaBlockAdapterProps) {
   const { props: envelopeProps, emit: _emit, children: _children, ...rest } = all;
   const p = { ...rest, ...(envelopeProps ?? {}) };
 
-  const containerClass = ["usa-media-block", p.reversed ? "usa-media-block--reversed" : "", p.className]
+  const containerClass = ["usa-media-block", p.reversed ? "usa-media-block--reversed" : ""]
     .filter(Boolean)
     .join(" ");
 
@@ -1226,7 +1248,7 @@ function MediaBlock(all: MediaBlockAdapterProps) {
       {!p.reversed && img}
       <TrussMediaBlockBody className="usa-media-block__body">
         {p.heading && <h2 className="usa-media-block__heading">{p.heading}</h2>}
-        {p.body && <p>{p.body}</p>}
+        {p.body && <p className="font-sans-md">{p.body}</p>}
       </TrussMediaBlockBody>
       {p.reversed && img}
     </div>
@@ -1376,7 +1398,7 @@ function FormGroup(all: FormGroupAdapterProps) {
   const p = { ...rest, ...(envelopeProps ?? {}) };
 
   return (
-    <TrussFormGroup error={p.error ?? undefined} className={p.className ?? undefined}>
+    <TrussFormGroup error={p.error ?? undefined}>
       {children}
     </TrussFormGroup>
   );
@@ -1394,7 +1416,6 @@ function Label(all: LabelAdapterProps) {
       htmlFor={p.htmlFor!}
       hint={p.hint ?? undefined}
       error={p.error ?? undefined}
-      className={p.className ?? undefined}
     >
       {p.text ?? children}
     </TrussLabel>
@@ -1505,6 +1526,7 @@ export const uswdsComponents: Record<string, React.ComponentType<any>> = {
   ErrorMessage,
   CharacterCount,
   TextInputMask,
+  Section,
 };
 
 export type { UswdsProps };

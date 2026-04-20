@@ -10,8 +10,6 @@
 @theme inline {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  /* playground chrome accent — USWDS green-50v */
-  --color-green: var(--color-green-50v);
 }
 
 html, body { height: 100%; }

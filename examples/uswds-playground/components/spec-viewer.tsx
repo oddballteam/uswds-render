@@ -14,18 +14,18 @@ export function SpecViewer({ spec, loading }: SpecViewerProps) {
   if (!spec) return null
 
   return (
-    <div className="overflow-hidden rounded-lg border-2 border-base-light bg-gray-1 font-sans text-ink shadow-sm">
-      <div className="flex w-full border-b-2 border-base-light bg-base-lightest px-2">
+    <div className="overflow-hidden rounded-lg border border-base-light bg-gray-1 font-sans text-ink shadow-sm">
+      <div className="flex w-full border-b border-base-light bg-base-lightest px-2">
         {(["preview", "code"] as const).map((t) => (
           <button
             key={t}
             type="button"
             onClick={() => setTab(t)}
             className={[
-              "px-4 py-2 text-sm font-medium capitalize",
+              "px-4 py-2 text-sm font-medium capitalize focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-70v",
               tab === t
-                ? "border-b-2 border-primary text-primary"
-                : "text-base-dark hover:text-ink",
+                ? "border-b-2 border-blue-60v text-blue-60v"
+                : "text-base-dark hover:text-blue-60v",
             ].join(" ")}
           >
             {t}

@@ -15,7 +15,6 @@ export const uswdsComponentDefinitions = {
       size: z.enum(["default", "big"]).nullish(),
       disabled: z.boolean().nullish(),
       onClick: z.string().nullish().describe("Action binding name"),
-      className: z.string().nullish(),
     }),
     slots: ["default"],
     description: "USWDS button (usa-button). variant=default is filled blue primary; secondary/outline/etc map to Truss bool props. Pass label text as children.",
@@ -25,7 +24,6 @@ export const uswdsComponentDefinitions = {
   ButtonGroup: {
     props: z.object({
       type: z.enum(["default", "segmented"]).nullish(),
-      className: z.string().nullish(),
     }),
     slots: ["default"],
     description: "Group of related USWDS buttons (usa-button-group). Children should be Button elements.",
@@ -37,21 +35,19 @@ export const uswdsComponentDefinitions = {
       type: z.enum(["success", "warning", "error", "info"]).nullish().describe("Alert severity."),
       variant: z.enum(["success", "warning", "error", "info", "emergency"]).nullish().describe("Alias for type."),
       heading: z.string().nullish(),
+      text: z.string().nullish().describe("Body text for the alert. Use this instead of children — do NOT place child elements inside Alert."),
       headingLevel: z.enum(["h1", "h2", "h3", "h4", "h5", "h6"]).nullish().describe("Required by Truss Alert. Defaults to h4."),
       slim: z.boolean().nullish(),
       noIcon: z.boolean().nullish(),
-      className: z.string().nullish(),
     }),
-    slots: ["default"],
-    description: "USWDS alert (usa-alert). Required: type (or variant alias). headingLevel defaults to h4. Children = body text.",
-    example: { type: "info", heading: "Heads up", headingLevel: "h4" },
+    description: "USWDS alert (usa-alert). Required: type (or variant alias). Use heading for bold title, text for body. Do NOT add children — Alert body is a <p> and cannot contain block elements.",
+    example: { type: "info", heading: "Heads up", text: "This is the alert body.", headingLevel: "h4" },
   },
 
   Badge: {
     props: z.object({
       text: z.string().nullish().describe("Tag label. Pass via text prop."),
       background: z.string().nullish().describe("Optional CSS color for tag background."),
-      className: z.string().nullish(),
     }),
     slots: ["default"],
     description: "USWDS tag (usa-tag). Small inline label for statuses. Pass content via the 'text' prop.",
@@ -63,7 +59,6 @@ export const uswdsComponentDefinitions = {
       label: z.string().nullish().describe("Visible link text."),
       href: z.string().describe("Navigation target. Required."),
       variant: z.enum(["external", "unstyled", "nav"]).nullish(),
-      className: z.string().nullish(),
     }),
     slots: ["default"],
     description: "USWDS anchor link (usa-link). Pass visible text via the 'label' prop.",
@@ -74,7 +69,6 @@ export const uswdsComponentDefinitions = {
     props: z.object({
       layout: z.enum(["standardDefault", "flagDefault", "flagMediaRight"]).nullish(),
       headerFirst: z.boolean().nullish(),
-      className: z.string().nullish(),
     }),
     slots: ["default"],
     description:
@@ -82,11 +76,18 @@ export const uswdsComponentDefinitions = {
     example: { layout: "standardDefault" },
   },
 
+  Section: {
+    props: z.object({}),
+    slots: ["default"],
+    description:
+      "Plain <div> wrapper with no styling. Use as the root element when a spec has multiple top-level components (Alert + grid + Alert etc.). Children are rendered sequentially.",
+    example: {},
+  },
+
   Heading: {
     props: z.object({
       level: z.enum(["h1", "h2", "h3", "h4", "h5", "h6"]).nullish(),
       text: z.string().nullish().describe("Heading text. Pass via text prop, not children."),
-      className: z.string().nullish(),
     }),
     slots: ["default"],
     description:
@@ -99,7 +100,6 @@ export const uswdsComponentDefinitions = {
       as: z.enum(["p", "span", "div"]).nullish(),
       size: z.enum(["xs", "sm", "base", "lg", "xl"]).nullish(),
       text: z.string().nullish().describe("Text content. Pass via text prop, not children."),
-      className: z.string().nullish(),
     }),
     slots: ["default"],
     description:
@@ -118,10 +118,8 @@ export const uswdsComponentDefinitions = {
           content: z.string(),
           expanded: z.boolean(),
           headingLevel: z.enum(["h2", "h3", "h4", "h5", "h6"]).nullish(),
-          className: z.string().nullish(),
         })
       ).describe("Accordion item definitions."),
-      className: z.string().nullish(),
     }),
     description:
       "USWDS accordion (usa-accordion). Pass all sections via the items array — no children. Each item needs id, title, content, expanded.",
@@ -149,7 +147,6 @@ export const uswdsComponentDefinitions = {
       compact: z.boolean().nullish(),
       stackedStyle: z.enum(["none", "default", "headers"]).nullish(),
       stickyHeader: z.boolean().nullish(),
-      className: z.string().nullish(),
     }),
     slots: ["default"],
     description:
@@ -170,7 +167,6 @@ export const uswdsComponentDefinitions = {
       defaultValue: z.string().nullish(),
       disabled: z.boolean().nullish(),
       required: z.boolean().nullish(),
-      className: z.string().nullish(),
     }),
     description:
       "USWDS text input (usa-input). Provide id and name. Add label for an accessible label. Add hint for helper text. validationStatus='error' shows the error state.",
@@ -189,7 +185,6 @@ export const uswdsComponentDefinitions = {
       disabled: z.boolean().nullish(),
       required: z.boolean().nullish(),
       error: z.boolean().nullish(),
-      className: z.string().nullish(),
     }),
     description:
       "USWDS textarea (usa-textarea). Provide id and name. Add label for an accessible label. Use rows to control height.",
@@ -208,7 +203,6 @@ export const uswdsComponentDefinitions = {
       defaultValue: z.string().nullish(),
       disabled: z.boolean().nullish(),
       required: z.boolean().nullish(),
-      className: z.string().nullish(),
     }),
     description:
       "USWDS select dropdown (usa-select). Pass options as [{value, label}] array. Add label for an accessible label.",
@@ -232,7 +226,6 @@ export const uswdsComponentDefinitions = {
       labelDescription: z.string().nullish(),
       defaultChecked: z.boolean().nullish(),
       disabled: z.boolean().nullish(),
-      className: z.string().nullish(),
     }),
     description:
       "USWDS checkbox (usa-checkbox). label prop is required — it is the visible text. Use tile=true for the tile variant.",
@@ -248,7 +241,6 @@ export const uswdsComponentDefinitions = {
       labelDescription: z.string().nullish(),
       defaultChecked: z.boolean().nullish(),
       disabled: z.boolean().nullish(),
-      className: z.string().nullish(),
     }),
     description:
       "USWDS radio button (usa-radio). Single button — render multiple Radio elements sharing the same name for a radio group.",
@@ -262,7 +254,6 @@ export const uswdsComponentDefinitions = {
       heading: z.string().nullish().describe("Modal heading text, rendered inside ModalHeading."),
       isLarge: z.boolean().nullish(),
       forceAction: z.boolean().nullish(),
-      className: z.string().nullish(),
     }),
     slots: ["default"],
     description:
@@ -276,7 +267,6 @@ export const uswdsComponentDefinitions = {
       currentPage: z.number().describe("Required. Current page number (1-indexed)."),
       totalPages: z.number().nullish(),
       maxSlots: z.number().nullish(),
-      className: z.string().nullish(),
     }),
     description:
       "USWDS pagination (usa-pagination). Provide pathname and currentPage. totalPages controls how many pages render.",
@@ -288,7 +278,6 @@ export const uswdsComponentDefinitions = {
       label: z.string().describe("Required. Tooltip text shown on hover."),
       position: z.enum(["top", "bottom", "left", "right"]).nullish(),
       wrapperclasses: z.string().nullish(),
-      className: z.string().nullish(),
     }),
     slots: ["default"],
     description:
@@ -301,7 +290,6 @@ export const uswdsComponentDefinitions = {
       row: z.boolean().nullish(),
       col: z.union([z.number(), z.string()]).nullish(),
       gap: z.union([z.number(), z.string()]).nullish(),
-      className: z.string().nullish(),
     }),
     slots: ["default"],
     description:
@@ -310,9 +298,7 @@ export const uswdsComponentDefinitions = {
   },
 
   GridContainer: {
-    props: z.object({
-      className: z.string().nullish(),
-    }),
+    props: z.object({}),
     slots: ["default"],
     description:
       "USWDS grid container (grid-container). Outer wrapper for Grid layout. Contains Grid row/col children.",
@@ -323,7 +309,7 @@ export const uswdsComponentDefinitions = {
     props: z.object({
       name: z.string().describe("Icon name from Truss Icon namespace, e.g. 'Search', 'Star', 'AccountBalance'"),
       size: z.union([z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7), z.literal(8), z.literal(9)]).nullish(),
-      className: z.string().nullish(),
+      className: z.string().nullish().describe("CSS color class for the icon, e.g. 'text-primary'. Only use for color context."),
     }),
     description: "Renders a USWDS icon from the @trussworks/react-uswds Icon namespace.",
     example: { name: "Star", size: 4 },
@@ -335,7 +321,6 @@ export const uswdsComponentDefinitions = {
       heading: z.string().nullish(),
       slim: z.boolean().nullish(),
       showIcon: z.boolean().nullish(),
-      className: z.string().nullish(),
     }),
     slots: ["default"],
     description: "Full-width site-level alert banner (USWDS SiteAlert). Pass body text as children.",
@@ -352,7 +337,6 @@ export const uswdsComponentDefinitions = {
         })
       ).describe("Ordered list of breadcrumb items. Last item is current page."),
       variant: z.enum(["default", "wrap"]).nullish(),
-      className: z.string().nullish(),
     }),
     description: "USWDS breadcrumb navigation bar.",
     example: {
@@ -374,7 +358,6 @@ export const uswdsComponentDefinitions = {
         })
       ).describe("Navigation items rendered as anchor tags"),
       isSubnav: z.boolean().nullish(),
-      className: z.string().nullish(),
     }),
     description: "USWDS side navigation menu.",
     example: {
@@ -396,7 +379,6 @@ export const uswdsComponentDefinitions = {
         })
       ),
       headingUswdsStyle: z.enum(["h1", "h2", "h3", "h4", "h5", "h6"]).nullish(),
-      className: z.string().nullish(),
     }),
     description: "USWDS in-page navigation (table of contents) component.",
     example: {
@@ -422,7 +404,6 @@ export const uswdsComponentDefinitions = {
       showLabels: z.boolean().nullish(),
       counters: z.enum(["none", "default", "small"]).nullish(),
       centered: z.boolean().nullish(),
-      className: z.string().nullish(),
     }),
     description: "USWDS step indicator showing progress through a multi-step process.",
     example: {
@@ -439,7 +420,6 @@ export const uswdsComponentDefinitions = {
   ProcessList: {
     props: z.object({
       steps: z.array(z.string()).describe("Ordered list of step description strings"),
-      className: z.string().nullish(),
     }),
     description: "USWDS process list — numbered sequential steps.",
     example: {
@@ -455,7 +435,6 @@ export const uswdsComponentDefinitions = {
     props: z.object({
       heading: z.string().nullish(),
       items: z.array(z.string()).nullish(),
-      className: z.string().nullish(),
     }),
     slots: ["default"],
     description: "USWDS summary box — highlighted box for key information.",
@@ -475,7 +454,6 @@ export const uswdsComponentDefinitions = {
       size: z.enum(["big", "small"]).nullish(),
       inputId: z.string().nullish(),
       onSubmit: z.string().nullish().describe("Action binding name called with query on submit"),
-      className: z.string().nullish(),
     }),
     description: "USWDS search bar component.",
     example: { label: "Search", size: "small" },
@@ -491,7 +469,6 @@ export const uswdsComponentDefinitions = {
           meta: z.array(z.string()).nullish().describe("Short metadata strings shown below description"),
         })
       ).describe("Collection items"),
-      className: z.string().nullish(),
     }),
     description: "USWDS collection — a list of items each with a heading, optional description, and metadata. Use with caution — limited AI support for rich media variants.",
     example: {
@@ -506,7 +483,6 @@ export const uswdsComponentDefinitions = {
     props: z.object({
       language: z.enum(["english", "spanish"]).nullish().describe("Language variant (default 'english')"),
       tld: z.enum(["gov", "mil"]).nullish().describe("Domain TLD shown in the banner (default 'gov')"),
-      className: z.string().nullish(),
     }),
     description: "USWDS GovBanner — the 'An official website of the United States government' top-of-page banner. Use with caution — place at top of page layout only.",
     example: { language: "english", tld: "gov" },
@@ -524,7 +500,6 @@ export const uswdsComponentDefinitions = {
       links: z.array(
         z.object({ label: z.string(), href: z.string() })
       ).nullish().describe("Footer identifier links (About, Accessibility, etc.)"),
-      className: z.string().nullish(),
     }),
     description: "USWDS Identifier — agency identity footer block with logo, domain, and standard gov links. Use with caution — limited AI support.",
     example: {
@@ -547,7 +522,6 @@ export const uswdsComponentDefinitions = {
         })
       ).nullish().describe("Primary nav links"),
       basic: z.boolean().nullish().describe("Use basic (non-extended) header variant (default true)"),
-      className: z.string().nullish(),
     }),
     description: "USWDS site header with title and optional primary navigation. Use with caution — limited AI support for megamenu or extended variants.",
     example: {
@@ -571,7 +545,6 @@ export const uswdsComponentDefinitions = {
       logoSrc: z.string().nullish(),
       logoAlt: z.string().nullish(),
       size: z.enum(["slim", "medium", "big"]).nullish().describe("Footer size variant (default 'slim')"),
-      className: z.string().nullish(),
     }),
     description: "USWDS site footer. Use with caution — limited AI support for big footer variant. Column headings are collected but not rendered in the slim layout adapter.",
     example: {
@@ -598,7 +571,6 @@ export const uswdsComponentDefinitions = {
         })
       ).describe("Language options"),
       small: z.boolean().nullish().describe("Compact display variant"),
-      className: z.string().nullish(),
     }),
     description: "USWDS language selector for multilingual sites.",
     example: {
@@ -615,10 +587,9 @@ export const uswdsComponentDefinitions = {
         z.object({
           iconName: z.string().describe("Icon name from Truss Icon namespace, e.g. 'Check', 'Close'"),
           text: z.string().describe("Text content for this list item"),
-          iconColor: z.string().nullish().describe("CSS color class for the icon"),
+          iconColor: z.string().nullish().describe("CSS color class for the icon, e.g. 'text-green-50v'"),
         })
       ).describe("Icon list items"),
-      className: z.string().nullish(),
     }),
     description: "USWDS icon list — an unordered list where each item has a leading USWDS icon.",
     example: {
@@ -637,7 +608,6 @@ export const uswdsComponentDefinitions = {
       heading: z.string().nullish(),
       body: z.string().nullish().describe("Body text rendered next to the image"),
       reversed: z.boolean().nullish().describe("Places image on the right side"),
-      className: z.string().nullish(),
     }),
     description: "USWDS media block — image paired with text content. Use with caution — limited AI support for complex slot compositions.",
     example: {
@@ -759,7 +729,6 @@ export const uswdsComponentDefinitions = {
   FormGroup: {
     props: z.object({
       error: z.boolean().nullish().describe("Applies error styling to the group"),
-      className: z.string().nullish(),
     }),
     slots: ["default"],
     description: "USWDS form group wrapper — groups a label, input, and optional error message with consistent spacing.",
@@ -772,7 +741,6 @@ export const uswdsComponentDefinitions = {
       text: z.string().describe("Label text content"),
       hint: z.string().nullish().describe("Hint text shown below the label"),
       error: z.boolean().nullish().describe("Applies error styling to the label"),
-      className: z.string().nullish(),
     }),
     description: "USWDS form label.",
     example: { htmlFor: "first-name", text: "First name", hint: "As it appears on your ID" },

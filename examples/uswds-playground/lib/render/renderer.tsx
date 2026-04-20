@@ -25,17 +25,29 @@ const { registry } = defineRegistry(playgroundCatalog, {
   actions: {},
 });
 
-function Fallback({ type }: { type: string }) {
-  return (
-    <div className="rounded border border-dashed border-base-light p-2 text-xs text-base-dark">
-      Unknown component: <code>{type}</code>
-    </div>
-  );
-}
-
-const fallback: ComponentRenderer = ({ element }) => (
-  <Fallback type={element.type} />
-);
+// Renderer-level fallback for unknown element types.
+//
+// The fallback element can appear anywhere in the output tree — including
+// as a direct child of <table>, <tr>, <select>, or other containers whose
+// HTML content model is restrictive. There is no single element that is
+// valid in every container, so emitting any DOM node (a <div>, <span>,
+// <tr>, etc.) risks triggering React's "cannot be a child of" hydration
+// error somewhere.
+//
+// Instead: don't put anything in the DOM. Surface the unknown type to
+// developers via console.warn and let the SpecViewer's "code" tab carry
+// the detail for humans who need to see it. This keeps the rendered page
+// valid regardless of where the unknown element happened to land.
+const warnedTypes = new Set<string>();
+const fallback: ComponentRenderer = ({ element }) => {
+  if (process.env.NODE_ENV !== "production" && !warnedTypes.has(element.type)) {
+    warnedTypes.add(element.type);
+    console.warn(
+      `[PlaygroundRenderer] Unknown component type "${element.type}" — dropped from DOM. See the Spec tab for details.`,
+    );
+  }
+  return null;
+};
 
 interface PlaygroundRendererProps {
   spec: Spec | null;

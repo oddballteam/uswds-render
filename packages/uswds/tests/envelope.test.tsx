@@ -296,6 +296,9 @@ const FIXTURES: Record<ComponentName, Fixture> = {
   TextInputMask: {
     assert: "no-throw",
   },
+  Section: {
+    assert: "no-throw",
+  },
 }
 
 describe("envelope passthrough — all components", () => {

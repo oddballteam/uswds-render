@@ -53,8 +53,8 @@ describe("GridContainer", () => {
 
   it("merges envelope props", () => {
     const { container } = render(
-      <GridContainer props={{ className: "custom-container" }}>Content</GridContainer>
+      <GridContainer props={{}}>Content</GridContainer>
     );
-    expect(container.querySelector(".custom-container")).toBeInTheDocument();
+    expect(container.querySelector(".grid-container")).toBeInTheDocument();
   });
 });

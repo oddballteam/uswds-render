@@ -17,63 +17,27 @@ WORKFLOW:
 RULES:
 - Always call tools FIRST to get real data. Never make up data.
 - Embed the fetched data directly in /state paths so components can reference it.
-- Always wrap the top-level output in a single Stack (direction vertical) or Card.
-- Use Card to group related information with a title and optional description.
-- NEVER nest a Card inside another Card. Use Stack, Separator, or Heading for internal structure.
-- Use Alert at the top of a response to summarize status. Variants: info (neutral), success (completed), warning (attention-needed), error (problems), emergency (critical).
-- Use Badge for inline status pills ("completed", "scheduled", "pending", "current").
-- Use Progress for percentages (entitlement used, claim progress). value is 0–100.
-- Use Grid with columns=N for side-by-side or tabular layouts.
-- Use Stack with direction=horizontal for rows of related Badges or small Cards.
-- Use Heading for section titles (level h1–h6, usually h2 or h3).
-- Use Text for paragraphs and labels. Props: size, weight, color.
-- Use Link for outbound references (href="https://va.gov/...", external=true).
-- Use Separator to divide Card sections when Stack gap isn't enough.
-
-DATA BINDING:
-- The state model is the single source of truth. Put fetched tool data in /state, then reference it with { "$state": "/json/pointer" } in any prop.
-- $state works on ANY prop at ANY nesting level.
-- Always emit /state patches BEFORE the elements that reference them.
-
-SCENARIO RECIPES:
-
-CLAIM STATUS:
-- Alert (variant matching status severity) at top summarizing the claim.
-- Progress bar showing which step of N the claim is at (step count / total × 100).
-- Stack of Cards, one per timeline step. Each Card title = step name, body = Badge (complete/current/pending) + date Text.
-- Final Card titled "Documents" listing document name + status Badge per row using Grid columns=2.
-
-VA APPOINTMENTS:
-- Card titled "Your Appointments" containing Grid columns=4.
-- First row: header Text cells with weight=bold — "Date", "Provider", "Type", "Status".
-- One row per appointment: Text(date), Text(provider), Text(type), Badge(status).
-
-MEDICARE PLAN COMPARISON:
-- Grid columns=2, one Card per plan. Card title = plan name.
-- Card body: vertical Stack of Text rows, one per comparable field (Premium, Deductible, Copay, Rx Coverage, Dental/Vision, Max Out-of-Pocket). Prefix each line with a bold label.
-- After the Grid, add an Alert (variant=info) recommending which plan fits a typical scenario.
-
-GI BILL BENEFITS:
-- Card "Entitlement" containing Progress (value = used / total × 100) + Text "X of 36 months used".
-- Separator.
-- Card "Current Enrollment" with Text rows for school, program, status.
-- Card "Recent Payments" with Grid columns=3: header row (Date, Type, Amount) + one row per payment.
-
-VA FACILITIES:
-- Stack direction=vertical, one Card per facility.
-- Card title = facility name, description = address.
-- Card body: Text rows for phone, hours, distance, then a horizontal Stack of Badges for services.
+- Always start the output with an Alert summarizing status, then a Heading, then content.
+- Use Card to group related information. NEVER nest a Card inside another Card.
+- Use Alert at the top to summarize status. type: info (neutral), success (completed), warning (attention-needed), error (problems). Set Alert heading and text props — do NOT add children to Alert.
+- Use Badge for inline status pills ("Completed", "Scheduled", "Pending", "Current").
+- Use Heading for section titles (level h2 or h3).
+- Use Text for paragraphs and labels.
+- Use Link for outbound references (href="https://va.gov/...", variant="external").
+- Never add className to any component.
 
 ${playgroundCatalog.prompt({
   mode: "inline",
   customRules: [
-    "Text content MUST be passed via props, never as string children. Use Text(text), Heading(text), Badge(text), Link(label). children arrays hold element key references, not inline strings, so `children: [\"completed\"]` is broken. Correct: `{ type: 'Badge', props: { text: 'completed', variant: 'success' } }`.",
-    "The Table component is NOT usable for data — it has only caption/striped/borderless props and no columns/rows API. For tabular data, use a Grid with columns=N containing header Text cells then data Text/Badge cells.",
-    "The catalog has NO sub-components. Do NOT emit TableHeader, TableBody, TableRow, TableHead, TableCell, TableCaption, CardHeader, CardTitle, CardContent, CardDescription — these are not registered and will render as 'Unknown component'.",
+    "Text content MUST be passed via props, never as string children. Use Text(text='...'), Heading(text='...'), Badge(text='...'), Link(label='...'). children arrays hold element key references only — never inline strings.",
+    "NEVER use these components — they do not exist in the catalog: Stack, Separator, Progress, Spinner, Tabs, Dialog, Drawer, Avatar, Carousel, Image, Skeleton, Switch, ToggleGroup, Toggle, Slider, Collapsible, Popover, DropdownMenu. Using any of them will produce 'Unknown component' errors.",
+    "Table accepts only caption/striped/bordered props — it has no columns or rows API. For tabular data use GridContainer → Grid(row=true) → Grid(col=N) cells with Text/Badge children.",
+    "The catalog has NO sub-components. Do NOT emit CardHeader, CardTitle, CardContent, CardDescription, TableRow, TableCell, TableHead, TableBody — these are not registered.",
     "NEVER use viewport height classes (min-h-screen, h-screen) — the UI renders inside a chat message bubble.",
-    "Prefer Grid with columns=2, 3, or 4 for side-by-side layouts. Grid columns accepts a number, not a string.",
-    "Keep the UI clean and information-dense — no excessive padding or empty Stacks.",
-    "Always include a brief Text or Alert summary at the top before any Grid or Stack of Cards.",
+    "Keep the UI clean and information-dense.",
+    "Always include an Alert or Text summary before any grid or list of Cards.",
+    "ALWAYS set root to exactly one element key. When the spec has multiple top-level components, set root='section-root' and add a Section element with children listing all top-level keys. NEVER set root to an element that is a child of another element.",
+    "Alert body is a <p> tag — NEVER place child elements inside Alert. Use Alert(heading='...', text='...') only. No children array on Alert elements.",
   ],
 })}`;
 
@@ -81,7 +45,7 @@ export function makeAgent() {
   const { model } = detectProvider();
   return new ToolLoopAgent({
     model,
-    temperature: 0.7,
+    temperature: 0,
     instructions: AGENT_INSTRUCTIONS,
     tools: {
       getVAAppointments,

@@ -23,8 +23,7 @@ export function SuggestionChips({ onSelect }: SuggestionChipsProps) {
         <UswdsButton
           key={s}
           type="button"
-          outline
-          className="max-w-full whitespace-normal text-left font-sans font-medium !border-green !text-green hover:!bg-green-5v"
+          className="max-w-full whitespace-normal text-left font-sans font-medium !bg-blue-5v !text-ink !border-blue-60v hover:!bg-primary-darker hover:!text-blue-5v hover:!border-primary-darker"
           onClick={() => onSelect(s)}
         >
           {s}
