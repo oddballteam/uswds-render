@@ -37,6 +37,8 @@ pnpm --filter uswds-demo dev                           # localhost:5173
 pnpm --filter uswds-playground dev                     # localhost:3000 (requires .env.local)
 ```
 
+**Important**: demo apps consume `@oddball/json-render-uswds` from its built `dist/`, not source. After editing `packages/uswds/src/`, rebuild before running demos or you will see stale behavior (e.g. adapters missing new prop forwarding). Run `pnpm --filter @oddball/json-render-uswds build` — or `pnpm -r build` — before `pnpm --filter uswds-playground dev`.
+
 Run single vitest file:
 
 ```bash
@@ -96,6 +98,10 @@ Both demo apps same shape:
 ## Specs and plans
 
 `docs/superpowers/specs/*.md` = design docs. `docs/superpowers/plans/*.md` = bite-sized implementation plans agent executed. `docs/superpowers/notes/*.md` = reference material (e.g., class-map doc). Canonical descriptions of how pieces built + why.
+
+## Debugging notes
+
+- **Stale dist symptom**: submit button stays disabled despite typing; `onChange`/`value` missing from the rendered textarea's React props. Cause: `packages/uswds/dist/` out of date, so demos import an older adapter. Fix: rebuild the uswds package. Verify with a devtools check that the DOM element's memoized props include `value`/`onChange`. Consider wiring a `predev` build hook in the demo apps to prevent recurrence.
 
 ## Known follow-ups
 
