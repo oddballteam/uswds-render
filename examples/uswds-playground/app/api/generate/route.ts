@@ -20,7 +20,7 @@ export async function POST(req: Request) {
     });
   }
 
-  const agent = makeAgent();
+  const agent = await makeAgent();
   const modelMessages = await convertToModelMessages(uiMessages);
   const result = await agent.stream({ messages: modelMessages });
 

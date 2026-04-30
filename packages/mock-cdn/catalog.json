@@ -1,0 +1,73 @@
+[
+  {
+    "key": "PlanInformation",
+    "tagName": "cms-plan-information",
+    "description": "Medicare plan summary panel. Shows plan type header, bold plan name, Part A/B coverage start dates, and a details link. Prefer over Card+Text+Link composition for Medicare plan display.",
+    "example": {
+      "planType": "Original Medicare",
+      "planName": "Hospital Insurance (Part A)\nMedical Insurance (Part B)",
+      "partACoverageDate": "8/12/2019",
+      "partBCoverageDate": "8/12/2019",
+      "detailsHref": "/plan-details"
+    },
+    "bundleUrl": "http://localhost:4000/components/cms-plan-information.js"
+  },
+  {
+    "key": "AppointmentCard",
+    "tagName": "cms-appointment-card",
+    "description": "VA appointment summary card. Shows provider, facility, date/time, type badge, and status. Prefer over Card+Badge+Text composition for VA appointment display.",
+    "example": {
+      "providerName": "Dr. Sarah Chen",
+      "facility": "VA Portland Medical Center",
+      "appointmentDate": "Mon, May 5, 2026",
+      "appointmentTime": "10:30 AM",
+      "appointmentType": "in_person",
+      "department": "Primary Care",
+      "status": "scheduled"
+    },
+    "bundleUrl": "http://localhost:4000/components/cms-appointment-card.js"
+  },
+  {
+    "key": "ClaimStatusTimeline",
+    "tagName": "cms-claim-status-timeline",
+    "description": "VA claim status timeline. Shows 5-step progress (Received → Review → Evidence → Rating → Decision) with current step highlighted. Prefer over ProcessList+Badge composition for VA claim status display.",
+    "example": {
+      "claimNumber": "123456789",
+      "claimType": "Disability Compensation",
+      "filedDate": "March 1, 2026",
+      "currentStepNumber": 3,
+      "currentStepLabel": "Evidence Gathering",
+      "estimatedDecisionDate": "June 2026"
+    },
+    "bundleUrl": "http://localhost:4000/components/cms-claim-status-timeline.js"
+  },
+  {
+    "key": "BenefitSummary",
+    "tagName": "cms-benefit-summary",
+    "description": "GI Bill / benefit entitlement summary panel. Shows program, total/used/remaining entitlement, expiration, and current enrollment. Prefer over Card+Text composition for GI Bill or benefit display.",
+    "example": {
+      "program": "Post-9/11 GI Bill (Chapter 33)",
+      "totalEntitlement": "36 months",
+      "used": "24 months 15 days",
+      "remaining": "11 months 15 days",
+      "expirationDate": "December 31, 2030",
+      "school": "Oregon State University",
+      "enrollmentStatus": "Full-time"
+    },
+    "bundleUrl": "http://localhost:4000/components/cms-benefit-summary.js"
+  },
+  {
+    "key": "FacilityCard",
+    "tagName": "cms-facility-card",
+    "description": "VA facility locator card. Shows facility name, type badge, address, phone, distance, and hours. Prefer over Card+Text+Badge composition for VA facility display.",
+    "example": {
+      "facilityName": "VA Portland Medical Center",
+      "facilityType": "health",
+      "address": "3710 SW US Veterans Hospital Rd, Portland, OR 97239",
+      "phone": "503-220-8262",
+      "distance": "3.2 miles",
+      "hours": "Mon–Fri 8:00 AM – 4:30 PM"
+    },
+    "bundleUrl": "http://localhost:4000/components/cms-facility-card.js"
+  }
+]
