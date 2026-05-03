@@ -437,9 +437,12 @@ function Accordion(all: AccordionAdapterProps) {
 type TableAdapterProps = Partial<UswdsProps["Table"]> & Envelope<UswdsProps["Table"]>;
 
 function Table(all: TableAdapterProps) {
-  const { props: envelopeProps, emit: _emit, children, ...rest } = all;
+  const { props: envelopeProps, emit: _emit, children: _children, ...rest } = all;
   const p = { ...rest, ...(envelopeProps ?? {}) };
 
+  // Table renders a bare <table> — no arbitrary React children are valid inside
+  // <table> (only <thead>/<tbody>/<tr> etc.). Drop children to prevent hydration
+  // errors when the AI places Section/Card/div-rendering elements inside Table.
   return (
     <TrussTable
       bordered={p.bordered ?? undefined}
@@ -451,9 +454,7 @@ function Table(all: TableAdapterProps) {
       compact={p.compact ?? undefined}
       stackedStyle={p.stackedStyle ?? undefined}
       stickyHeader={p.stickyHeader ?? undefined}
-    >
-      {children}
-    </TrussTable>
+    />
   );
 }
 

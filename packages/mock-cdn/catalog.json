@@ -2,13 +2,30 @@
   {
     "key": "PlanInformation",
     "tagName": "cms-plan-information",
-    "description": "Medicare plan summary panel. Shows plan type header, bold plan name, Part A/B coverage start dates, and a details link. Prefer over Card+Text+Link composition for Medicare plan display.",
+    "description": "Medicare plan summary panel. Shows plan type header, bold plan name, Part A/B coverage start dates, optional cost summary (premium/deductible/coinsurance/out-of-pocket max), and a details link. Prefer over Card+Text+Link composition for Medicare plan display.",
     "example": {
       "planType": "Original Medicare",
       "planName": "Hospital Insurance (Part A)\nMedical Insurance (Part B)",
       "partACoverageDate": "8/12/2019",
       "partBCoverageDate": "8/12/2019",
-      "detailsHref": "/plan-details"
+      "monthlyPremium": "$174.70/month",
+      "annualDeductible": "$257/year",
+      "coinsuranceAfterDeductible": "20%",
+      "outOfPocketMax": "No limit",
+      "detailsHref": "/plan-details",
+      "detailsLabel": "Coverage details"
+    },
+    "propDescriptions": {
+      "planType": "Plan category label, e.g. 'Original Medicare' or 'Medigap Alternative'",
+      "planName": "Full plan name; newline characters render as line breaks",
+      "partACoverageDate": "Part A coverage start date or coverage description, e.g. '8/12/2019' or 'Covers Part A coinsurance'",
+      "partBCoverageDate": "Part B coverage start date or coverage description, e.g. '8/12/2019' or 'Covers Part B coinsurance'",
+      "monthlyPremium": "Monthly premium string, e.g. '$174.70/month'. Omit if unknown.",
+      "annualDeductible": "Annual deductible string, e.g. '$257/year'. Omit if unknown.",
+      "coinsuranceAfterDeductible": "Coinsurance rate after deductible, e.g. '20%' or '$0 (fully covered)'",
+      "outOfPocketMax": "Out-of-pocket maximum, e.g. 'No limit' or '$257/year'",
+      "detailsHref": "URL for the coverage details link",
+      "detailsLabel": "Link text; defaults to 'Coverage details'"
     },
     "bundleUrl": "http://localhost:4000/components/cms-plan-information.js"
   },
@@ -25,6 +42,12 @@
       "department": "Primary Care",
       "status": "scheduled"
     },
+    "propDescriptions": {
+      "appointmentDate": "Display date string, e.g. 'Mon, May 5, 2026'",
+      "appointmentTime": "Display time string, e.g. '10:30 AM'",
+      "appointmentType": "in_person | telehealth",
+      "status": "scheduled | completed | cancelled"
+    },
     "bundleUrl": "http://localhost:4000/components/cms-appointment-card.js"
   },
   {
@@ -38,6 +61,11 @@
       "currentStepNumber": 3,
       "currentStepLabel": "Evidence Gathering",
       "estimatedDecisionDate": "June 2026"
+    },
+    "propDescriptions": {
+      "currentStepNumber": "1–5: 1=Received 2=Review 3=Evidence 4=Rating 5=Decision",
+      "filedDate": "Display date string, e.g. 'March 1, 2026'",
+      "estimatedDecisionDate": "e.g. 'June 2026'"
     },
     "bundleUrl": "http://localhost:4000/components/cms-claim-status-timeline.js"
   },
@@ -54,6 +82,12 @@
       "school": "Oregon State University",
       "enrollmentStatus": "Full-time"
     },
+    "propDescriptions": {
+      "totalEntitlement": "e.g. '36 months'",
+      "used": "e.g. '24 months 15 days'",
+      "remaining": "e.g. '11 months 15 days'",
+      "enrollmentStatus": "e.g. 'Full-time' or 'Part-time'"
+    },
     "bundleUrl": "http://localhost:4000/components/cms-benefit-summary.js"
   },
   {
@@ -67,6 +101,12 @@
       "phone": "503-220-8262",
       "distance": "3.2 miles",
       "hours": "Mon–Fri 8:00 AM – 4:30 PM"
+    },
+    "propDescriptions": {
+      "facilityType": "health | benefits | cemetery | vet_center",
+      "distance": "e.g. '3.2 miles'",
+      "hours": "e.g. 'Mon–Fri 8:00 AM – 4:30 PM'",
+      "waitTime": "Average wait time, e.g. '12 days average'"
     },
     "bundleUrl": "http://localhost:4000/components/cms-facility-card.js"
   }

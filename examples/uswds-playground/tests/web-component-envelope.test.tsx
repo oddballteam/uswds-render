@@ -72,7 +72,6 @@ describe("createWebComponentAdapter", () => {
     it("envelope props win over top-level props", () => {
       const Adapter = createWebComponentAdapter("cms-merge");
       const { container } = render(
-        // @ts-expect-error testing runtime merge behaviour with extra prop
         <Adapter status="top-level" props={{ status: "envelope" }} />,
       );
       const el = container.querySelector("cms-merge")!;

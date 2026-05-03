@@ -125,6 +125,29 @@ describe("buildRegistry()", () => {
     expect(fetchSpy).toHaveBeenCalledTimes(1);
   });
 
+  it("renders CDN component whose key is NOT in uswdsComponentDefinitions (decoupling proof)", async () => {
+    // NewCdnWidget does not exist in uswdsComponentDefinitions — adding it to
+    // the CDN catalog alone is sufficient for the registry to surface it.
+    const newEntry = {
+      key: "NewCdnWidget",
+      tagName: "cms-new-widget",
+      description: "A brand-new CDN component added with zero code changes.",
+      example: { label: "Hello" },
+      bundleUrl: "http://localhost:4000/components/cms-new-widget.js",
+    };
+    fetchSpy.mockResolvedValueOnce(
+      new Response(JSON.stringify([newEntry]), { status: 200 }),
+    );
+
+    const { registry, cdnAvailable } = await buildRegistry();
+
+    expect(cdnAvailable).toBe(true);
+    expect(
+      (registry as Record<string, unknown>)["NewCdnWidget"],
+      "NewCdnWidget must be in registry despite not being in uswdsComponentDefinitions",
+    ).toBeDefined();
+  });
+
   it("every uswdsComponentDefinitions example validates against its Zod schema", () => {
     for (const [name, def] of Object.entries(uswdsComponentDefinitions)) {
       const result = def.props.safeParse(def.example);

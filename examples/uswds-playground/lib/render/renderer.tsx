@@ -87,7 +87,7 @@ export function PlaygroundRenderer({
           </div>
         </div>
       )}
-      <StateProvider initialState={{}}>
+      <StateProvider initialState={(safeSpec.state as Record<string, unknown>) ?? {}}>
         <VisibilityProvider>
           <ActionProvider>
             <Renderer

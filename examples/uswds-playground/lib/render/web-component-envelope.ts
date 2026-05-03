@@ -9,7 +9,7 @@ import React, {
 
 export type WCEnvelopeProps = {
   props?: Record<string, unknown>;
-  emit?: Record<string, unknown>;
+  emit?: unknown;
   children?: unknown;
   [key: string]: unknown;
 };

@@ -1,20 +1,16 @@
 "use client";
 
+import { z } from "zod";
+import { defineCatalog } from "@json-render/core";
+import { schema } from "@json-render/react/schema";
 import { defineRegistry, type Components } from "@json-render/react";
 import { uswdsComponents } from "@oddball/json-render-uswds";
+import { uswdsComponentDefinitions } from "@oddball/json-render-uswds/catalog";
 import { createWebComponentAdapter } from "./web-component-envelope";
-import { playgroundCatalog } from "./catalog";
+import type { CdnEntry } from "../cdn-types";
 
 const CDN_URL =
   process.env.NEXT_PUBLIC_COMPONENT_CDN_URL ?? "http://localhost:4000";
-
-export type CdnEntry = {
-  key: string;
-  tagName: string;
-  description: string;
-  example: Record<string, unknown>;
-  bundleUrl: string;
-};
 
 export type RegistryResult = {
   registry: ReturnType<typeof defineRegistry>["registry"];
@@ -37,6 +33,24 @@ export async function buildRegistry(): Promise<RegistryResult> {
     );
   }
 
+  // Build permissive definitions for CDN components. Zod validation for CDN
+  // components is intentionally permissive — the web component itself is
+  // responsible for prop correctness. This lets the CDN team add/change props
+  // without any schema update in this repo.
+  const cdnDefs = Object.fromEntries(
+    cdnEntries.map((e) => [
+      e.key,
+      { props: z.record(z.string(), z.unknown()), description: e.description, example: e.example },
+    ]),
+  );
+
+  // Extend the static catalog with CDN entries at runtime. CDN keys take
+  // precedence on conflict so a CDN component can shadow a primitive.
+  const extendedCatalog = defineCatalog(schema, {
+    components: { ...uswdsComponentDefinitions, ...cdnDefs },
+    actions: {},
+  });
+
   const cdnAdapters = Object.fromEntries(
     cdnEntries.map((e) => [
       e.key,
@@ -47,8 +61,8 @@ export async function buildRegistry(): Promise<RegistryResult> {
   // CDN adapters take precedence over static primitives on key conflict
   const merged = { ...uswdsComponents, ...cdnAdapters };
 
-  const { registry } = defineRegistry(playgroundCatalog, {
-    components: merged as unknown as Components<typeof playgroundCatalog>,
+  const { registry } = defineRegistry(extendedCatalog, {
+    components: merged as unknown as Components<typeof extendedCatalog>,
     actions: {},
   });
 
