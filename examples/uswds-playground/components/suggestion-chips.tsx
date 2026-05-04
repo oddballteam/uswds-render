@@ -5,11 +5,12 @@ import { uswdsComponents } from "@oddball/json-render-uswds";
 const UswdsButton = uswdsComponents.Button;
 
 export const SUGGESTIONS = [
-  "Compare my current Medicare plan with Plan G",
-  "Show my VA appointments from the past month",
-  "Check the status of my disability claim",
-  "Help me understand my GI Bill benefits remaining",
-  "Find VA facilities near Portland, OR",
+  "What's the difference between Original Medicare, Medicare Advantage, and Part D?",
+  "When can I join, switch, or drop a Medicare Advantage or Part D plan?",
+  "What Medicare Advantage plans are available in ZIP 97201?",
+  "Which Part D plans cover Eliquis and Jardiance?",
+  "Use my saved drugs and pharmacies to show me the best Part D options.",
+  "I can't afford this drug — what help should I look at first?",
 ] as const;
 
 interface SuggestionChipsProps {

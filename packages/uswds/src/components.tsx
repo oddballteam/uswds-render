@@ -362,7 +362,7 @@ type SectionAdapterProps = Partial<UswdsProps["Section"]> & Envelope<UswdsProps[
 
 function Section(all: SectionAdapterProps) {
   const { props: _props, emit: _emit, children } = all;
-  return <div>{children}</div>;
+  return <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>{children}</div>;
 }
 
 // ── Heading ───────────────────────────────────────────────────────────────────
