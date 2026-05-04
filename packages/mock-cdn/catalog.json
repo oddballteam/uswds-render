@@ -1,0 +1,155 @@
+[
+  {
+    "key": "MedicarePlanCard",
+    "tagName": "cms-medicare-plan-card",
+    "description": "Medicare plan comparison card for search results. Shows plan type badge, bold plan name, monthly premium, star rating, max out-of-pocket, benefits summary, optional pharmacy note, and a details link. Use one per plan returned by search_medicare_plans — never use Card+Badge+Text for plan comparison results.",
+    "example": {
+      "planName": "Pioneer Advantage Choice (PPO)",
+      "planType": "PPO",
+      "monthlyPremium": "$0/month",
+      "starRating": "4.5 stars",
+      "maxOutOfPocket": "$4,900",
+      "benefits": "Dental, vision, hearing. $0 primary care copay.",
+      "pharmacyNote": "Preferred pharmacies: CVS, Walgreens.",
+      "detailsHref": "https://www.medicare.gov/plan-compare/",
+      "detailsLabel": "View plan details"
+    },
+    "propDescriptions": {
+      "planName": "Full plan name, e.g. 'Pioneer Advantage Choice (PPO)'",
+      "planType": "Plan type badge: HMO, PPO, PFFS, SNP, etc.",
+      "monthlyPremium": "Monthly premium string, e.g. '$0/month' or '$42/month'",
+      "starRating": "Star rating string, e.g. '4.5 stars' or '5.0 stars'",
+      "maxOutOfPocket": "Max out-of-pocket string, e.g. '$4,900'",
+      "benefits": "One-sentence summary of key included benefits",
+      "pharmacyNote": "Optional preferred pharmacy network note",
+      "detailsHref": "URL to plan details or medicare.gov plan-compare",
+      "detailsLabel": "Link label; defaults to 'View plan details'"
+    },
+    "bundleUrl": "http://localhost:4000/components/cms-medicare-plan-card.js"
+  },
+  {
+    "key": "MedicareFactPanel",
+    "tagName": "cms-medicare-fact-panel",
+    "description": "Medicare knowledge summary panel with numbered key-point bullets. Use for search_medicare_knowledge answers to present key takeaways — replaces SummaryBox+Card composition. Pass facts as a pipe-separated string.",
+    "example": {
+      "heading": "Quick summary",
+      "facts": "Original Medicare = Part A (hospital) + Part B (medical) from the federal government.|Medicare Advantage = Part C, a private Medicare-approved plan that bundles Part A and Part B.|Part D = prescription drug coverage, added separately or included in Medicare Advantage."
+    },
+    "propDescriptions": {
+      "heading": "Panel heading, e.g. 'Quick summary' or 'Key points'",
+      "facts": "Pipe-separated key points, e.g. 'Fact one.|Fact two.|Fact three.' — use | as the delimiter, not commas or arrays"
+    },
+    "bundleUrl": "http://localhost:4000/components/cms-medicare-fact-panel.js"
+  },
+  {
+    "key": "PlanInformation",
+    "tagName": "cms-plan-information",
+    "description": "Medicare current-enrollment plan summary. Shows plan type header, bold plan name, Part A/B coverage start dates, cost summary (premium/deductible/coinsurance/out-of-pocket max), and a details link. Use for displaying a beneficiary's existing enrolled plan — not for search result comparison (use MedicarePlanCard for that).",
+    "example": {
+      "planType": "Original Medicare",
+      "planName": "Hospital Insurance (Part A)\nMedical Insurance (Part B)",
+      "partACoverageDate": "8/12/2019",
+      "partBCoverageDate": "8/12/2019",
+      "monthlyPremium": "$174.70/month",
+      "annualDeductible": "$257/year",
+      "coinsuranceAfterDeductible": "20%",
+      "outOfPocketMax": "No limit",
+      "detailsHref": "/plan-details",
+      "detailsLabel": "Coverage details"
+    },
+    "propDescriptions": {
+      "planType": "Plan category label, e.g. 'Original Medicare' or 'Medicare Advantage'",
+      "planName": "Full plan name; newline characters render as line breaks",
+      "partACoverageDate": "Part A coverage start date, e.g. '8/12/2019'",
+      "partBCoverageDate": "Part B coverage start date, e.g. '8/12/2019'",
+      "monthlyPremium": "Monthly premium string, e.g. '$174.70/month'",
+      "annualDeductible": "Annual deductible string, e.g. '$257/year'",
+      "coinsuranceAfterDeductible": "Coinsurance rate after deductible, e.g. '20%'",
+      "outOfPocketMax": "Out-of-pocket maximum, e.g. 'No limit'",
+      "detailsHref": "URL for the coverage details link",
+      "detailsLabel": "Link text; defaults to 'Coverage details'"
+    },
+    "bundleUrl": "http://localhost:4000/components/cms-plan-information.js"
+  },
+  {
+    "key": "AppointmentCard",
+    "tagName": "cms-appointment-card",
+    "description": "VA appointment summary card. Shows provider, facility, date/time, type badge, and status. Use for VA appointment display.",
+    "example": {
+      "providerName": "Dr. Sarah Chen",
+      "facility": "VA Portland Medical Center",
+      "appointmentDate": "Mon, May 5, 2026",
+      "appointmentTime": "10:30 AM",
+      "appointmentType": "in_person",
+      "department": "Primary Care",
+      "status": "scheduled"
+    },
+    "propDescriptions": {
+      "appointmentDate": "Display date string, e.g. 'Mon, May 5, 2026'",
+      "appointmentTime": "Display time string, e.g. '10:30 AM'",
+      "appointmentType": "in_person | telehealth",
+      "status": "scheduled | completed | cancelled"
+    },
+    "bundleUrl": "http://localhost:4000/components/cms-appointment-card.js"
+  },
+  {
+    "key": "ClaimStatusTimeline",
+    "tagName": "cms-claim-status-timeline",
+    "description": "VA claim status timeline. Shows 5-step progress (Received → Review → Evidence → Rating → Decision) with current step highlighted. Use for VA claim status display.",
+    "example": {
+      "claimNumber": "123456789",
+      "claimType": "Disability Compensation",
+      "filedDate": "March 1, 2026",
+      "currentStepNumber": 3,
+      "currentStepLabel": "Evidence Gathering",
+      "estimatedDecisionDate": "June 2026"
+    },
+    "propDescriptions": {
+      "currentStepNumber": "1–5: 1=Received 2=Review 3=Evidence 4=Rating 5=Decision",
+      "filedDate": "Display date string, e.g. 'March 1, 2026'",
+      "estimatedDecisionDate": "e.g. 'June 2026'"
+    },
+    "bundleUrl": "http://localhost:4000/components/cms-claim-status-timeline.js"
+  },
+  {
+    "key": "BenefitSummary",
+    "tagName": "cms-benefit-summary",
+    "description": "GI Bill / benefit entitlement summary panel. Shows program, total/used/remaining entitlement, expiration, and current enrollment. Use for GI Bill or benefit display.",
+    "example": {
+      "program": "Post-9/11 GI Bill (Chapter 33)",
+      "totalEntitlement": "36 months",
+      "used": "24 months 15 days",
+      "remaining": "11 months 15 days",
+      "expirationDate": "December 31, 2030",
+      "school": "Oregon State University",
+      "enrollmentStatus": "Full-time"
+    },
+    "propDescriptions": {
+      "totalEntitlement": "e.g. '36 months'",
+      "used": "e.g. '24 months 15 days'",
+      "remaining": "e.g. '11 months 15 days'",
+      "enrollmentStatus": "e.g. 'Full-time' or 'Part-time'"
+    },
+    "bundleUrl": "http://localhost:4000/components/cms-benefit-summary.js"
+  },
+  {
+    "key": "FacilityCard",
+    "tagName": "cms-facility-card",
+    "description": "VA facility locator card. Shows facility name, type badge, address, phone, distance, and hours. Use for VA facility display.",
+    "example": {
+      "facilityName": "VA Portland Medical Center",
+      "facilityType": "health",
+      "address": "3710 SW US Veterans Hospital Rd, Portland, OR 97239",
+      "phone": "503-220-8262",
+      "distance": "3.2 miles",
+      "hours": "Mon–Fri 8:00 AM – 4:30 PM"
+    },
+    "propDescriptions": {
+      "facilityType": "health | benefits | cemetery | vet_center",
+      "distance": "e.g. '3.2 miles'",
+      "hours": "e.g. 'Mon–Fri 8:00 AM – 4:30 PM'",
+      "waitTime": "Average wait time, e.g. '12 days average'"
+    },
+    "bundleUrl": "http://localhost:4000/components/cms-facility-card.js"
+  }
+]

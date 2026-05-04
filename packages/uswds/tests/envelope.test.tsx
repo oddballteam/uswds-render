@@ -21,7 +21,7 @@ type Fixture = {
   assert: (() => void) | "no-throw"
 }
 
-type ComponentName = keyof typeof uswdsComponentDefinitions
+type ComponentName = keyof typeof uswdsComponents
 
 const emit = vi.fn()
 
@@ -296,13 +296,14 @@ const FIXTURES: Record<ComponentName, Fixture> = {
   TextInputMask: {
     assert: "no-throw",
   },
+
   Section: {
     assert: "no-throw",
   },
 }
 
 describe("envelope passthrough — all components", () => {
-  const names = Object.keys(uswdsComponentDefinitions) as ComponentName[]
+  const names = Object.keys(uswdsComponents) as ComponentName[]
 
   it.each(names)("%s renders via envelope shape without throwing", (name) => {
     const Component = uswdsComponents[name] as React.ComponentType<any>
@@ -311,7 +312,8 @@ describe("envelope passthrough — all components", () => {
     const fixture = FIXTURES[name]
     expect(fixture, `FIXTURES["${name}"] is missing — add an entry`).toBeDefined()
 
-    const example = uswdsComponentDefinitions[name].example
+    const def = (uswdsComponentDefinitions as Record<string, { example?: unknown }>)[name]
+    const example = def?.example ?? {}
 
     const { container } = render(
       <Component props={example} emit={emit}>

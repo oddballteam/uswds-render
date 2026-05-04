@@ -7,25 +7,22 @@ import { uswdsComponents } from "../../src/components";
 describe("Table", () => {
   const Table = uswdsComponents.Table as React.ComponentType<any>;
 
-  it("renders table children", () => {
-    render(
+  it("drops children — Table renders no arbitrary child elements", () => {
+    // Table intentionally ignores children. Passing div-rendering components
+    // (Section, Card, etc.) as children of <table> causes a hydration crash
+    // because <div> is not a valid child of <table>. The catalog rule is
+    // "Table has no children" — this test enforces the adapter honours it.
+    const { container } = render(
       <Table>
         <thead>
           <tr>
             <th>Name</th>
-            <th>Status</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>Jane</td>
-            <td>Active</td>
-          </tr>
-        </tbody>
       </Table>
     );
-    expect(screen.getByText("Name")).toBeInTheDocument();
-    expect(screen.getByText("Jane")).toBeInTheDocument();
+    expect(container.querySelector("thead")).toBeNull();
+    expect(container.querySelector(".usa-table")).toBeInTheDocument();
   });
 
   it("renders a caption when provided", () => {

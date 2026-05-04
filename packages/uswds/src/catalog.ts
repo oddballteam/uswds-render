@@ -781,6 +781,7 @@ export const uswdsComponentDefinitions = {
     description: "USWDS text input with a display mask (e.g. SSN, phone number).",
     example: { id: "ssn", name: "ssn", mask: "___ - __ - ____", label: "Social Security Number" },
   },
+
 } satisfies Record<string, ComponentDefinition>;
 
 export type UswdsProps = {

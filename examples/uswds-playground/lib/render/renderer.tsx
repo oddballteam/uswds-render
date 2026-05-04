@@ -1,29 +1,16 @@
 "use client";
 
-import { type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import {
   Renderer,
   type ComponentRenderer,
-  type Components,
   type Spec,
   StateProvider,
   VisibilityProvider,
   ActionProvider,
-  defineRegistry,
 } from "@json-render/react";
-import { uswdsComponents } from "@oddball/json-render-uswds";
-import { playgroundCatalog } from "./catalog";
-
-// defineRegistry takes (catalog, options) — matches the fork's
-// lib/render/registry.tsx:202. The uswds package exports its components
-// as a loose Record<string, ComponentType<any>>; Components<C> expects
-// a specific named key for each catalog entry. Since uswdsComponents and
-// uswdsComponentDefinitions are keyed the same way by construction, we
-// cast through the catalog-typed Components<C>.
-const { registry } = defineRegistry(playgroundCatalog, {
-  components: uswdsComponents as unknown as Components<typeof playgroundCatalog>,
-  actions: {},
-});
+import { getRegistry, type RegistryResult } from "./registry";
+import { isRenderable, withSafeElementProps } from "./spec-utils";
 
 // Renderer-level fallback for unknown element types.
 //
@@ -54,55 +41,26 @@ interface PlaygroundRendererProps {
   loading?: boolean;
 }
 
-// Returns true if the spec is a complete, renderable flat-tree: it has a
-// root key and that root exists in the elements map. Partial specs that
-// arrive mid-stream can have a root pointing at a key not yet in elements,
-// which crashes Renderer with "Cannot convert undefined or null to object".
-function isRenderable(spec: Spec): boolean {
-  const s = spec as unknown as {
-    root?: string;
-    elements?: Record<string, unknown>;
-  };
-  if (!s.root) return false;
-  if (!s.elements || typeof s.elements !== "object") return false;
-  return Object.prototype.hasOwnProperty.call(s.elements, s.root);
-}
-
-// resolveElementProps / resolveBindings in @json-render/core use Object.entries(props).
-// Streamed specs sometimes emit props: null or non-object props; that crashes the renderer.
-function withSafeElementProps(spec: Spec): Spec {
-  const s = spec as unknown as {
-    elements?: Record<string, { props?: unknown } & Record<string, unknown>>;
-  };
-  const els = s.elements;
-  if (!els || typeof els !== "object") return spec;
-
-  let elements = els;
-  let copied = false;
-  const ensureCopy = () => {
-    if (!copied) {
-      elements = { ...els };
-      copied = true;
-    }
-  };
-
-  for (const key of Object.keys(els)) {
-    const el = els[key];
-    if (!el || typeof el !== "object") continue;
-    const p = el.props;
-    if (p !== null && typeof p === "object" && !Array.isArray(p)) continue;
-    ensureCopy();
-    elements[key] = { ...el, props: {} };
-  }
-
-  return copied ? ({ ...spec, elements } as unknown as Spec) : spec;
-}
-
 export function PlaygroundRenderer({
   spec,
   loading,
 }: PlaygroundRendererProps): ReactNode {
+  const [result, setResult] = useState<RegistryResult | null>(null);
+
+  useEffect(() => {
+    getRegistry().then(setResult);
+  }, []);
+
   if (!spec) return null;
+
+  if (!result) {
+    return (
+      <div className="p-3 text-xs text-base-dark">Loading components…</div>
+    );
+  }
+
+  const { registry, cdnAvailable } = result;
+
   if (!isRenderable(spec)) {
     if (loading) {
       return (
@@ -115,17 +73,32 @@ export function PlaygroundRenderer({
   const safeSpec = withSafeElementProps(spec);
 
   return (
-    <StateProvider initialState={{}}>
-      <VisibilityProvider>
-        <ActionProvider>
-          <Renderer
-            spec={safeSpec}
-            registry={registry}
-            fallback={fallback}
-            loading={loading}
-          />
-        </ActionProvider>
-      </VisibilityProvider>
-    </StateProvider>
+    <>
+      {!cdnAvailable && (
+        <div
+          role="alert"
+          className="usa-alert usa-alert--warning usa-alert--slim margin-bottom-2"
+        >
+          <div className="usa-alert__body">
+            <p className="usa-alert__text">
+              Component CDN unavailable — domain-specific panels (appointments,
+              claims, plans, benefits, facilities) will not render.
+            </p>
+          </div>
+        </div>
+      )}
+      <StateProvider initialState={(safeSpec.state as Record<string, unknown>) ?? {}}>
+        <VisibilityProvider>
+          <ActionProvider>
+            <Renderer
+              spec={safeSpec}
+              registry={registry}
+              fallback={fallback}
+              loading={loading}
+            />
+          </ActionProvider>
+        </VisibilityProvider>
+      </StateProvider>
+    </>
   );
 }

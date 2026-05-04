@@ -8,7 +8,7 @@ import {
   SPEC_DATA_PART_TYPE,
   type SpecDataPart,
 } from "@json-render/core";
-import { useJsonRenderMessage } from "@json-render/react";
+import { useNestedSpec } from "@/lib/render/use-nested-spec";
 import { uswdsComponents } from "@oddball/json-render-uswds";
 import { ArrowDown, ArrowRight } from "lucide-react";
 import { Streamdown } from "streamdown";
@@ -41,7 +41,7 @@ function MessageBubble({
   loading?: boolean;
 }) {
   const isUser = message.role === "user";
-  const { spec, text, hasSpec } = useJsonRenderMessage(message.parts);
+  const { spec, text, hasSpec } = useNestedSpec(message.parts);
 
   const segments: Array<
     | { kind: "text"; text: string }
