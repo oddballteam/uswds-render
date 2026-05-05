@@ -1,0 +1,3 @@
+[submodule "packages/uswds"]
+	path = packages/uswds
+	url = git@github.com:oddballteam/json-render-uswds.git
