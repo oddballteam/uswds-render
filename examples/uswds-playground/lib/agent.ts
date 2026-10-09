@@ -217,7 +217,12 @@ export async function makeAgent(requestId = "anon") {
 
   return new ToolLoopAgent({
     model,
-    instructions,
+    // Cache the static system prompt. Anthropic: explicit breakpoint. OpenAI: automatic prefix caching, option ignored.
+    instructions: {
+      role: "system",
+      content: instructions,
+      providerOptions: { anthropic: { cacheControl: { type: "ephemeral" } } },
+    },
     ...(providerOptions ? { providerOptions } : {}),
     tools: {
       search_medicare_knowledge,

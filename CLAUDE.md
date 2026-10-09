@@ -35,6 +35,7 @@ pnpm --filter @oddball/json-render-uswds test         # vitest (304 tests: per-c
 pnpm --filter @oddball/json-render-uswds storybook    # localhost:6006
 pnpm --filter uswds-demo dev                           # localhost:5173
 pnpm --filter uswds-playground dev                     # localhost:3000 (requires .env.local)
+pnpm --filter @oddball/mock-cdn dev                   # localhost:4000; playground fetches catalog.json + web component bundles from it. Without it, CDN panels (plans, appointments, claims, benefits, facilities) do not render.
 ```
 
 Run single vitest file:
@@ -90,7 +91,7 @@ Both demo apps same shape:
 - Fork of `json-render/examples/chat/` structurally; chat chrome uses vanilla shadcn primitives (vendored into `components/ui/`), rendered output uses USWDS.
 - `lib/agent.ts` builds system prompt with `WORKFLOW` / `RULES` / `WORKED EXAMPLES` (two inline JSONL specs — plan-cards grid and knowledge answer with `Collection` sources) + `playgroundCatalog.prompt({ mode: "inline", customRules: [...] })` appended. No hand-rolled tool index or scenario recipes — each tool's own `description` carries selection signal, matching upstream `json-render/examples/chat/lib/agent.ts`. customRules array = place for catalog-level guidance (e.g., "Table has no columns/rows API", "Text content goes in props, not children", "prefer inline props over `$state` bindings for one-shot renders").
 - `lib/agent.ts` registers `onStepFinish` and `onFinish` callbacks that log step-level tool calls, truncated inputs/outputs, token usage, and the final finishReason. Callbacks are keyed on the request id passed from `app/api/generate/route.ts`.
-- `lib/provider.ts` picks between `@ai-sdk/openai` + `@ai-sdk/anthropic` based on which env var is set first (`OPENAI_API_KEY` preferred → `gpt-5.5` with `reasoningEffort: "medium"`, override via `OPENAI_REASONING_EFFORT`; `ANTHROPIC_API_KEY` fallback → `claude-haiku-4-5-20251001`). The `gpt-5.5` slug currently requires an `as any` cast because `@ai-sdk/openai` typings top out at 5.4. No interactive config; devs use `.env.local`.
+- `lib/provider.ts` picks between `@ai-sdk/openai` + `@ai-sdk/anthropic` based on which env var is set first (`OPENAI_API_KEY` preferred → `gpt-6-astra` with `reasoningEffort: "medium"`, override via `OPENAI_REASONING_EFFORT`; `ANTHROPIC_API_KEY` fallback → `claude-fable-5-1`). Both SDKs' model id types accept arbitrary strings, so new slugs need no cast. No interactive config; devs use `.env.local`.
 - `app/api/generate/route.ts` generates an 8-char request id per request, logs provider selection / message preview / stream start, wraps the stream in `createUIMessageStream({ onError })` to funnel SDK errors (including `responseBody`, `statusCode`, `url`, `requestBodyValues` when present) to the server log, and returns JSON `{ error, requestId }` on sync failures. Every log line is prefixed `[generate <rid>]` for correlation.
 - Token CSS vendored into `examples/uswds-playground/app/tokens/` with `@config "./tailwind.config.ts"` (relative) because package's `@config` directive references `@uswds-tailwind/theme` which is unpublished.
 - Light mode only: `<html className="light">` forced in `app/layout.tsx`. `ThemeProvider` removed.

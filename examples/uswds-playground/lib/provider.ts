@@ -17,12 +17,10 @@ export type ProviderSelection = {
 
 export function detectProvider(): ProviderSelection {
   if (process.env.OPENAI_API_KEY) {
-    const modelLabel = "gpt-5.5";
+    const modelLabel = "gpt-6-astra";
     return {
       name: "openai",
-      // Cast required: @ai-sdk/openai typings currently top out at gpt-5.4.
-      // GPT-5.5 is accepted by the Responses API per the model's official guide.
-      model: openai(modelLabel as any),
+      model: openai(modelLabel),
       modelLabel,
       providerOptions: {
         openai: {
@@ -35,7 +33,7 @@ export function detectProvider(): ProviderSelection {
     };
   }
   if (process.env.ANTHROPIC_API_KEY) {
-    const modelLabel = "claude-haiku-4-5-20251001";
+    const modelLabel = "claude-fable-5-1";
     return {
       name: "anthropic",
       model: anthropic(modelLabel),
